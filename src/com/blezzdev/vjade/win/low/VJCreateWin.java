@@ -13,8 +13,5 @@ public class VJCreateWin {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         return glfwCreateWindow(width, height, title, NULL, NULL);
-
-        /* glfwSwapInterval(1);
-        glfwShowWindow(window); */
     }
 }

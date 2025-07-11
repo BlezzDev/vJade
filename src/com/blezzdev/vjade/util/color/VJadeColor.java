@@ -1,16 +1,24 @@
 package com.blezzdev.vjade.util.color;
 
 public class VJadeColor {
-    public static class HSV {
-        public static VJadeColorHSV TRANSPARENT = new VJadeColorHSV(0.0f, 0.0f, 0.0f, 0.0f);
-        public static VJadeColorHSV BLACK = new VJadeColorHSV(0.0f, 0.0f, 0.0f);
-        public static VJadeColorHSV WHITE = new VJadeColorHSV(1.0f, 1.0f, 1.0f);
-        public static VJadeColorHSV RED = new VJadeColorHSV(1.0f, 0.0f, 0.0f);
-        public static VJadeColorHSV BLUE = new VJadeColorHSV(0.0f, 1.0f, 0.0f);
-        public static VJadeColorHSV GREEN = new VJadeColorHSV(0.0f, 0.0f, 1.0f);
-        public static VJadeColorHSV YELLOW = new VJadeColorHSV(1.0f, 1.0f, 0.0f);
-        public static VJadeColorHSV PINK = new VJadeColorHSV(1.0f, 0.0f, 1.0f);
-        public static VJadeColorHSV CELESTE = new VJadeColorHSV(0.0f, 1.0f, 1.0f);
-        public static VJadeColorHSV JADE = new VJadeColorHSV(0.2f, 0.3f, 0.3f);
+    protected float r, g, b, a;
+
+    public VJadeColor(float red, float green, float blue, float alpha) {
+        r = red;
+        g = green;
+        b = blue;
+        a = alpha;
     }
+
+    public float getR() { return r; }
+    public float getG() { return g; }
+    public float getB() { return b; }
+    public float getA() { return a; }
+
+    // VJadeColor setters
+
+    public void setR(float value) { r = value; }
+    public void setG(float value) { g = value; }
+    public void setB(float value) { b = value; }
+    public void setA(float value) { a = value; }
 }
