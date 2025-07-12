@@ -17,7 +17,7 @@ public class CollisionShape extends Node {
         super(position);
 
         this.size = size;
-        id = new CollisionProvider().register(this);
+        id = CollisionProvider.register(this);
     }
 
     public boolean isColliding() { return colliding; }
@@ -25,4 +25,10 @@ public class CollisionShape extends Node {
     public int getId() { return id; }
 
     public void setSize(Vector2 size) { this.size = size; }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        CollisionProvider.unregister(getId());
+    }
 }

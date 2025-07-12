@@ -1,16 +1,18 @@
 package com.blezzdev.vjade.win;
 
 import com.blezzdev.vjade.util.color.*;
+import com.blezzdev.vjade.util.Scene;
 import com.blezzdev.vjade.win.low.*;
 import org.lwjgl.opengl.GL;
+
+import java.util.Objects;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class VJadeWindow {
     private long window;
-    private VJRenderFunction renderFunction;
-    private VJDestroyFunction destroyFunction;
+    private String currentScene;
     private VJadeColorHSV backgroundColor = new VJadeColorHSV(0.2f, 0.3f, 0.3f);
     private int fps = 0;
     private boolean stopped = false;
@@ -35,6 +37,10 @@ public class VJadeWindow {
     private void loop() {
         int frames = 0;
         long timer = System.currentTimeMillis();
+
+        String last = currentScene;
+        Scene.getSceneByName(currentScene).start();
+
         while (!glfwWindowShouldClose(window)) {
 
             // Set background color.
@@ -54,7 +60,13 @@ public class VJadeWindow {
 
             // Render Properties.
 
-            if (renderFunction != null) { renderFunction.render(); }
+            if (!Objects.equals(last, currentScene)) {
+                Scene.getSceneByName(last).finish();
+                Scene.getSceneByName(currentScene).start();
+                last = currentScene;
+            }
+
+            Scene.getSceneByName(currentScene).update();
             if (stopped) { break; }
 
             // Extras settings.
@@ -62,11 +74,12 @@ public class VJadeWindow {
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
+        Scene.getSceneByName(currentScene).finish();
     }
 
-    public void render(VJRenderFunction renderFunction) { this.renderFunction = renderFunction; }
-    public void destroy(VJDestroyFunction destroyFunction) { this.destroyFunction = destroyFunction; }
-    public void run() { loop(); if (destroyFunction != null) { destroyFunction.destroy(); }}
+    public void enableVsync() { glfwSwapInterval(1); }
+
+    public void run() { loop(); }
 
     public void stop() { stopped = true; }
 
@@ -78,12 +91,11 @@ public class VJadeWindow {
     public void setBackgroundColor(VJadeColorHSV color) { backgroundColor = color; }
     public void setBackgroundColor(VJadeColorRGB color) { backgroundColor = color.toHSVColor(); }
     public void setSize(int width, int height) { glfwSetWindowSize(window, width, height); }
-    public void setVsync() { glfwSwapInterval(1); }
+    public void setCurrentScene(String name) { currentScene = name; }
 
     // VJadeWindow Getters.
 
     public int getFPS() { return fps; }
     public VJadeColorHSV getBackgroundColorHSV() { return backgroundColor; }
     public VJadeColorRGB getBackgroundColorRGB() { return backgroundColor.toRGBColor(); }
-
 }

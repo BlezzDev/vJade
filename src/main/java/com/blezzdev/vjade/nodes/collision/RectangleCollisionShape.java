@@ -26,8 +26,7 @@ public class RectangleCollisionShape extends CollisionShape {
             sprite.setPosition(getPosition());
         }
 
-        for (int i = 0; i < CollisionProvider.getRegisteredColliders().size(); i++) {
-            CollisionShape singleObj = CollisionProvider.getRegisteredColliders().get(i);
+        for (CollisionShape singleObj : CollisionProvider.getRegisteredColliders().values()) {
             if (singleObj != null && singleObj != this) {
                 Vector2 otherPos = singleObj.getPosition();
                 Vector2 otherSize = singleObj.getSize();

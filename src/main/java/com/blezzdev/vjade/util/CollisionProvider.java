@@ -9,11 +9,15 @@ public class CollisionProvider {
     private static Map<Integer, CollisionShape> REGISTERED_COLLIDERS = new HashMap<>();
     private static int idProvider = -1;
 
-    public int register(CollisionShape obj) {
+    public static int register(CollisionShape obj) {
         idProvider++;
 
         REGISTERED_COLLIDERS.put(idProvider, obj);
         return idProvider;
+    }
+
+    public static void unregister(int id) {
+        REGISTERED_COLLIDERS.remove(id);
     }
 
     public static Map<Integer, CollisionShape> getRegisteredColliders() {
