@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.util;
+package com.blezzdev.vjade.util.textures;
 
 public class TextureFilter {
     public static byte NEAREST = 0;

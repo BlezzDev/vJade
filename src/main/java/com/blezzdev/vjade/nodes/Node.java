@@ -6,6 +6,7 @@ public class Node {
     protected Vector2 position = new Vector2(0, 0);
 
     public Node() { this(0, 0); }
+    public Node(Vector2 pos) { this((int) pos.x, (int) pos.y); }
     public Node(int x, int y) {
         position.x = x;
         position.y = y;

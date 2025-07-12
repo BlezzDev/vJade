@@ -9,10 +9,11 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class VJadeWindow {
     private long window;
-    private RenderFunction renderFunction;
-    private DestroyFunction destroyFunction;
+    private VJRenderFunction renderFunction;
+    private VJDestroyFunction destroyFunction;
     private VJadeColorHSV backgroundColor = new VJadeColorHSV(0.2f, 0.3f, 0.3f);
     private int fps = 0;
+    private boolean stopped = false;
 
     public VJadeWindow() { this(800, 600, "vJade"); }
     public VJadeWindow(int width, int height, String title) { initWindow(width, height, title); }
@@ -31,7 +32,7 @@ public class VJadeWindow {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    private int loop() {
+    private void loop() {
         int frames = 0;
         long timer = System.currentTimeMillis();
         while (!glfwWindowShouldClose(window)) {
@@ -53,22 +54,21 @@ public class VJadeWindow {
 
             // Render Properties.
 
-            if (renderFunction != null) {
-                renderFunction.render();
-            }
+            if (renderFunction != null) { renderFunction.render(); }
+            if (stopped) { break; }
 
             // Extras settings.
 
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
-
-        return 0;
     }
 
-    public void render(RenderFunction renderFunction) { this.renderFunction = renderFunction; }
-    public void destroy(DestroyFunction destroyFunction) { this.destroyFunction = destroyFunction; }
+    public void render(VJRenderFunction renderFunction) { this.renderFunction = renderFunction; }
+    public void destroy(VJDestroyFunction destroyFunction) { this.destroyFunction = destroyFunction; }
     public void run() { loop(); if (destroyFunction != null) { destroyFunction.destroy(); }}
+
+    public void stop() { stopped = true; }
 
     public void show() { glfwShowWindow(window); }
     public void hide() { glfwHideWindow(window); }
