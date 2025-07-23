@@ -1,34 +1,38 @@
 package com.blezzdev.vjade.nodes.collision;
 
-import com.blezzdev.vjade.nodes.VJadeVisualNode;
-import com.blezzdev.vjade.util.VJadeCollisionProvider;
-import com.blezzdev.vjade.util.VJadeVector2;
+import com.blezzdev.vjade.nodes.VNode;
+import com.blezzdev.vjade.util.VJadeCollisionRegistries;
+import com.blezzdev.vjade.util.Vector2;
 
-public class VJadeCollisionShape extends VJadeVisualNode {
-    public VJadeVector2 size;
-    private int id;
+public class VJadeCollisionShape extends VNode {
+    public Vector2 size;
 
+    private final int id;
     private int layer = -1;
-    private String group = "";
+    private boolean colliding = false;
 
-    protected boolean colliding = false;
-
-    public VJadeCollisionShape(VJadeVector2 position, VJadeVector2 size) {
+    public VJadeCollisionShape(Vector2 position, Vector2 size) {
         super(position);
 
         this.size = size;
-        id = VJadeCollisionProvider.register(this);
+        id = VJadeCollisionRegistries.register(this);
     }
 
     public boolean isColliding() { return colliding; }
-    public VJadeVector2 getSize() { return size; }
+    public Vector2 getSize() { return size; }
     public int getId() { return id; }
 
-    public void setSize(VJadeVector2 size) { this.size = size; }
+    public void setSize(Vector2 size) { this.size = size; }
 
     @Override
     public void destroy() {
         super.destroy();
-        VJadeCollisionProvider.unregister(getId());
+        VJadeCollisionRegistries.unregister(getId());
     }
+
+    public int getLayer() { return layer; }
+    public boolean getCollidingState() { return colliding; }
+
+    public void setLayer(int layer) { this.layer = layer; }
+    public void setCollidingState(boolean value) { this.colliding = value; }
 }

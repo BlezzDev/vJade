@@ -1,6 +1,10 @@
 package com.blezzdev.vjade.util;
 
-public class VJadeUIDirection {
+/*
+* UIDirection is a public class for anchor visual node position's.
+*/
+
+public class UIDirection {
     public static byte CENTER = 1;
 
     public static byte RIGHT = 2;

@@ -1,9 +1,19 @@
 package com.blezzdev.vjade.util.color;
 
-public class VJadeColor {
+/**
+ * It is not recommended to use
+ * this class since it works
+ * for internal functionalities of the library.
+ */
+
+/*
+* Color is a private class how a placeholder for colors.
+*/
+
+public class Color {
     protected float r, g, b, a;
 
-    public VJadeColor(float red, float green, float blue, float alpha) {
+    public Color(float red, float green, float blue, float alpha) {
         r = red;
         g = green;
         b = blue;
@@ -14,8 +24,6 @@ public class VJadeColor {
     public float getG() { return g; }
     public float getB() { return b; }
     public float getA() { return a; }
-
-    // VJadeColor setters
 
     public void setR(float value) { r = value; }
     public void setG(float value) { g = value; }

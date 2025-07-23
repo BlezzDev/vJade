@@ -24,6 +24,8 @@ dependencies {
     implementation "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
     implementation "org.lwjgl:lwjgl-opengl:${lwjglVersion}"
     implementation "org.lwjgl:lwjgl-stb:${lwjglVersion}"
+    implementation 'com.google.errorprone:error_prone_core:2.27.1'
+    implementation 'com.google.errorprone:error_prone_annotation:2.27.1'
 
     runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:${lwjglNatives}"
     runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:${lwjglNatives}"

@@ -1,26 +1,26 @@
 package com.blezzdev.vjade.nodes;
 
-import com.blezzdev.vjade.util.VJadeVector2;
-import com.blezzdev.vjade.util.color.VJadeColorHSV;
+import com.blezzdev.vjade.util.Vector2;
+import com.blezzdev.vjade.util.color.ColorHSV;
 import com.blezzdev.vjade.util.textures.VJadeTextureLoader;
 import com.blezzdev.vjade.util.textures.VJadeTextureRenderer;
 
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.*;
 
-public class VJadeSprite extends VJadeVisualNode {
+public class Sprite extends VNode {
     private int textureId;
-    private VJadeVector2 size;
-    private VJadeVector2 scale;
+    private Vector2 size;
+    private Vector2 scale = new Vector2(1, 1);
 
-    public VJadeSprite() { this("", 0, 0, VJadeColorHSV.RED); }
-    public VJadeSprite(int x, int y) { this("", x, y, VJadeColorHSV.RED); }
-    public VJadeSprite(String path) { this(path, 0, 0, VJadeColorHSV.RED); }
-    public VJadeSprite(VJadeColorHSV color) { this("", 0, 0, color); }
-    public VJadeSprite(String path, int x, int y, VJadeColorHSV color) {
+    public Sprite() { this("", 0, 0); }
+    public Sprite(int x, int y) { this("", x, y); }
+    public Sprite(String path) { this(path, 0, 0); }
+    public Sprite(String path, Vector2 position) { this(path, (int) (position.x), (int) (position.y)); }
+    public Sprite(String path, int x, int y) {
         super(x, y);
 
-        VJadeTextureLoader t = new VJadeTextureLoader(path, color);
+        VJadeTextureLoader t = new VJadeTextureLoader(path);
         this.textureId = t.textureId;
         this.size = t.size;
     }
@@ -45,10 +45,12 @@ public class VJadeSprite extends VJadeVisualNode {
         VJadeTextureRenderer.destroy(textureId);
     }
 
-    public VJadeVector2 getSize() { return size; }
-    public VJadeVector2 getScale() { return scale; }
+    public Vector2 getSize() { return size; }
+    public Vector2 getScale() { return scale; }
 
-    public void setScale(VJadeVector2 scale) { this.scale = scale; }
+    public void setScale(float scale) { setScale(Vector2.ONE.multiply((int) scale)); }
+    public void setScale(float width, float height) { setScale(new Vector2(width, height)); }
+    public void setScale(Vector2 scale) { this.scale = scale; }
     public void setFilter(byte filter) {
         switch (filter) {
             case 0:

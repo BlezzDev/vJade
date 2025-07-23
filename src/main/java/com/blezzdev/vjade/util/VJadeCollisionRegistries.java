@@ -5,7 +5,17 @@ import com.blezzdev.vjade.nodes.collision.VJadeCollisionShape;
 import java.util.HashMap;
 import java.util.Map;
 
-public class VJadeCollisionProvider {
+/**
+ * It is not recommended to use
+ * this class since it works
+ * for internal functionalities of the library.
+ */
+
+/*
+* VJadeCollisionProvider is a private class for register collisions.
+*/
+
+public class VJadeCollisionRegistries {
     private static Map<Integer, VJadeCollisionShape> REGISTERED_COLLIDERS = new HashMap<>();
     private static int idProvider = -1;
 

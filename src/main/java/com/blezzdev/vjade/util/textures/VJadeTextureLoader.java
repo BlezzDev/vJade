@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.util.textures;
 
-import com.blezzdev.vjade.util.VJadeVector2;
-import com.blezzdev.vjade.util.color.VJadeColorHSV;
+import com.blezzdev.vjade.util.Vector2;
+import com.blezzdev.vjade.util.color.ColorHSV;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -14,11 +14,11 @@ import static org.lwjgl.stb.STBImage.*;
 
 public class VJadeTextureLoader {
     public int textureId;
-    public VJadeVector2 size;
+    public Vector2 size;
 
-    public VJadeTextureLoader(String path, VJadeColorHSV color) { load(path, color); }
+    public VJadeTextureLoader(String path) { load(path); }
 
-    public void load(String path, VJadeColorHSV color) {
+    public void load(String path) {
         IntBuffer widthBuffer = BufferUtils.createIntBuffer(1);
         IntBuffer heightBuffer = BufferUtils.createIntBuffer(1);
         IntBuffer compBuffer = BufferUtils.createIntBuffer(1);
@@ -36,11 +36,11 @@ public class VJadeTextureLoader {
         }
 
         if (!loadedFromFile) {
-            VJadeVector2 tempSize = VJadeVector2.ONE.multiply(32);
-            image = new VJadeTextureShapeLoader.RectangleShapeRenderer().fillRect(tempSize, color.toRGBColor());
+            Vector2 tempSize = Vector2.ONE.multiply(32);
+            image = new VJadeTextureShapeLoader.RectangleShapeRenderer().fillRect(tempSize, ColorHSV.RED.toRGBColor());
             size = tempSize;
         } else {
-            size = new VJadeVector2(widthBuffer.get(), heightBuffer.get());
+            size = new Vector2(widthBuffer.get(), heightBuffer.get());
         }
 
         textureId = glGenTextures();
