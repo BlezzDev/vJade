@@ -14,13 +14,13 @@ import java.util.Map;
  */
 
 public class VJadeSceneRegistries {
-    private static final Map<String, Scene> REGISTERED_SCENES = new HashMap<>();
+    private static final Map<String, Scene2D> REGISTERED_SCENES = new HashMap<>();
 
-    public static void register(String name, Scene scene) {
+    public static void register(String name, Scene2D scene) {
         REGISTERED_SCENES.put(name, scene);
     }
 
-    public static Scene getScene(String name) {
+    public static Scene2D getScene(String name) {
         return REGISTERED_SCENES.get(name);
     }
 }

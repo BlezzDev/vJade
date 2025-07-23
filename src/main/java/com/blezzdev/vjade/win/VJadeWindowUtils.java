@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.win;
 
-import com.blezzdev.vjade.scenes.Scene;
+import com.blezzdev.vjade.scenes.Scene2D;
 import com.blezzdev.vjade.scenes.VJadeSceneRegistries;
 import com.blezzdev.vjade.util.color.ColorHSV;
 
@@ -20,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
 */
 
 public class VJadeWindowUtils {
-    public static void beforeLoop(String currentScene, Scene scene) {
+    public static void beforeLoop(String currentScene, Scene2D scene) {
         if (currentScene != null) {scene.start();}
         else { System.err.println("VJadeWindow requires a initial scene to work."); }
     }
@@ -32,8 +32,8 @@ public class VJadeWindowUtils {
 
     public static String updateScene(String currentScene, String last) {
         if (!Objects.equals(last, currentScene)) {
-            Scene oldScene = VJadeSceneRegistries.getScene(last);
-            Scene newScene = VJadeSceneRegistries.getScene(currentScene);
+            Scene2D oldScene = VJadeSceneRegistries.getScene(last);
+            Scene2D newScene = VJadeSceneRegistries.getScene(currentScene);
 
             if (oldScene != null) oldScene.finish();
             if (newScene != null) newScene.start();

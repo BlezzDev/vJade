@@ -2,12 +2,12 @@ package com.blezzdev.vjade.nodes;
 
 import com.blezzdev.vjade.util.Vector2;
 
-public class VNode extends Node {
+public class Node2D extends Node {
     protected Vector2 position = new Vector2(0, 0);
 
-    public VNode() { this(0, 0); }
-    public VNode(Vector2 pos) { this((int) pos.x, (int) pos.y); }
-    public VNode(int x, int y) {
+    public Node2D() { this(0, 0); }
+    public Node2D(Vector2 pos) { this((int) pos.x, (int) pos.y); }
+    public Node2D(int x, int y) {
         position.x = x;
         position.y = y;
     }

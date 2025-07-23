@@ -1,22 +1,22 @@
 package com.blezzdev.vjade;
 
-import com.blezzdev.vjade.nodes.Sprite;
+import com.blezzdev.vjade.nodes.Sprite2D;
 
-import com.blezzdev.vjade.scenes.Scene;
+import com.blezzdev.vjade.scenes.Scene2D;
 import com.blezzdev.vjade.util.textures.TextureFilter;
 import com.blezzdev.vjade.win.Window;
 
-public class DebugScene extends Scene {
+public class DebugScene extends Scene2D {
     public DebugScene(Window window, String name) {
         super(window, name);
     }
 
-    Sprite s;
+    Sprite2D s;
 
     @Override
     public void start() {
         super.start();
-        s = new Sprite("assets/null.png");
+        s = new Sprite2D("assets/null.png");
         s.setScale(3, 3);
         s.setFilter(TextureFilter.NEAREST);
     }

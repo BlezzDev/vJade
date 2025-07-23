@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.win;
 
-import com.blezzdev.vjade.scenes.Scene;
+import com.blezzdev.vjade.scenes.Scene2D;
 import com.blezzdev.vjade.scenes.VJadeSceneRegistries;
 import com.blezzdev.vjade.util.Vector2;
 import com.blezzdev.vjade.util.color.ColorHSV;
@@ -25,7 +25,7 @@ public class VJadeWindowLogic {
     private ColorHSV backgroundColor = new ColorHSV(0.2f, 0.3f, 0.3f);
     private String currentScene;
     private String previousScene;
-    private Scene scene;
+    private Scene2D scene;
 
     private int fps = 0;
     private boolean stopped = false;

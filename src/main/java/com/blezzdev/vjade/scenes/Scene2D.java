@@ -20,10 +20,10 @@ import com.blezzdev.vjade.win.Window;
 
 */
 
-public class Scene {
+public class Scene2D {
     private final String name;
     private final Window window;
-    public Scene(Window window, String name) {
+    public Scene2D(Window window, String name) {
         VJadeSceneRegistries.register(name, this);
         this.name = name;
         this.window = window;

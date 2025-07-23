@@ -1,10 +1,10 @@
 package com.blezzdev.vjade.nodes.collision;
 
-import com.blezzdev.vjade.nodes.VNode;
+import com.blezzdev.vjade.nodes.Node2D;
 import com.blezzdev.vjade.util.VJadeCollisionRegistries;
 import com.blezzdev.vjade.util.Vector2;
 
-public class VJadeCollisionShape extends VNode {
+public class VJadeCollisionShape extends Node2D {
     public Vector2 size;
 
     private final int id;
