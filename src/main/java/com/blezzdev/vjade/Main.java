@@ -1,19 +1,16 @@
 package com.blezzdev.vjade;
 
-import com.blezzdev.vjade.util.color.ColorHSV;
-import com.blezzdev.vjade.win.Window;
+import com.blezzdev.vjade.core.window.Window;
+import com.blezzdev.vjade.tools.color.ColorRGB;
 
 public class Main {
     public static void main(String[] args) {
         Window win = new Window();
-
-        win.setBackgroundColor(ColorHSV.JADE);
-        win.setSize(800, 600);
-        win.setTitle("Balatro is life.");
-
-        new DebugScene(win, "menu");
-
-        win.setScene("menu");
+        win.setSize(1124, 680);
+        win.setTitle("Balatrin");
+        win.setResizable(true);
+        win.setDecorations(true);
+        win.setBackgroundColor(ColorRGB.BROWN);
 
         win.run();
     }
