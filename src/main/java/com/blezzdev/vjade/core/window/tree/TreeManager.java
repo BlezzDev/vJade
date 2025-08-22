@@ -1,32 +1,32 @@
-package com.blezzdev.vjade.core.tree;
+package com.blezzdev.vjade.core.window.tree;
 
-import com.blezzdev.vjade.elements.basic.Node;
+import com.blezzdev.vjade.elements.basic.node.Node;
+import com.blezzdev.vjade.elements.basic.Root;
 
 public class TreeManager {
-    private Node primaryNode;
+    private Root primaryNode;
 
-    public void setPrimaryNode(Node primarySeed) {
-        primaryNode = primarySeed;
+    public void setPrimaryNode(Root primarySeed) {
+        this.primaryNode = primarySeed;
     }
 
-    public Node getPrimaryNode() {
+    public Root getPrimaryNode() {
         return primaryNode;
     }
 
     public void printTree() {
-        printTreeProcess(primaryNode, 0);
+        System.out.println("Root (Root)");
+        printTreeProcess(primaryNode, 1);
     }
 
     private void printTreeProcess(Node node, int column) {
+        if (node.getChildrens().isEmpty()) { return; }
 
         // Print the shape of the root.
 
         int localColumn = column;
         while (localColumn > 0) {
-            if (localColumn == column) { System.out.print("-> "); }
-            else if (localColumn == 1) { System.out.print("  |-"); }
-            else { System.out.print("---"); }
-
+            System.out.print(" > ");
             localColumn--;
         }
 
@@ -34,7 +34,8 @@ public class TreeManager {
 
         for (int i = 0; i < node.getChildrens().size(); i++) {
             Node child = node.getChildren(i);
-            System.out.println(child.getName());
+
+            System.out.println(child.getName() + " (" + child.getClass().getSimpleName() + ")");
             if (!child.getChildrens().isEmpty()) {
                 printTreeProcess(child, column + 1);
             }

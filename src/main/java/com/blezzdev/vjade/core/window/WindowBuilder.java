@@ -16,17 +16,20 @@ public class WindowBuilder {
         }
 
         // Configure our window.
+
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         // Build the window.
+
         glWindow = glfwCreateWindow(width, height, name, NULL, NULL);
         if (glWindow == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
         // Key callback. (to record inputs)
+
         glfwSetKeyCallback(glWindow, (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
                 glfwSetWindowShouldClose(window, true);
