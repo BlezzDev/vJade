@@ -61,12 +61,12 @@ public class Root extends Node {
     }
 
     @Override
-    public void update(double deltaTime, int fps) {
-        super.update(deltaTime, fps);
+    public void update(double deltaTime) {
+        super.update(deltaTime);
 
         for (int i = 0; i < getChildrens().size(); i++) {
             Node child = getChildren(i);
-            if (child.getName().equals(currentScene)) { child.update(deltaTime, fps); }
+            if (child.getName().equals(currentScene)) { child.update(deltaTime); }
         }
     }
     @Override

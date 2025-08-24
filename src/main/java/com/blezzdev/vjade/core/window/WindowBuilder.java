@@ -1,11 +1,13 @@
 package com.blezzdev.vjade.core.window;
 
+import com.blezzdev.vjade.core.engine.input.Input;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class WindowBuilder {
+    protected Input input = new Input();
     protected long glWindow;
 
     public WindowBuilder(String name, int width, int height) {
@@ -37,5 +39,6 @@ public class WindowBuilder {
         });
 
         glfwMakeContextCurrent(glWindow); // Make the OpenGL context current
+        input.init(glWindow);
     }
 }

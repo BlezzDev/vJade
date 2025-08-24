@@ -6,7 +6,7 @@ public class Color {
     private float blue;
     private float alpha;
 
-    public Color(float r, float g, float b) { this(r, g, b, 0); }
+    public Color(float r, float g, float b) { this(r, g, b, 1); }
     public Color(float r, float g, float b, float a) {
         this.red = r;
         this.green = g;
@@ -42,7 +42,6 @@ public class Color {
     public static Color PURPLE = new Color(0.5f, 0, 1);
     public static Color MAGENTA = new Color(1, 0, 1);
 
-    public static Color BROWN = new Color(0.25f, 0, 0);
     public static Color PINK = new Color(1, 0.5f, 0.5f);
     public static Color DEEP_PINK = new Color(1, 0, 0.5f);
 }
