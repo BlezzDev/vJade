@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.exceptions;
+package com.blezzdev.vjade.tools;
 
 public class VJadeException extends RuntimeException {
     public VJadeException(String message) {

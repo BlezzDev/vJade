@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.render.shape;
+package com.blezzdev.vjade.tools.textures.shape;
 
 import com.blezzdev.vjade.tools.color.Color;
 

@@ -1,13 +1,11 @@
 package com.blezzdev.vjade.core.engine;
 
-import com.blezzdev.vjade.core.engine.input.Input;
-import com.blezzdev.vjade.core.engine.logger.Logger;
+import com.blezzdev.vjade.core.input.Input;
 import com.blezzdev.vjade.core.window.Window;
 import com.blezzdev.vjade.core.window.WindowRender;
-import com.blezzdev.vjade.core.window.tree.TreeManager;
-import com.blezzdev.vjade.elements.basic.Root;
-import com.blezzdev.vjade.elements.basic.Scene;
-import com.blezzdev.vjade.tools.render.TextureRenderer;
+import com.blezzdev.vjade.core.window.TreeManager;
+import com.blezzdev.vjade.elements.build.Root;
+import com.blezzdev.vjade.elements.build.Scene;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,14 +45,18 @@ public class Engine extends Window {
         }
     }
 
-    public Engine addScene(Scene scene) {
+    public Engine addScene(Scene scene) { addScene(scene, scene.getClass().getSimpleName()); return this; }
+    public Engine addScene(Scene scene, String name) {
         registeredScenes.add(scene);
+        scene.setName(name);
         scene.setEngine(this);
         return this;
     }
 
+    public void changeScene(String name) { getTree().getPrimaryNode().changeScene(name); }
+
     public Logger getLogger() { return logger; }
     public TreeManager getTree() { return tree; }
-    public WindowRender getRenderer() { return windowRender; }
+    public WindowRender getResources() { return windowRender; }
     public Input getInput() { return input; }
 }

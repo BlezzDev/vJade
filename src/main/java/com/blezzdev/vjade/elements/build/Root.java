@@ -1,9 +1,6 @@
-package com.blezzdev.vjade.elements.basic;
+package com.blezzdev.vjade.elements.build;
 
-import com.blezzdev.vjade.core.exceptions.scene.NullSceneException;
-import com.blezzdev.vjade.core.exceptions.tree.RootInteractionError;
-import com.blezzdev.vjade.core.window.tree.TreeManager;
-import com.blezzdev.vjade.elements.basic.node.Node;
+import com.blezzdev.vjade.core.window.TreeManager;
 
 public class Root extends Node {
     private String currentScene;

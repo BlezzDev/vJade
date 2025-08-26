@@ -1,8 +1,8 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.elements.basic.Root;
+import com.blezzdev.vjade.elements.build.Root;
 import com.blezzdev.vjade.tools.color.Color;
-import com.blezzdev.vjade.tools.render.TextureRenderer;
+import com.blezzdev.vjade.tools.textures.TextureRenderer;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -12,7 +12,6 @@ import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
 public class WindowRender {
     private TextureRenderer textureRenderer;
     private int fps = 0;
-
 
     public void init(Window window, Color color, Root root) {
         GL.createCapabilities();
@@ -27,7 +26,7 @@ public class WindowRender {
 
         glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()); // Set the clear color.
 
-        textureRenderer = new TextureRenderer(window);
+        textureRenderer = new TextureRenderer();
 
         // Run the rendering loop until the user has attempted to close.
         // the window or has pressed the ESCAPE key.

@@ -1,7 +1,6 @@
 package com.blezzdev.vjade.tools;
 
 public class Vector2 {
-
     private float x;
     private float y;
 
@@ -17,11 +16,11 @@ public class Vector2 {
     public int getIntX() { return (int) x; }
     public int getIntY() { return (int) y; }
 
-    public void setX(float value) { this.x = value; }
-    public void setY(float value) { this.y = value; }
+    public Vector2 setX(float value) { this.x = value; return this; }
+    public Vector2 setY(float value) { this.y = value; return this; }
 
-    public void addX(float value) { this.x = this.x + value; }
-    public void addY(float value) { this.y = this.y + value; }
+    public Vector2 addX(float value) { this.x = this.x + value; return this; }
+    public Vector2 addY(float value) { this.y = this.y + value; return this; }
 
     public Vector2 add(Vector2 vector2) { this.x += vector2.x; this.y += vector2.y; return this; }
     public Vector2 substract(Vector2 vector2) { this.x -= vector2.x; this.y -= vector2.y; return this; }

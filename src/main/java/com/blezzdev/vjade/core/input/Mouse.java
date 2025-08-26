@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.engine.input;
+package com.blezzdev.vjade.core.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -6,7 +6,8 @@ public class Mouse {
     public static int LEFT_BUTTON = GLFW_MOUSE_BUTTON_LEFT,
             MIDDLE_BUTTON = GLFW_MOUSE_BUTTON_MIDDLE,
             RIGHT_BUTTON = GLFW_MOUSE_BUTTON_RIGHT,
-            ONE_BUTTON = GLFW_MOUSE_BUTTON_1,
+
+    ONE_BUTTON = GLFW_MOUSE_BUTTON_1,
             TWO_BUTTON = GLFW_MOUSE_BUTTON_2,
             THREE_BUTTON = GLFW_MOUSE_BUTTON_3,
             FOUR_BUTTON = GLFW_MOUSE_BUTTON_4,

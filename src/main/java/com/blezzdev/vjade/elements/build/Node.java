@@ -1,11 +1,11 @@
-package com.blezzdev.vjade.elements.basic.node;
+package com.blezzdev.vjade.elements.build;
 
-import com.blezzdev.vjade.core.window.tree.TreeManager;
+import com.blezzdev.vjade.core.window.TreeManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node implements NodeStructure {
+public class Node implements ExecutionEvents {
     private TreeManager seed; // Pointer to the tree seed
 
     private Node parent;

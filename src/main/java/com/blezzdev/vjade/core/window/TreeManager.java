@@ -1,7 +1,7 @@
-package com.blezzdev.vjade.core.window.tree;
+package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.elements.basic.node.Node;
-import com.blezzdev.vjade.elements.basic.Root;
+import com.blezzdev.vjade.elements.build.Node;
+import com.blezzdev.vjade.elements.build.Root;
 
 public class TreeManager {
     private Root primaryNode;

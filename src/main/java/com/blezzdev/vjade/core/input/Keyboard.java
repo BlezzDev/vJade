@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.engine.input;
+package com.blezzdev.vjade.core.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -14,7 +14,7 @@ public class Keyboard {
             EIGHT = GLFW_KEY_8,
             NINE = GLFW_KEY_9,
 
-            ESCAPE = GLFW_KEY_ESCAPE,
+    ESCAPE = GLFW_KEY_ESCAPE,
             F1 = GLFW_KEY_F1,
             F2 = GLFW_KEY_F2,
             F3 = GLFW_KEY_F3,
@@ -41,7 +41,7 @@ public class Keyboard {
             F24 = GLFW_KEY_F24,
             F25 = GLFW_KEY_F25,
 
-            Q = GLFW_KEY_Q,
+    Q = GLFW_KEY_Q,
             W = GLFW_KEY_W,
             E = GLFW_KEY_E,
             R = GLFW_KEY_R,
@@ -68,7 +68,7 @@ public class Keyboard {
             N = GLFW_KEY_N,
             M = GLFW_KEY_M,
 
-            TAB = GLFW_KEY_TAB,
+    TAB = GLFW_KEY_TAB,
             LEFT_SHIFT = GLFW_KEY_LEFT_SHIFT,
             LEFT_CONTROL = GLFW_KEY_LEFT_CONTROL,
             LEFT_ALT = GLFW_KEY_LEFT_ALT,
@@ -80,8 +80,42 @@ public class Keyboard {
             RIGHT_SHIFT = GLFW_KEY_RIGHT_SHIFT,
             ENTER = GLFW_KEY_ENTER,
 
-            UP_ARROW = GLFW_KEY_UP,
+    UP_ARROW = GLFW_KEY_UP,
             DOWN_ARROW = GLFW_KEY_DOWN,
             LEFT_ARROW = GLFW_KEY_LEFT,
-            RIGHT_ARROW = GLFW_KEY_RIGHT;
+            RIGHT_ARROW = GLFW_KEY_RIGHT,
+
+    MINUS = GLFW_KEY_MINUS,
+            CAPS_LOCK = GLFW_KEY_CAPS_LOCK,
+            NUMBER_LOCK = GLFW_KEY_NUM_LOCK,
+            SCROLL_LOCK = GLFW_KEY_SCROLL_LOCK,
+
+    COMMA = GLFW_KEY_COMMA,
+            SEMICOLON = GLFW_KEY_SEMICOLON,
+
+    NUMERIC_KEYPAD_0 = GLFW_KEY_KP_0,
+            NUMERIC_KEYPAD_1 = GLFW_KEY_KP_1,
+            NUMERIC_KEYPAD_2 = GLFW_KEY_KP_2,
+            NUMERIC_KEYPAD_3 = GLFW_KEY_KP_3,
+            NUMERIC_KEYPAD_4 = GLFW_KEY_KP_4,
+            NUMERIC_KEYPAD_5 = GLFW_KEY_KP_5,
+            NUMERIC_KEYPAD_6 = GLFW_KEY_KP_6,
+            NUMERIC_KEYPAD_7 = GLFW_KEY_KP_7,
+            NUMERIC_KEYPAD_8 = GLFW_KEY_KP_8,
+            NUMERIC_KEYPAD_9 = GLFW_KEY_KP_9,
+            NUMERIC_KEYPAD_ADD = GLFW_KEY_KP_ADD,
+            NUMERIC_KEYPAD_SUBTRACT = GLFW_KEY_KP_SUBTRACT,
+            NUMERIC_KEYPAD_MULTIPLY = GLFW_KEY_KP_MULTIPLY,
+            NUMERIC_KEYPAD_DIVIDE = GLFW_KEY_KP_DIVIDE,
+            NUMERIC_KEYPAD_DOT = GLFW_KEY_KP_DECIMAL,
+            NUMERIC_KEYPAD_ENTER = GLFW_KEY_KP_ENTER,
+            NUMERIC_KEYPAD_EQUAL = GLFW_KEY_KP_EQUAL,
+
+    INSERT = GLFW_KEY_INSERT,
+            PRINT_SCREEN = GLFW_KEY_PRINT_SCREEN,
+            PAUSE = GLFW_KEY_PAUSE,
+            END = GLFW_KEY_END,
+            DELETE = GLFW_KEY_DELETE,
+            PAGE_DOWN = GLFW_KEY_PAGE_DOWN,
+            PAGE_UP = GLFW_KEY_PAGE_UP;
 }

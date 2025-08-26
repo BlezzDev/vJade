@@ -1,8 +1,14 @@
-package com.blezzdev.vjade.core.engine.input;
+package com.blezzdev.vjade.core.input;
+
+import com.blezzdev.vjade.tools.Vector2;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
 public class Input {
+    private Map<String, int[]> bindedInputs = new HashMap<>();
     private boolean[] keys = new boolean[GLFW_KEY_LAST];
     private boolean[] mouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
     private double mouseX, mouseY;
@@ -42,34 +48,68 @@ public class Input {
         });
     }
 
-    // Métodos públicos para consultar inputs
+    // Public boolean methods for register inputs.
+
     public boolean isKeyDown(int key) {
         return keys[key];
+    }
+    public boolean isKeyDown(String action) {
+        int[] inputs = bindedInputs.get(action);
+
+        boolean isActionDown = false;
+        for (int i : inputs) {
+            if (keys[i]) {
+                isActionDown = true;
+            }
+        }
+        return isActionDown;
+    }
+
+    public boolean isKeyUp(int key) {
+        return !keys[key];
+    }
+    public boolean isKeyUp(String action) {
+        int[] inputs = bindedInputs.get(action);
+
+        boolean isActionDown = true;
+        for (int i : inputs) {
+            if (keys[i]) {
+                isActionDown = false;
+            }
+        }
+        return isActionDown;
     }
 
     public boolean isMouseButtonDown(int button) {
         return mouseButtons[button];
     }
+    public boolean isMouseButtonUp(int button) {
+        return !mouseButtons[button];
+    }
 
     public double getMouseX() {
         return mouseX;
     }
-
     public double getMouseY() {
         return mouseY;
+    }
+    public Vector2 getMousePos() {
+        return new Vector2( (float) mouseX, (float) mouseY);
     }
 
     public double getScrollX() {
         return scrollX;
     }
-
     public double getScrollY() {
         return scrollY;
     }
-
     public void resetScroll() {
         scrollX = 0;
         scrollY = 0;
+    }
+
+    public void bindAction(String action, int[] inputs) {
+        bindedInputs.put(action, inputs);
     }
 }
 

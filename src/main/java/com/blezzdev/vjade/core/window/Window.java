@@ -15,6 +15,9 @@ public class Window extends WindowBuilder {
     public Window() { this("", 800, 600); }
     public Window(String name, int width, int height) {
         super(name, width, height);
+
+        this.title = name;
+        this.size.setX(width).setY(height);
     }
 
     // Local method to transform an integer value into its boolean variant.
@@ -29,6 +32,7 @@ public class Window extends WindowBuilder {
 
     public void setTitle(String title) {
         glfwSetWindowTitle(glWindow, title);
+        this.title = title;
     }
 
     public void setSize(Vector2 size) {

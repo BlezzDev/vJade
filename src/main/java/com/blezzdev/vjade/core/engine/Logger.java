@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.engine.logger;
+package com.blezzdev.vjade.core.engine;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;

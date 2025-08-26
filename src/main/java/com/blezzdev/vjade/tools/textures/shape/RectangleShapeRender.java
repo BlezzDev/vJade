@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.render.shape;
+package com.blezzdev.vjade.tools.textures.shape;
 
 import com.blezzdev.vjade.tools.Vector2;
 import com.blezzdev.vjade.tools.color.Color;
@@ -20,7 +20,7 @@ public class RectangleShapeRender extends ShapeRender {
 
     @Override
     public void render() {
-        glColor3f(getColor().getRed(), getColor().getGreen(), getColor().getBlue());
+        glColor4f(getColor().getRed(), getColor().getGreen(), getColor().getBlue(), getColor().getAlpha());
         glBegin(GL_QUADS);
 
         glVertex2f(position.getIntX() + size.getIntX(), position.getIntY());

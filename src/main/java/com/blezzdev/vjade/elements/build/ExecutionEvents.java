@@ -1,6 +1,6 @@
-package com.blezzdev.vjade.elements.basic.node;
+package com.blezzdev.vjade.elements.build;
 
-public interface NodeStructure {
+public interface ExecutionEvents {
     default void start() {}
     default void render() {}
     default void update(double deltaTime) {}

@@ -13,6 +13,6 @@ public class Main {
 
         game.addScene(new DebugScene());
 
-        game.runEngine("Debug");
+        game.runEngine("DebugScene");
     }
 }

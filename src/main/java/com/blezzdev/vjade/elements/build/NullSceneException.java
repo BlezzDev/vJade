@@ -1,6 +1,6 @@
-package com.blezzdev.vjade.core.exceptions.scene;
+package com.blezzdev.vjade.elements.build;
 
-import com.blezzdev.vjade.core.exceptions.VJadeException;
+import com.blezzdev.vjade.tools.VJadeException;
 
 public class NullSceneException extends VJadeException {
     private final String sceneName;

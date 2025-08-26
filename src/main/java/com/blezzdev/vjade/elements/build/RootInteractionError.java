@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.exceptions.tree;
+package com.blezzdev.vjade.elements.build;
 
 public class RootInteractionError extends RuntimeException {
     public RootInteractionError(String message) {

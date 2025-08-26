@@ -1,6 +1,6 @@
-package com.blezzdev.vjade.core.exceptions.texture;
+package com.blezzdev.vjade.tools.textures;
 
-import com.blezzdev.vjade.core.exceptions.VJadeException;
+import com.blezzdev.vjade.tools.VJadeException;
 
 public class NullTextureException extends VJadeException {
     public NullTextureException(String message) {

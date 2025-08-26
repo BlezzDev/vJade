@@ -19,10 +19,10 @@ public class Color {
     public float getBlue() { return blue; }
     public float getAlpha() { return alpha; }
 
-    public void setRed(float r) { this.red = r; }
-    public void setGreen(float g) { this.green = g; }
-    public void setBlue(float b) { this.blue = b; }
-    public void setAlpha(float a) { this.alpha = a; }
+    public Color setRed(float r) { this.red = r; return this; }
+    public Color setGreen(float g) { this.green = g; return this; }
+    public Color setBlue(float b) { this.blue = b; return this; }
+    public Color setAlpha(float a) { this.alpha = a; return this; }
 
     public static Color BLACK = new Color(0, 0, 0);
     public static Color DARK_GRAY = new Color(0.25f, 0.25f, 0.25f);
