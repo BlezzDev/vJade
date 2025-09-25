@@ -1,13 +1,13 @@
 package com.blezzdev.vjade.core.input;
 
-import com.blezzdev.vjade.tools.Vector2;
+import com.blezzdev.vjade.tools.data.geometry.Vector2;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class Input {
+public class InputManager {
     private Map<String, int[]> bindedInputs = new HashMap<>();
     private boolean[] keys = new boolean[GLFW_KEY_LAST];
     private boolean[] mouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
@@ -87,12 +87,6 @@ public class Input {
         return !mouseButtons[button];
     }
 
-    public double getMouseX() {
-        return mouseX;
-    }
-    public double getMouseY() {
-        return mouseY;
-    }
     public Vector2 getMousePos() {
         return new Vector2( (float) mouseX, (float) mouseY);
     }

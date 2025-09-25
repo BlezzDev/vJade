@@ -1,3 +1,4 @@
 # Project exclude paths
-/src/main/java/com/blezzdev/vjade/DebugScene.java
+/src/main/java/com/blezzdev/vjade/DebugScreenOne.java
+/src/main/java/com/blezzdev/vjade/DebugScreenTwo.java
 /assets

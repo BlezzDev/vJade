@@ -1,18 +1,26 @@
 package com.blezzdev.vjade;
 
-import com.blezzdev.vjade.core.engine.Engine;
-import com.blezzdev.vjade.tools.color.ColorRGB;
+import com.blezzdev.vjade.core.window.State;
+import com.blezzdev.vjade.core.window.Window;
+import com.blezzdev.vjade.tools.data.color.ColorRGB;
 
 public class Main {
     public static void main(String[] args) {
-        Engine game = new Engine();
+        Window window = new Window()
+                .setBackgroundColor(new ColorRGB(0, 0, 0))
+                .setSize(1124, 680)
+                .setState(State.CENTERED)
+                .setTitle("vJade")
 
-        game.setTitle("Balatro");
-        game.setSize(1124, 680);
-        game.setBackgroundColor(ColorRGB.BLACK);
+                .setResizable(true)
+                .setDecorations(true)
+                .setVsync(true)
 
-        game.addScene(new DebugScene());
+                .addScreen(new DebugScreenOne(), "debug1")
+                .addScreen(new DebugScreenTwo(), "debug2")
 
-        game.runEngine("DebugScene");
+                .setMainScreen("debug1");
+
+        window.run();
     }
 }

@@ -1,80 +1,242 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.tools.Vector2;
-import com.blezzdev.vjade.tools.color.Color;
+import com.blezzdev.vjade.core.input.InputManager;
+import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.objects.build.Screen;
+import com.blezzdev.vjade.tools.data.color.Color;
+import com.blezzdev.vjade.tools.data.geometry.Vector2;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Window extends WindowBuilder {
-    private Vector2 size = Vector2.ZERO;
-    private String title = "";
-    private boolean decorated = true;
-    private boolean resizable = false;
-    private Color bgColor = new Color(0, 0, 0); // Starts with a black background.
+    private final Monitor monitor = new Monitor();
+    private final InputManager inputManager = new InputManager();
+    private final WindowLogic windowLogic = new WindowLogic();
+    private final ScreenManager screenProvider = new ScreenManager();
 
-    public Window() { this("", 800, 600); }
-    public Window(String name, int width, int height) {
-        super(name, width, height);
+    private final int[] width = new int[]{800};
+    private final int[] height = new int[]{600};
+    private final int[] x = new int[]{0};
+    private final int[] y = new int[]{30};
+    private String title = "vJade window.";
+    private Color backgroundColor = new Color(1, 1, 1);
 
-        this.title = name;
-        this.size.setX(width).setY(height);
+    private int decorations = 1;
+    private int resizable = 1;
+    private int visible = 1;
+    private int vsync = 1;
+
+    public Window() {
+        super();
+
+        String DEFAULT_VERTEX_SHADER = """
+                #version 330 core
+                layout (location = 0) in vec3 vjPos;
+                layout (location = 1) in vec2 vjTexCoord;
+                
+                uniform mat4 vjProjection;
+                uniform mat4 vjModel;
+                
+                out vec2 TexCoord;
+                
+                void main()
+                {
+                    gl_Position = vjProjection * vjModel * vec4(vjPos, 1.0);
+                    TexCoord = vjTexCoord;
+                }
+                """;
+
+        setVertexShader(DEFAULT_VERTEX_SHADER);
+
+        String DEFAULT_FRAGMENT_SHADER = """
+                #version 330 core
+                
+                out vec4 vjFragColor;
+                in vec2 TexCoord;
+                
+                uniform sampler2D vjDiffuseTex;
+                
+                void main() {
+                    vjFragColor = texture(vjDiffuseTex, TexCoord);
+                }
+                """;
+
+        setFragemtShader(DEFAULT_FRAGMENT_SHADER);
+
+        inputManager.init(glWindow);
     }
 
-    // Local method to transform an integer value into its boolean variant.
+    private void configureDetails() {
+        glfwShowWindow(glWindow);
+        glfwSwapInterval(vsync);
 
-    private int boolToInt(boolean bool) {
-        if (bool) { return 1; }
-        else { return 0; }
+        glEnable(GL_TEXTURE_2D);
+        glDisable(GL_DEPTH_TEST);
+        glDisable(GL_CULL_FACE);
+        glEnable(GL_BLEND);
+
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    protected Color getBGColor() { return bgColor; }
-    public long getGlWindow() { return glWindow; }
+    public void run() {
+        configureDetails();
 
-    public void setTitle(String title) {
+        // Set the clear color.
+
+        glClearColor(backgroundColor.r1,
+                backgroundColor.g1,
+                backgroundColor.b1,
+                backgroundColor.a1);
+
+        windowLogic.init(this);
+    }
+
+    public Window setState(int asm) {
+        switch (asm) {
+            case 47202500:
+                fullscreen();
+                break;
+            case 47202501:
+                centered();
+                break;
+            case 47202502:
+                maximize();
+                break;
+            case 47202503:
+                break;
+        }
+        return this;
+    }
+
+    private void maximize() {
+        glfwMaximizeWindow(glWindow);
+    }
+
+    private void centered() {
+        setPosition((int) ((getMonitor().getSize().x - getSize().x) / 2),
+                (int) ((getMonitor().getSize().y - getSize().y) / 2));
+    }
+
+    private void fullscreen() {
+        setPosition(0, 0);
+        setSize(getMonitor().getSize());
+        setDecorations(false);
+        setResizable(false);
+
+        glfwSetWindowMonitor(glWindow, glfwGetPrimaryMonitor(), 0, 0,
+                (int) getMonitor().getSize().x, (int) getMonitor().getSize().y,
+                getMonitor().getRefreshRate());
+    }
+
+    public WindowLogic getLogic() { return windowLogic; }
+    public long getGLWindow() { return glWindow; }
+    public int getFps() {
+        return windowLogic.getFps();
+    }
+
+    public Window setPosition(int x, int y) {
+        glfwSetWindowPos(glWindow, x, y);
+        glfwGetWindowPos(glWindow, this.x, this.y);
+        return this;
+    }
+
+    public Window setSize(Vector2 size) { setSize((int) size.x, (int) size.y); return this; }
+    public Window setSize(int width, int height) {
+        glfwSetWindowSize(glWindow, width, height);
+        glfwGetWindowSize(glWindow, this.width, this.height);
+        return this;
+    }
+
+    public Window setTitle(String title) {
         glfwSetWindowTitle(glWindow, title);
         this.title = title;
+        return this;
     }
 
-    public void setSize(Vector2 size) {
-        setSize(size.getIntX(), size.getIntY());
+    public Window setResizable(boolean resizable) {
+        glfwSetWindowAttrib(glWindow, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
+        this.resizable = glfwGetWindowAttrib(glWindow, GLFW_RESIZABLE);
+        return this;
     }
 
-    public void setSize(int width, int height) {
-        glfwSetWindowSize(glWindow, width, height);
-        this.size = new Vector2(width, height);
+    public Window setVisible(boolean visible) {
+        glfwSetWindowAttrib(glWindow, GLFW_VISIBLE, visible ? GLFW_TRUE : GLFW_FALSE);
+        this.visible = glfwGetWindowAttrib(glWindow, GLFW_VISIBLE);
+        return this;
     }
 
-    public void setDecorations(boolean value) {
-        glfwSetWindowAttrib(glWindow, GLFW_DECORATED, boolToInt(value));
-        this.decorated = value;
+    public Window setBackgroundColor(Color color) {
+        this.backgroundColor = color;
+        return this;
     }
 
-    public void setResizable(boolean value) {
-        glfwSetWindowAttrib(glWindow, GLFW_RESIZABLE, boolToInt(value));
-        this.resizable = value;
+    public Window setDecorations(boolean decorations) {
+        glfwSetWindowAttrib(glWindow, GLFW_DECORATED, decorations ? GLFW_TRUE : GLFW_FALSE);
+        this.decorations = glfwGetWindowAttrib(glWindow, GLFW_DECORATED);
+        return this;
     }
 
-    public void setBackgroundColor(Color color) {
-        this.bgColor = color;
+    public Window setVsync(boolean vsync) {
+        this.vsync = vsync ? GLFW_TRUE : GLFW_FALSE;
+        return this;
+    }
+
+    public Vector2 getPosition() {
+        glfwGetWindowPos(glWindow, x, y);
+        return new Vector2(x[0], y[0]);
+    }
+
+    public Vector2 getSize() {
+        glfwGetWindowSize(glWindow, width, height);
+        return new Vector2(width[0], height[0]);
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Vector2 getSize() {
-        return size;
-    }
+    public Color getBackgroundColor() { return backgroundColor; }
 
-    public Color getBackgroundColor() {
-        return bgColor;
-    }
+    public Monitor getMonitor() { return monitor; }
 
-    public boolean isDecorated() {
-        return decorated;
+    public InputManager getInput() { return inputManager; }
+
+    public ScreenManager getScreenProvider() { return screenProvider; }
+
+    public boolean isVisible() {
+        this.visible = glfwGetWindowAttrib(glWindow, GLFW_VISIBLE);
+        return visible != 0;
     }
 
     public boolean isResizable() {
-        return resizable;
+        this.resizable = glfwGetWindowAttrib(glWindow, GLFW_RESIZABLE);
+        return resizable != 0;
+    }
+
+    public boolean isDecorated() {
+        this.decorations = glfwGetWindowAttrib(glWindow, GLFW_DECORATED);
+        return decorations != 0;
+    }
+
+    public boolean isVsync() {
+        return vsync != 0;
+    }
+
+    public Window addScreen(Screen screen, String identifier) {
+        screen.setWindow(this);
+        screenProvider.register(screen, identifier);
+        return this;
+    }
+
+    public Window changeScreen(String identifier) {
+        windowLogic.setCurrentScreen(identifier);
+        return this;
+    }
+
+    public Window setMainScreen(String identifier) {
+        windowLogic.setMainScreen(identifier);
+        return this;
     }
 }
