@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.objects.canvas;
+package com.blezzdev.vjade.tools.types;
 
 import static org.lwjgl.opengl.GL11C.GL_LINEAR;
 import static org.lwjgl.opengl.GL11C.GL_NEAREST;

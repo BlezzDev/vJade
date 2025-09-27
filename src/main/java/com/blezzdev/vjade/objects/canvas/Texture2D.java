@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.objects.canvas;
 
+import com.blezzdev.vjade.tools.types.Filter;
 import com.blezzdev.vjade.tools.Texture;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -10,8 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glUniform1i;
+import static org.lwjgl.opengl.GL20.*;
 
 public class Texture2D extends CanvasItem<Texture2D> {
     private int[] indexes;
@@ -36,11 +36,14 @@ public class Texture2D extends CanvasItem<Texture2D> {
                     .scale(getTexture().getWidth() * getSize().x, getTexture().getHeight() * getSize().y, 1f);
 
             switch (behavior) {
-                case 4700101:
+                case FIXED:
                     model = new Matrix4f()
-                            .translate(getPosition().x, getPosition().y, 0f)
+                            .translate(getPosition().x, getPosition().y, getzIndex())
                             .scale(getSize().x, getSize().y, 1f);
             }
+
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glDepthFunc(GL11.GL_LEQUAL);
 
             int modelLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModel");
             FloatBuffer fb = BufferUtils.createFloatBuffer(16);
@@ -50,8 +53,14 @@ public class Texture2D extends CanvasItem<Texture2D> {
             int loc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjDiffuseTex");
             glUniform1i(loc, 0);
 
+            int useTexLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjUseTexture");
+            glUniform1i(useTexLoc, 1);
+
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
+
+            int modulateLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModulate");
+            glUniform4f(modulateLoc, getModulate().r1, getModulate().g1, getModulate().b1, getModulate().a1);
 
             GL30.glBindVertexArray(vao);
             GL11.glDrawElements(GL11.GL_TRIANGLES, indexes.length, GL11.GL_UNSIGNED_INT, 0);
@@ -118,25 +127,6 @@ public class Texture2D extends CanvasItem<Texture2D> {
         GL30.glBindVertexArray(0);
     }
 
-    public Texture2D setTexture(Texture texture) {
-        clean();
-
-        this.texture = texture;
-        loadTextureData();
-        loadTexture();
-
-        return this;
-    }
-
-    public Texture2D setFilter(int filter) {
-        this.filter = filter;
-        return this;
-    }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
     @Override
     public void finish() {
         super.finish();
@@ -161,5 +151,24 @@ public class Texture2D extends CanvasItem<Texture2D> {
             GL30.glDeleteVertexArrays(vao);
             vao = 0;
         }
+    }
+
+    public Texture2D setTexture(Texture texture) {
+        clean();
+
+        this.texture = texture;
+        loadTextureData();
+        loadTexture();
+
+        return this;
+    }
+
+    public Texture2D setFilter(int filter) {
+        this.filter = filter;
+        return this;
+    }
+
+    public Texture getTexture() {
+        return texture;
     }
 }

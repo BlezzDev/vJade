@@ -68,6 +68,9 @@ public class WindowLogic {
         GL20.glUseProgram(shaderProgram);
         GL20.glUniformMatrix4fv(projLoc, false, fb);
 
+        int modulateLoc = glGetUniformLocation(shaderProgram, "vjModulate");
+        glUniform4f(modulateLoc, 1, 1, 1, 1); // valores entre 0.0f y 1.0f
+
         float time = (System.nanoTime() / 1_000_000_000.0f);
         int timeLoc = glGetUniformLocation(shaderProgram, "vjTime");
         glUniform1f(timeLoc, time);

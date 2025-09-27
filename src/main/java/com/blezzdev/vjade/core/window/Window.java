@@ -28,6 +28,8 @@ public class Window extends WindowBuilder {
     private int visible = 1;
     private int vsync = 1;
 
+    public enum State { FULLSCREEN, MAXIMIZE, CENTERED }
+
     public Window() {
         super();
 
@@ -57,9 +59,15 @@ public class Window extends WindowBuilder {
                 in vec2 TexCoord;
                 
                 uniform sampler2D vjDiffuseTex;
+                uniform vec4 vjModulate;
+                uniform bool vjUseTexture;
                 
                 void main() {
-                    vjFragColor = texture(vjDiffuseTex, TexCoord);
+                    if (vjUseTexture) {
+                        vjFragColor = texture(vjDiffuseTex, TexCoord) * vjModulate;
+                    } else {
+                        vjFragColor = vjModulate;
+                    }
                 }
                 """;
 
@@ -93,18 +101,16 @@ public class Window extends WindowBuilder {
         windowLogic.init(this);
     }
 
-    public Window setState(int asm) {
+    public Window setState(State asm) {
         switch (asm) {
-            case 47202500:
+            case FULLSCREEN:
                 fullscreen();
                 break;
-            case 47202501:
+            case CENTERED:
                 centered();
                 break;
-            case 47202502:
+            case MAXIMIZE:
                 maximize();
-                break;
-            case 47202503:
                 break;
         }
         return this;
@@ -224,6 +230,7 @@ public class Window extends WindowBuilder {
         return vsync != 0;
     }
 
+    public Window addScreen(Screen screen) { addScreen(screen, screen.getClass().getSimpleName()); return this; }
     public Window addScreen(Screen screen, String identifier) {
         screen.setWindow(this);
         screenProvider.register(screen, identifier);

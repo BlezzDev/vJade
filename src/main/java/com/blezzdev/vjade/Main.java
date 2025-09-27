@@ -1,6 +1,5 @@
 package com.blezzdev.vjade;
 
-import com.blezzdev.vjade.core.window.State;
 import com.blezzdev.vjade.core.window.Window;
 import com.blezzdev.vjade.tools.data.color.ColorRGB;
 
@@ -9,7 +8,7 @@ public class Main {
         Window window = new Window()
                 .setBackgroundColor(new ColorRGB(0, 0, 0))
                 .setSize(1124, 680)
-                .setState(State.CENTERED)
+                .setState(Window.State.CENTERED)
                 .setTitle("vJade")
 
                 .setResizable(true)
@@ -17,7 +16,7 @@ public class Main {
                 .setVsync(true)
 
                 .addScreen(new DebugScreenOne(), "debug1")
-                .addScreen(new DebugScreenTwo(), "debug2")
+                .addScreen(new DebugScreenTwo())
 
                 .setMainScreen("debug1");
 

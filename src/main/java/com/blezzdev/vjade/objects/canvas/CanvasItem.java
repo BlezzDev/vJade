@@ -9,7 +9,12 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJadeObject<T> {
     private Vector2 position = new Vector2();
     private Vector2 size = new Vector2(1, 1);
     private Vector2 pivot = new Vector2(0.5f, 0.5f);
-    protected int behavior = SizeBehavior.RELATIVE;
+    private float zIndex = 0;
+    protected SizeBehavior behavior = SizeBehavior.RELATIVE;
+
+    public enum SizeBehavior {
+        RELATIVE, FIXED
+    }
 
     @SuppressWarnings("unchecked")
     public T setPosition(Vector2 position) {
@@ -36,8 +41,14 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJadeObject<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T setSizeBehavior(int behavior) {
+    public T setSizeBehavior(SizeBehavior behavior) {
         this.behavior = behavior;
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T setzIndex(float zIndex) {
+        this.zIndex = zIndex;
         return (T) this;
     }
 
@@ -56,4 +67,8 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJadeObject<T> {
     public Vector2 getPivot() {
         return pivot;
     }
+
+    public float getzIndex() { return zIndex; }
+
+    public SizeBehavior getSizeBehavior() { return behavior; }
 }

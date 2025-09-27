@@ -7,11 +7,12 @@ import java.util.Map;
 
 public class Logger {
     public enum Level {
-        INFO, WARN, ERROR
+        SUCCESS, INFO, WARN, ERROR
     }
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     private final Map<Level, String> color = new HashMap<>(); {
+        color.put(Level.SUCCESS, "\u001B[32m");
         color.put(Level.INFO, "\u001B[0m");
         color.put(Level.WARN, "\u001B[33m");
         color.put(Level.ERROR, "\u001B[1;31m");
@@ -21,6 +22,8 @@ public class Logger {
         String time = LocalTime.now().format(formatter);
         System.out.printf(color.get(level) + "[%s] [%s]: %s%n\u001B[0m", time, level, message);
     }
+
+    public void success(String message) { log(Level.SUCCESS, message); }
 
     public void info(String message) {
         log(Level.INFO, message);

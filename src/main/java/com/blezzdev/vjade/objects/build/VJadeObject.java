@@ -4,7 +4,9 @@ import com.blezzdev.vjade.core.window.Window;
 import com.blezzdev.vjade.objects.processes.LogicProcesses;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VJadeObject<T extends VJadeObject<T>> implements LogicProcesses {
     private final List<VJadeObject<?>> objectList = new ArrayList<>();
