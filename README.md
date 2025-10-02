@@ -1,3 +1,5 @@
+# vJade
+
 This is my first project, if you were looking for something more professional, this isn't it. In fact, I don't even speak English. I'm a Colombian guy with 15 years old, and I'm translating this with Google Translate.
 
 vJade is a library that allows you to create and configure applications/games (for now only for PC but I plan to expand it to other platforms if possible) powered by modern OpenGL (3.3) thanks to LWJGL
@@ -8,7 +10,7 @@ This is a basic example for create a basic window:
 ```java
 public class Main {
     public static void main(String[] args) {
-        Window window = new Window()
+        Engine game = new Engine()
                 .setBackgroundColor(new ColorRGB(0, 0, 0))
                 .setSize(1124, 680)
                 .setState(State.CENTERED)
@@ -18,12 +20,11 @@ public class Main {
                 .setDecorations(true)
                 .setVsync(true)
 
-                .addScreen(new DebugScreenOne(), "debug1")
-                .addScreen(new DebugScreenTwo(), "debug2")
+                .addScreen(new DebugScreen(), "debug")
 
-                .setMainScreen("debug1");
+                .setMainScreen("debug");
 
-        window.run();
+        game.launch();
     }
 }
 ```
