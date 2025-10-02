@@ -120,6 +120,8 @@ public class WindowLogic {
             timerManager.timerProcesses(deltaTime); // Run time processes.
             screenManager.screenProcesses(deltaTime); // Run screen processes.
 
+            window.getInput().update();
+
             cycle++;
 
             // Poll for window events.
