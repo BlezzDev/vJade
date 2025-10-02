@@ -4,7 +4,7 @@ import com.blezzdev.vjade.core.engine.Engine;
 import com.blezzdev.vjade.core.window.Window;
 import com.blezzdev.vjade.tools.data.color.ColorRGB;
 
-public class Main {
+public class DebugMain {
     public static void main(String[] args) {
         Engine game = new Engine()
                 .setBackgroundColor(new ColorRGB(0, 0, 0))
