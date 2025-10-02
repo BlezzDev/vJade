@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.objects.canvas;
 
+import com.blezzdev.vjade.tools.VJade;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
@@ -26,8 +27,8 @@ public class ShapeTexture2D extends CanvasItem<ShapeTexture2D> {
     public void update(double deltaTime) {
         super.update(deltaTime);
 
-        if (getWindow() != null) {
-            GL20.glUseProgram(getWindow().getLogic().getShaderProgram());
+        if (VJade.existContext()) {
+            GL20.glUseProgram(VJade.getContext().getLogic().getShaderProgram());
 
             Matrix4f model = new Matrix4f()
                     .translate(getPosition().x, getPosition().y, getzIndex())
@@ -36,18 +37,18 @@ public class ShapeTexture2D extends CanvasItem<ShapeTexture2D> {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             GL11.glDepthFunc(GL11.GL_LEQUAL);
 
-            int modelLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModel");
+            int modelLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjModel");
             FloatBuffer fb = BufferUtils.createFloatBuffer(16);
             model.get(fb);
             GL20.glUniformMatrix4fv(modelLoc, false, fb);
 
-            int loc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjDiffuseTex");
+            int loc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjDiffuseTex");
             glUniform1i(loc, 0);
 
-            int useTexLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjUseTexture");
+            int useTexLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjUseTexture");
             glUniform1i(useTexLoc, 0);
 
-            int modulateLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModulate");
+            int modulateLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjModulate");
             glUniform4f(modulateLoc, getModulate().r1, getModulate().g1, getModulate().b1, getModulate().a1);
 
             GL30.glBindVertexArray(vao);
@@ -109,6 +110,12 @@ public class ShapeTexture2D extends CanvasItem<ShapeTexture2D> {
                 });
                 break;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        clean();
     }
 
     public ShapeTexture2D setShape(Shape shape) {

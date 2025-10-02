@@ -10,7 +10,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.*;
 
-public class Window extends WindowBuilder {
+public class Window<T extends Window<T>> extends WindowBuilder {
     private final Monitor monitor = new Monitor();
     private final InputManager inputManager = new InputManager();
     private final WindowLogic windowLogic = new WindowLogic();
@@ -101,7 +101,8 @@ public class Window extends WindowBuilder {
         windowLogic.init(this);
     }
 
-    public Window setState(State asm) {
+    @SuppressWarnings("unchecked")
+    public T setState(State asm) {
         switch (asm) {
             case FULLSCREEN:
                 fullscreen();
@@ -113,7 +114,7 @@ public class Window extends WindowBuilder {
                 maximize();
                 break;
         }
-        return this;
+        return (T) this;
     }
 
     private void maximize() {
@@ -142,51 +143,60 @@ public class Window extends WindowBuilder {
         return windowLogic.getFps();
     }
 
-    public Window setPosition(int x, int y) {
+    @SuppressWarnings("unchecked")
+    public T setPosition(int x, int y) {
         glfwSetWindowPos(glWindow, x, y);
         glfwGetWindowPos(glWindow, this.x, this.y);
-        return this;
+        return (T) this;
     }
 
-    public Window setSize(Vector2 size) { setSize((int) size.x, (int) size.y); return this; }
-    public Window setSize(int width, int height) {
+    @SuppressWarnings("unchecked")
+    public T setSize(Vector2 size) { setSize((int) size.x, (int) size.y); return (T) this; }
+    @SuppressWarnings("unchecked")
+    public T setSize(int width, int height) {
         glfwSetWindowSize(glWindow, width, height);
         glfwGetWindowSize(glWindow, this.width, this.height);
-        return this;
+        return (T) this;
     }
 
-    public Window setTitle(String title) {
+    @SuppressWarnings("unchecked")
+    public T setTitle(String title) {
         glfwSetWindowTitle(glWindow, title);
         this.title = title;
-        return this;
+        return (T) this;
     }
 
-    public Window setResizable(boolean resizable) {
+    @SuppressWarnings("unchecked")
+    public T setResizable(boolean resizable) {
         glfwSetWindowAttrib(glWindow, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
         this.resizable = glfwGetWindowAttrib(glWindow, GLFW_RESIZABLE);
-        return this;
+        return (T) this;
     }
 
-    public Window setVisible(boolean visible) {
+    @SuppressWarnings("unchecked")
+    public T setVisible(boolean visible) {
         glfwSetWindowAttrib(glWindow, GLFW_VISIBLE, visible ? GLFW_TRUE : GLFW_FALSE);
         this.visible = glfwGetWindowAttrib(glWindow, GLFW_VISIBLE);
-        return this;
+        return (T) this;
     }
 
-    public Window setBackgroundColor(Color color) {
+    @SuppressWarnings("unchecked")
+    public T setBackgroundColor(Color color) {
         this.backgroundColor = color;
-        return this;
+        return (T) this;
     }
 
-    public Window setDecorations(boolean decorations) {
+    @SuppressWarnings("unchecked")
+    public T setDecorations(boolean decorations) {
         glfwSetWindowAttrib(glWindow, GLFW_DECORATED, decorations ? GLFW_TRUE : GLFW_FALSE);
         this.decorations = glfwGetWindowAttrib(glWindow, GLFW_DECORATED);
-        return this;
+        return (T) this;
     }
 
-    public Window setVsync(boolean vsync) {
+    @SuppressWarnings("unchecked")
+    public T setVsync(boolean vsync) {
         this.vsync = vsync ? GLFW_TRUE : GLFW_FALSE;
-        return this;
+        return (T) this;
     }
 
     public Vector2 getPosition() {
@@ -230,20 +240,23 @@ public class Window extends WindowBuilder {
         return vsync != 0;
     }
 
-    public Window addScreen(Screen screen) { addScreen(screen, screen.getClass().getSimpleName()); return this; }
-    public Window addScreen(Screen screen, String identifier) {
-        screen.setWindow(this);
+    @SuppressWarnings("unchecked")
+    public T addScreen(Screen screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
+    @SuppressWarnings("unchecked")
+    public T addScreen(Screen screen, String identifier) {
         screenProvider.register(screen, identifier);
-        return this;
+        return (T) this;
     }
 
-    public Window changeScreen(String identifier) {
+    @SuppressWarnings("unchecked")
+    public T changeScreen(String identifier) {
         windowLogic.setCurrentScreen(identifier);
-        return this;
+        return (T) this;
     }
 
-    public Window setMainScreen(String identifier) {
+    @SuppressWarnings("unchecked")
+    public T setMainScreen(String identifier) {
         windowLogic.setMainScreen(identifier);
-        return this;
+        return (T) this;
     }
 }

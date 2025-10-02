@@ -1,7 +1,9 @@
 package com.blezzdev.vjade.objects.canvas;
 
+import com.blezzdev.vjade.tools.VJade;
+import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import com.blezzdev.vjade.tools.types.Filter;
-import com.blezzdev.vjade.tools.Texture;
+import com.blezzdev.vjade.tools.texture.Texture;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.*;
@@ -16,6 +18,8 @@ import static org.lwjgl.opengl.GL20.*;
 public class Texture2D extends CanvasItem<Texture2D> {
     private int[] indexes;
 
+    private float frameWidth, frameHeight;
+
     private int vao = 0;
     private int vbo = 0;
     private int ebo = 0;
@@ -23,13 +27,15 @@ public class Texture2D extends CanvasItem<Texture2D> {
     private int textureId = 0;
     private Texture texture;
     private int filter = Filter.LINEAR;
+    private Vector2 frameCoordinates = new Vector2();
+    private Vector2 frameDivisions = new Vector2();
 
     @Override
     public void update(double deltaTime) {
         super.update(deltaTime);
 
-        if (getWindow() != null) {
-            GL20.glUseProgram(getWindow().getLogic().getShaderProgram());
+        if (VJade.existContext()) {
+            GL20.glUseProgram(VJade.getContext().getLogic().getShaderProgram());
 
             Matrix4f model = new Matrix4f()
                     .translate(getPosition().x, getPosition().y, 0f)
@@ -45,21 +51,21 @@ public class Texture2D extends CanvasItem<Texture2D> {
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             GL11.glDepthFunc(GL11.GL_LEQUAL);
 
-            int modelLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModel");
+            int modelLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjModel");
             FloatBuffer fb = BufferUtils.createFloatBuffer(16);
             model.get(fb);
             GL20.glUniformMatrix4fv(modelLoc, false, fb);
 
-            int loc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjDiffuseTex");
+            int loc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjDiffuseTex");
             glUniform1i(loc, 0);
 
-            int useTexLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjUseTexture");
+            int useTexLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjUseTexture");
             glUniform1i(useTexLoc, 1);
 
             GL13.glActiveTexture(GL13.GL_TEXTURE0);
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureId);
 
-            int modulateLoc = glGetUniformLocation(getWindow().getLogic().getShaderProgram(), "vjModulate");
+            int modulateLoc = glGetUniformLocation(VJade.getContext().getLogic().getShaderProgram(), "vjModulate");
             glUniform4f(modulateLoc, getModulate().r1, getModulate().g1, getModulate().b1, getModulate().a1);
 
             GL30.glBindVertexArray(vao);
@@ -69,11 +75,16 @@ public class Texture2D extends CanvasItem<Texture2D> {
     }
 
     private void loadTextureData() {
+        float u0 = (frameCoordinates.x * frameWidth) / getTexture().getWidth();
+        float v0 = (frameCoordinates.y * frameHeight) / getTexture().getHeight();
+        float u1 = ((frameCoordinates.x + 1) * frameWidth) / getTexture().getWidth();
+        float v1 = ((frameCoordinates.y + 1) * frameHeight) / getTexture().getHeight();
+
         float[] vertices = {
-                getPivot().x, getPivot().y, 0.0f,   1.0f, 1.0f,
-                getPivot().x, getPivot().y - 1, 0.0f,   1.0f, 0.0f,
-                getPivot().x - 1, getPivot().y - 1, 0.0f,   0.0f, 0.0f,
-                getPivot().x - 1, getPivot().y, 0.0f,   0.0f, 1.0f
+                getPivot().x, getPivot().y, 0.0f,   u1, v1,
+                getPivot().x, getPivot().y - 1, 0.0f,   u1, v0,
+                getPivot().x - 1, getPivot().y - 1, 0.0f,   u0, v0,
+                getPivot().x - 1, getPivot().y, 0.0f,   u0, v1
         };
 
         indexes = new int[]{0, 1, 3, 1, 2, 3};
@@ -100,6 +111,7 @@ public class Texture2D extends CanvasItem<Texture2D> {
             GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
         }
 
+        assert image != null;
         STBImage.stbi_image_free(image);
     }
 
@@ -127,6 +139,25 @@ public class Texture2D extends CanvasItem<Texture2D> {
         GL30.glBindVertexArray(0);
     }
 
+    private void updateUVs() {
+        float u0 = (frameCoordinates.x * frameWidth) / getTexture().getWidth();
+        float v0 = (frameCoordinates.y * frameHeight) / getTexture().getHeight();
+        float u1 = ((frameCoordinates.x + 1) * frameWidth) / getTexture().getWidth();
+        float v1 = ((frameCoordinates.y + 1) * frameHeight) / getTexture().getHeight();
+
+        float[] vertices = {
+                getPivot().x, getPivot().y, 0.0f,   u1, v1,
+                getPivot().x, getPivot().y - 1, 0.0f,   u1, v0,
+                getPivot().x - 1, getPivot().y - 1, 0.0f,   u0, v0,
+                getPivot().x - 1, getPivot().y, 0.0f,   u0, v1
+        };
+
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL15.glBufferSubData(GL15.GL_ARRAY_BUFFER, 0, vertices);
+        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+    }
+
+
     @Override
     public void finish() {
         super.finish();
@@ -153,15 +184,48 @@ public class Texture2D extends CanvasItem<Texture2D> {
         }
     }
 
+    public Texture2D setFrameCoordinates(int x, int y) { setFrameCoordinates(new Vector2(x, y)); return this; }
+    public Texture2D setFrameCoordinates(Vector2 frameCoordinates) {
+        this.frameCoordinates = frameCoordinates;
+
+        updateUVs();
+
+        return this;
+    }
+
     public Texture2D setTexture(Texture texture) {
         clean();
-
         this.texture = texture;
+
+        frameWidth = getTexture().getWidth() / getFrameDivisions().x;
+        frameHeight = getTexture().getHeight() / getFrameDivisions().y;
+
         loadTextureData();
         loadTexture();
 
         return this;
     }
+
+    public Texture2D setFrameDivisions(float x, float y) { setFrameDivisions(new Vector2(x, y)); return this; }
+    public Texture2D setFrameDivisions(Vector2 divisions) {
+        this.frameDivisions = divisions;
+        return this;
+    }
+
+    public Texture2D setFrame(int frame) {
+        int totalFrames = (int) (getFrameDivisions().x * getFrameDivisions().y);
+
+        if (frame < 0) frame = 0;
+        if (frame >= totalFrames) frame = totalFrames - 1;
+
+        int x = (int) (frame % getFrameDivisions().x);
+        int y = (int) (frame / getFrameDivisions().x);
+
+        setFrameCoordinates(new Vector2(x, y));
+
+        return this;
+    }
+
 
     public Texture2D setFilter(int filter) {
         this.filter = filter;
@@ -171,4 +235,16 @@ public class Texture2D extends CanvasItem<Texture2D> {
     public Texture getTexture() {
         return texture;
     }
+
+    public float getFrameHeight() {
+        return frameHeight;
+    }
+
+    public float getFrameWidth() {
+        return frameWidth;
+    }
+
+    public Vector2 getFrameDivisions() { return frameDivisions; }
+
+    public Vector2 getFrameCoordinates() { return frameCoordinates; }
 }

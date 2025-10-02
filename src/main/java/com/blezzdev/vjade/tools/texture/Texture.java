@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools;
+package com.blezzdev.vjade.tools.texture;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -7,7 +7,8 @@ import java.io.IOException;
 
 public class Texture {
     private final String resourcePath;
-    private float width, height;
+    private int width, height;
+
     public Texture(String resourcePath) {
         this.resourcePath = resourcePath;
         putDimensions();
@@ -31,11 +32,11 @@ public class Texture {
         }
     }
 
-    public float getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public float getHeight() {
+    public int getHeight() {
         return height;
     }
 

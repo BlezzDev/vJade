@@ -8,13 +8,17 @@ import java.util.Map;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class InputManager {
+    private long window;
+
     private Map<String, int[]> bindedInputs = new HashMap<>();
     private boolean[] keys = new boolean[GLFW_KEY_LAST];
     private boolean[] mouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
     private double mouseX, mouseY;
     private double scrollX, scrollY;
+    private long cursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
     public void init(long window) {
+        this.window = window;
 
         // Keyboard callback.
 
@@ -104,6 +108,11 @@ public class InputManager {
 
     public void bindAction(String action, int[] inputs) {
         bindedInputs.put(action, inputs);
+    }
+
+    public void setCursor(int cursor) {
+        this.cursor = glfwCreateStandardCursor(cursor);
+        glfwSetCursor(window, this.cursor);
     }
 }
 

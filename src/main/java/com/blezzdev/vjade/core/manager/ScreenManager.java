@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.core.manager;
 
-import com.blezzdev.vjade.core.window.Window;
 import com.blezzdev.vjade.objects.build.Screen;
+import com.blezzdev.vjade.tools.VJade;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +14,10 @@ public class ScreenManager {
     private String lastScreen;
     private String currentScreen;
 
-    public void screenProcesses(Window window, double deltaTime) {
-        Screen screen = window.getScreenProvider().getList().get(currentScreen);
+    public boolean destroyed = false;
+
+    public void screenProcesses(double deltaTime) {
+        Screen screen = VJade.getContext().getScreenProvider().getList().get(currentScreen);
 
         if (screen != null) {
             if (firstScreenLoop) {
@@ -30,6 +32,12 @@ public class ScreenManager {
                 firstScreenLoop = true;
                 lastScreen = currentScreen;
 
+                screen.end_scene();
+                screen.finish();
+            }
+
+            if (destroyed) {
+                screen.end_program();
                 screen.finish();
             }
         }
