@@ -13,10 +13,20 @@ public class CollisionManager implements ColliderAlgorithms {
 
     @Override
     public boolean rectangleRectangle(Collider selfCollider, Collider collider) {
-        return selfCollider.getPosition().x < collider.getPosition().x + collider.getSize().x &&
-                        selfCollider.getPosition().x + selfCollider.getSize().x > collider.getPosition().x &&
-                        selfCollider.getPosition().y < collider.getPosition().y + collider.getSize().y &&
-                        selfCollider.getPosition().y + selfCollider.getSize().y > collider.getPosition().y;
+        float selfMinX = selfCollider.getPosition().x - selfCollider.getSize().x / 2f;
+        float selfMaxX = selfCollider.getPosition().x + selfCollider.getSize().x / 2f;
+        float selfMinY = selfCollider.getPosition().y - selfCollider.getSize().y / 2f;
+        float selfMaxY = selfCollider.getPosition().y + selfCollider.getSize().y / 2f;
+
+        float otherMinX = collider.getPosition().x - collider.getSize().x / 2f;
+        float otherMaxX = collider.getPosition().x + collider.getSize().x / 2f;
+        float otherMinY = collider.getPosition().y - collider.getSize().y / 2f;
+        float otherMaxY = collider.getPosition().y + collider.getSize().y / 2f;
+
+        return selfMinX < otherMaxX &&
+                selfMaxX > otherMinX &&
+                selfMinY < otherMaxY &&
+                selfMaxY > otherMinY;
     }
 
 
