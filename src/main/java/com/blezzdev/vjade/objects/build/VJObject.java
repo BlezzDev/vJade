@@ -14,7 +14,7 @@ import java.util.List;
 public class VJObject implements LogicProcesses {
     private final List<VJObject> objectList = new ArrayList<>();
 
-    public <T extends VJObject> T create(T object) {
+    public <T extends VJObject> T instance(T object) {
         objectList.add(object);
         return object;
     }
