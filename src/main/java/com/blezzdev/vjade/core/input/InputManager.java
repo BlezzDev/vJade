@@ -10,9 +10,14 @@ import static org.lwjgl.glfw.GLFW.*;
 public class InputManager {
     private long window;
 
-    private Map<String, int[]> bindedInputs = new HashMap<>();
-    private boolean[] keys = new boolean[GLFW_KEY_LAST];
-    private boolean[] mouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
+    private final Map<String, int[]> bindInputs = new HashMap<>();
+
+    private final boolean[] prevKeys = new boolean[GLFW_KEY_LAST];
+    private final boolean[] prevMouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
+
+    private final boolean[] keys = new boolean[GLFW_KEY_LAST];
+    private final boolean[] mouseButtons = new boolean[GLFW_MOUSE_BUTTON_LAST];
+
     private double mouseX, mouseY;
     private double scrollX, scrollY;
     private long cursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
@@ -52,18 +57,53 @@ public class InputManager {
         });
     }
 
+    public void update() {
+        System.arraycopy(keys, 0, prevKeys, 0, keys.length);
+        System.arraycopy(mouseButtons, 0, prevMouseButtons, 0, mouseButtons.length);
+    }
+
     // Public boolean methods for register inputs.
+
+    public boolean isKeyJustDown(String action) {
+        boolean isActionJustDown = false;
+        for (int i : bindInputs.get(action)) {
+            if (keys[i] && !prevKeys[i]) {
+                isActionJustDown = true;
+                break;
+            }
+        }
+        return isActionJustDown;
+    }
+
+    public boolean isKeyJustUp(String action) {
+        boolean isActionJustUp = false;
+        for (int i : bindInputs.get(action)) {
+            if (!keys[i] && prevKeys[i]) {
+                isActionJustUp = true;
+                break;
+            }
+        }
+        return isActionJustUp;
+    }
+
+    public boolean isKeyJustDown(int key) {
+        return keys[key] && !prevKeys[key];
+    }
+
+    public boolean isKeyJustUp(int key) {
+        return !keys[key] && prevKeys[key];
+    }
+
 
     public boolean isKeyDown(int key) {
         return keys[key];
     }
     public boolean isKeyDown(String action) {
-        int[] inputs = bindedInputs.get(action);
-
         boolean isActionDown = false;
-        for (int i : inputs) {
+        for (int i : bindInputs.get(action)) {
             if (keys[i]) {
                 isActionDown = true;
+                break;
             }
         }
         return isActionDown;
@@ -73,12 +113,11 @@ public class InputManager {
         return !keys[key];
     }
     public boolean isKeyUp(String action) {
-        int[] inputs = bindedInputs.get(action);
-
         boolean isActionDown = true;
-        for (int i : inputs) {
+        for (int i : bindInputs.get(action)) {
             if (keys[i]) {
                 isActionDown = false;
+                break;
             }
         }
         return isActionDown;
@@ -107,7 +146,7 @@ public class InputManager {
     }
 
     public void bindAction(String action, int[] inputs) {
-        bindedInputs.put(action, inputs);
+        bindInputs.put(action, inputs);
     }
 
     public void setCursor(int cursor) {
