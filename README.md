@@ -4,8 +4,8 @@ vJade is a library that allows you to create and configure applications/games (f
 
 If you're wondering what the v in vJade means, I honestly don't know, it just sounded good, I improvised and said "why not v for visual, because it's designed to make graphic applications and... that... you understand?"
 
-This is a basic example for create a basic window:
-
+This is a basic example for create a basic window: 
+```java
 public class Main {
     public static void main(String[] args) {
         Window window = new Window()
@@ -26,7 +26,7 @@ public class Main {
         window.run();
     }
 }
-
+```
 If you want to create a screen simply create an extended class with the Screen class. (I won't lie to you, I did this with the help of ChatGPT)
 
 The Screen class has three main methods: start, when a scene starts; update, which is the process that updates itself every frame (I think); and finish, which runs before a scene change (I know this isn't implemented yet, but it should also run before the process's end of life in general).
