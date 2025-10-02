@@ -20,6 +20,26 @@ public class Vector2 {
         return this;
     }
 
+    public Vector2 subtract(int x, int y) {
+        this.x -= x; this.y -= y;
+        return this;
+    }
+
+    public Vector2 multiply(int x, int y) {
+        this.x *= x; this.y *= y;
+        return this;
+    }
+
+    public Vector2 divide(int x, int y) {
+        this.x /= x; this.y /= y;
+        return this;
+    }
+
+    public Vector2 modulate(int x, int y) {
+        this.x %= x; this.y %= y;
+        return this;
+    }
+
     public Vector2 setX(float x) {
         this.x = x;
         return this;
