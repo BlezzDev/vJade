@@ -2,6 +2,7 @@ package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.core.manager.TimerManager;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
@@ -18,6 +19,7 @@ public class WindowLogic {
     private int shaderProgram;
     private final ScreenManager screenManager = new ScreenManager();
     private final CollisionManager collisionManager = new CollisionManager();
+    private final TimerManager timerManager = new TimerManager();
 
     private int fps;
 
@@ -115,6 +117,7 @@ public class WindowLogic {
 
             */
 
+            timerManager.timerProcesses(deltaTime); // Run time processes.
             screenManager.screenProcesses(deltaTime); // Run screen processes.
 
             cycle++;
@@ -127,6 +130,7 @@ public class WindowLogic {
         }
 
         screenManager.destroyed = true;
+        timerManager.clear();
 
         glfwFreeCallbacks(window.glWindow);
         glfwDestroyWindow(window.glWindow);
@@ -154,5 +158,8 @@ public class WindowLogic {
     }
     public CollisionManager getCollisionManager() {
         return collisionManager;
+    }
+    public TimerManager getTimerManager() {
+        return timerManager;
     }
 }
