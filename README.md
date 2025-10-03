@@ -8,25 +8,21 @@ If you're wondering what the v in vJade means, I honestly don't know, it just so
 
 This is a basic example for create a basic window: 
 ```java
-public class Main {
-    public static void main(String[] args) {
-        Engine game = new Engine()
-                .setBackgroundColor(new ColorRGB(0, 0, 0))
-                .setSize(1124, 680)
-                .setState(State.CENTERED)
-                .setTitle("vJade")
+Engine game = new Engine()
+        .setBackgroundColor(new ColorRGB(0, 0, 0))
+        .setSize(1124, 680)
+        .setState(State.CENTERED)
+        .setTitle("vJade")
 
-                .setResizable(true)
-                .setDecorations(true)
-                .setVsync(true)
+        .setResizable(true)
+        .setDecorations(true)
+        .setVsync(true)
 
-                .addScreen(new DebugScreen(), "debug")
+        .addScreen(new DebugScreen(), "debug")
 
-                .setMainScreen("debug");
+        .setMainScreen("debug");
 
-        game.launch();
-    }
-}
+ game.launch();
 ```
 If you want to create a screen simply create an extended class with the Screen class. (I won't lie to you, I did this with the help of ChatGPT)
 
