@@ -251,12 +251,6 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T setScreenBehavior(Screen.Behavior behavior) {
-        screenManager.setBehavior(behavior);
-        return (T) this;
-    }
-
-    @SuppressWarnings("unchecked")
     public T setMainScreen(String identifier) {
         screenManager.setMainScreen(identifier);
         return (T) this;
