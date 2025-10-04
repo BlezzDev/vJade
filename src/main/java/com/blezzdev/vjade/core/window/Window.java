@@ -13,8 +13,8 @@ import static org.lwjgl.opengl.GL11.*;
 public class Window<T extends Window<T>> extends WindowBuilder {
     private final Monitor monitor = new Monitor();
     private final InputManager inputManager = new InputManager();
-    private final WindowLogic windowLogic = new WindowLogic();
-    private final ScreenManager screenProvider = new ScreenManager();
+    private final WindowLogic windowLogic = new WindowLogic(this);
+    private final ScreenManager screenManager = new ScreenManager();
 
     private final int[] width = new int[]{800};
     private final int[] height = new int[]{600};
@@ -98,7 +98,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
                 backgroundColor.b1,
                 backgroundColor.a1);
 
-        windowLogic.init(this);
+        windowLogic.init();
     }
 
     @SuppressWarnings("unchecked")
@@ -219,7 +219,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
 
     public InputManager getInput() { return inputManager; }
 
-    public ScreenManager getScreenProvider() { return screenProvider; }
+    public ScreenManager getScreenManager() { return screenManager; }
 
     public boolean isVisible() {
         this.visible = glfwGetWindowAttrib(glWindow, GLFW_VISIBLE);
@@ -244,7 +244,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     public T addScreen(Screen screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
     @SuppressWarnings("unchecked")
     public T addScreen(Screen screen, String identifier) {
-        screenProvider.register(screen, identifier);
+        screenManager.register(screen, identifier);
         return (T) this;
     }
 

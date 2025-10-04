@@ -17,13 +17,18 @@ import static org.lwjgl.opengl.GL20.*;
 
 public class WindowLogic {
     private int shaderProgram;
-    private final ScreenManager screenManager = new ScreenManager();
+
+    private final Window<?> window;
     private final CollisionManager collisionManager = new CollisionManager();
     private final TimerManager timerManager = new TimerManager();
 
     private int fps;
 
-    private void enableModernSettings(Window window) {
+    public WindowLogic(Window<?> window) {
+        this.window = window;
+    }
+
+    private void enableModernSettings() {
         int vertexShader = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
         GL20.glShaderSource(vertexShader, window.getVertexShader());
         GL20.glCompileShader(vertexShader);
@@ -80,8 +85,8 @@ public class WindowLogic {
         glUniform1f(timeLoc, time);
     }
 
-    public void init(Window window) {
-        enableModernSettings(window);
+    public void init() {
+        enableModernSettings();
 
         STBImage.stbi_set_flip_vertically_on_load(true);
 
@@ -118,7 +123,7 @@ public class WindowLogic {
             */
 
             timerManager.timerProcesses(deltaTime); // Run time processes.
-            screenManager.screenProcesses(deltaTime); // Run screen processes.
+            window.getScreenManager().screenProcesses(deltaTime); // Run screen processes.
 
             window.getInput().update();
 
@@ -131,7 +136,7 @@ public class WindowLogic {
             glfwPollEvents();
         }
 
-        screenManager.destroyed = true;
+        window.getScreenManager().destroyed = true;
         timerManager.clear();
 
         glfwFreeCallbacks(window.glWindow);
@@ -142,11 +147,11 @@ public class WindowLogic {
     }
 
     public void setMainScreen(String currentScreen) {
-        screenManager.setMainScreen(currentScreen);
+        window.getScreenManager().setMainScreen(currentScreen);
     }
 
     public void setCurrentScreen(String currentScreen) {
-        screenManager.setCurrentScreen(currentScreen);
+        window.getScreenManager().setCurrentScreen(currentScreen);
     }
 
     public int getFps() {
@@ -155,9 +160,6 @@ public class WindowLogic {
 
     public int getShaderProgram() { return shaderProgram; }
 
-    public ScreenManager getScreenManager() {
-        return screenManager;
-    }
     public CollisionManager getCollisionManager() {
         return collisionManager;
     }

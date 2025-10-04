@@ -17,7 +17,7 @@ public class ScreenManager {
     public boolean destroyed = false;
 
     public void screenProcesses(double deltaTime) {
-        Screen screen = VJade.getContext().getScreenProvider().getList().get(currentScreen);
+        Screen screen = screenList.get(currentScreen);
 
         if (screen != null) {
             if (firstScreenLoop) {
