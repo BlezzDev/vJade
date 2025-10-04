@@ -9,9 +9,9 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     private Vector2 pivot = new Vector2(0.5f, 0.5f);
     private float zIndex = 0;
 
-    protected SizeBehavior behavior = SizeBehavior.RELATIVE;
+    protected Behavior behavior = Behavior.RELATIVE;
 
-    public enum SizeBehavior {
+    public enum Behavior {
         RELATIVE, FIXED
     }
 
@@ -22,7 +22,7 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T setSizeBehavior(SizeBehavior behavior) {
+    public T setSizeBehavior(Behavior behavior) {
         this.behavior = behavior;
         return (T) this;
     }
@@ -49,5 +49,5 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
         return pivot;
     }
 
-    public SizeBehavior getSizeBehavior() { return behavior; }
+    public Behavior getSizeBehavior() { return behavior; }
 }
