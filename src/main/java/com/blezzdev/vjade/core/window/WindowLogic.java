@@ -1,7 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
-import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -123,7 +122,7 @@ public class WindowLogic {
             */
 
             timerManager.timerProcesses(deltaTime); // Run time processes.
-            window.getScreenManager().screenProcesses(deltaTime); // Run screen processes.
+            window.getScreenManager().screenLifeCycle(deltaTime); // Run screen processes.
 
             window.getInput().update();
 
