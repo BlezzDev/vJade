@@ -46,6 +46,8 @@ public class VJObject implements LogicProcesses {
         }
     }
 
+    public void changeScene(String identifier) { VJade.getContext().changeScreen(identifier); }
+
     public Logger getLogger() { return VJade.getContext().getLogger(); }
     public InputManager getInput() { return VJade.getContext().getInput(); }
     public Monitor getMonitor() { return VJade.getContext().getMonitor(); }
