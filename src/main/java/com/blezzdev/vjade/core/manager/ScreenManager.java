@@ -1,58 +1,72 @@
 package com.blezzdev.vjade.core.manager;
 
 import com.blezzdev.vjade.objects.build.Screen;
-import com.blezzdev.vjade.tools.VJade;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class ScreenManager {
-    private final Map<String, Screen> screenList = new HashMap<>();
+    private final Map<String, Supplier<Screen>> screenList = new HashMap<>();
 
-    private boolean firstScreenLoop = true;
+    private boolean firstScreenFrame = true;
     private String lastScreen;
     private String currentScreen;
 
-    public void screenProcesses(double deltaTime) {
-        Screen screen = screenList.get(currentScreen);
+    private Screen activeScreen;
 
-        if (screen != null) {
-            if (firstScreenLoop) {
-                firstScreenLoop = false;
-
-                screen.start();
-            }
-
-            screen.update(deltaTime);
-
-            if (!Objects.equals(currentScreen, lastScreen)) {
-                firstScreenLoop = true;
-                lastScreen = currentScreen;
-
-                screen.end_scene();
-                screen.finish();
-            }
+    private void startScreenLifeCycle() {
+        if (firstScreenFrame) {
+            firstScreenFrame = false;
+            activeScreen.start();
         }
     }
 
-    public void destroy() {
-        Screen screen = screenList.get(currentScreen);
+    private void finishScreenLifeCycle() {
+        if (!Objects.equals(lastScreen, currentScreen)) {
+            if (activeScreen != null) {
+                activeScreen.end_scene();
+                activeScreen.finish();
+            }
 
-        screen.end_program();
-        screen.finish();
+            lastScreen = currentScreen;
+            firstScreenFrame = true;
+
+            activeScreen = screenList.get(currentScreen).get();
+
+            startScreenLifeCycle();
+        }
     }
 
-    public void register(Screen screen, String identifier) {
+    public void screenLifeCycle(double deltaTime) {
+        if (activeScreen == null) {
+            activeScreen = screenList.get(currentScreen).get();
+        }
+
+        startScreenLifeCycle();
+
+        activeScreen.update(deltaTime);
+
+        finishScreenLifeCycle();
+    }
+
+    public void destroy() {
+        if (activeScreen != null) {
+            activeScreen.end_program();
+            activeScreen.finish();
+        }
+    }
+
+    public void register(Supplier<Screen> screen, String identifier) {
         screenList.put(identifier, screen);
     }
 
-    public Map<String, Screen> getList() {
+    public Map<String, Supplier<Screen>> getList() {
         return screenList;
     }
 
     public void setMainScreen(String currentScreen) {
-        this.lastScreen = currentScreen;
         setCurrentScreen(currentScreen);
     }
 
