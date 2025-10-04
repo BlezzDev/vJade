@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.objects.build;
 
+import com.blezzdev.vjade.core.engine.Engine;
 import com.blezzdev.vjade.core.engine.Logger;
 import com.blezzdev.vjade.core.input.InputManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
@@ -46,12 +47,13 @@ public class VJObject implements LogicProcesses {
         }
     }
 
-    public void changeScene(String identifier) { VJade.getContext().changeScreen(identifier); }
+    public void changeScene(String identifier) { getContext().changeScreen(identifier); }
 
-    public Logger getLogger() { return VJade.getContext().getLogger(); }
-    public InputManager getInput() { return VJade.getContext().getInput(); }
-    public Monitor getMonitor() { return VJade.getContext().getMonitor(); }
-    public WindowLogic getLogic() { return VJade.getContext().getLogic(); }
+    public Engine getContext() { return VJade.getContext(); }
+    public Logger getLogger() { return getContext().getLogger(); }
+    public InputManager getInput() { return getContext().getInput(); }
+    public Monitor getMonitor() { return getContext().getMonitor(); }
+    public WindowLogic getLogic() { return getContext().getLogic(); }
 
-    public TimerManager getTimer() { return VJade.getContext().getLogic().getTimerManager(); }
+    public TimerManager getTimer() { return getContext().getLogic().getTimerManager(); }
 }
