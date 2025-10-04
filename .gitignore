@@ -1,4 +1,6 @@
-# Project exclude paths
+# Project exclude paths.
+# Debugging things.
+/src/main/java/com/blezzdev/vjade/DebugScreen.java
 /src/main/java/com/blezzdev/vjade/DebugScreenOne.java
 /src/main/java/com/blezzdev/vjade/DebugScreenTwo.java
 /src/main/java/com/blezzdev/vjade/DebugPlayer.java
