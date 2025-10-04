@@ -6,6 +6,8 @@ import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 
+import java.util.function.Supplier;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.*;
@@ -241,11 +243,10 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T addScreen(Screen screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
+    public T addScreen(Supplier<Screen> screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
     @SuppressWarnings("unchecked")
-    public T addScreen(Screen screen, String identifier) {
+    public T addScreen(Supplier<Screen> screen, String identifier) {
         screenManager.register(screen, identifier);
-        screen.setIdentifier(identifier);
         return (T) this;
     }
 
