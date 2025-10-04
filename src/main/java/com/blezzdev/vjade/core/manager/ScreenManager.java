@@ -14,8 +14,6 @@ public class ScreenManager {
     private String lastScreen;
     private String currentScreen;
 
-    public boolean destroyed = false;
-
     public void screenProcesses(double deltaTime) {
         Screen screen = screenList.get(currentScreen);
 
@@ -35,12 +33,14 @@ public class ScreenManager {
                 screen.end_scene();
                 screen.finish();
             }
-
-            if (destroyed) {
-                screen.end_program();
-                screen.finish();
-            }
         }
+    }
+
+    public void destroy() {
+        Screen screen = screenList.get(currentScreen);
+
+        screen.end_program();
+        screen.finish();
     }
 
     public void register(Screen screen, String identifier) {

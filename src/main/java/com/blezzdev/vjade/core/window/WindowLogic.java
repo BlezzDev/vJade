@@ -136,7 +136,7 @@ public class WindowLogic {
             glfwPollEvents();
         }
 
-        window.getScreenManager().destroyed = true;
+        window.getScreenManager().destroy();
         timerManager.clear();
 
         glfwFreeCallbacks(window.glWindow);
