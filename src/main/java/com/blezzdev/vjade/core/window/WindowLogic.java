@@ -146,14 +146,6 @@ public class WindowLogic {
         glfwSetErrorCallback(null).free();
     }
 
-    public void setMainScreen(String currentScreen) {
-        window.getScreenManager().setMainScreen(currentScreen);
-    }
-
-    public void setCurrentScreen(String currentScreen) {
-        window.getScreenManager().setCurrentScreen(currentScreen);
-    }
-
     public int getFps() {
         return fps;
     }
