@@ -245,6 +245,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     @SuppressWarnings("unchecked")
     public T addScreen(Screen screen, String identifier) {
         screenManager.register(screen, identifier);
+        screen.setIdentifier(identifier);
         return (T) this;
     }
 
