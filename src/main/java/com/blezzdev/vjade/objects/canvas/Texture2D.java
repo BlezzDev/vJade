@@ -2,7 +2,6 @@ package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
-import com.blezzdev.vjade.tools.types.Filter;
 import com.blezzdev.vjade.tools.texture.Texture;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -26,9 +25,23 @@ public class Texture2D extends CanvasItem<Texture2D> {
 
     private int textureId = 0;
     private Texture texture;
-    private int filter = Filter.LINEAR;
+    private Filter filter = Filter.LINEAR;
     private Vector2 frameCoordinates = new Vector2();
     private Vector2 frameDivisions = new Vector2();
+
+    public enum Filter {
+        LINEAR(GL_LINEAR), NEAREST(GL_NEAREST);
+
+        private final int value;
+
+        Filter(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 
     @Override
     public void update(double deltaTime) {
@@ -97,8 +110,8 @@ public class Texture2D extends CanvasItem<Texture2D> {
 
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, filter);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter.getValue());
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, filter.getValue());
 
         IntBuffer width = BufferUtils.createIntBuffer(1);
         IntBuffer height = BufferUtils.createIntBuffer(1);
@@ -227,7 +240,7 @@ public class Texture2D extends CanvasItem<Texture2D> {
     }
 
 
-    public Texture2D setFilter(int filter) {
+    public Texture2D setFilter(Filter filter) {
         this.filter = filter;
         return this;
     }
