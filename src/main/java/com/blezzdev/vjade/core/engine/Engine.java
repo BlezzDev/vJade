@@ -6,13 +6,9 @@ import com.blezzdev.vjade.tools.VJade;
 public class Engine extends Window<Engine> {
     private final Logger logger = new Logger();
 
-    public Engine() {
-        VJade.setContext(this);
-    }
-
     public Logger getLogger() {
         return logger;
     }
 
-    public void launch() { run(); }
+    public void launch() { VJade.setContext(this); run(); }
 }
