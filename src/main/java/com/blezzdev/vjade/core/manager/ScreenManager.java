@@ -34,6 +34,7 @@ public class ScreenManager {
             firstScreenFrame = true;
 
             activeScreen = screenList.get(currentScreen).get();
+            activeScreen.setIdentifier(currentScreen);
 
             startScreenLifeCycle();
         }
@@ -42,6 +43,7 @@ public class ScreenManager {
     public void screenLifeCycle(double deltaTime) {
         if (activeScreen == null) {
             activeScreen = screenList.get(currentScreen).get();
+            activeScreen.setIdentifier(currentScreen);
         }
 
         startScreenLifeCycle();
