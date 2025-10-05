@@ -15,7 +15,7 @@ This project works thanks to many of the features provided by the following libr
 ## Learning vJade
 vJade provides detailed documentation on what, how, and when to use the tools offered by this framework for any goal you pursue. Within the classes themselves, in IntelliJ IDEA Community Edition (or the paid version), you can maintain control while hovering over a class to view its contents and consult the documentation integrated into the header.
 
-If you need more organized information or have questions, you can consult this [vJade documentation](https://www.enriqueeeeee.com](https://docs.google.com/document/d/14sKEtOS4JkRvfoYuMk0H5xItIE_ZHU22XgfBQa_9jGM/edit?usp=sharing)) or ask directly on the forum.
+If you need more organized information or have questions, you can consult this [vJade documentation](https://docs.google.com/document/d/14sKEtOS4JkRvfoYuMk0H5xItIE_ZHU22XgfBQa_9jGM/edit?usp=sharing) or ask directly on the forum.
 
 ## Quick Start
 Here is a quick guide on how to use vJade if you need something quick that works.
