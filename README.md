@@ -39,13 +39,6 @@ public class GameScreen extends Screen {
     }
 }
 ```
-Within the classes that inherit from the Screen class, there are methods that are executed at certain points in a program's lifetime, which are found in the following hierarchy:
-- **start** runs when the life cycle of a scene begins.
-- **update** runs every frame.
-- **end_scene** runs before the screen change.
-- **finish** runs before the screen change or when a program's lifetime ends.
-- **end_program** runs when a program's lifetime ends.
-
 To initialize a program you will need to instantiate an Engine class, configure it, and execute it, preferably within the initialization method, for example:
 ```java
 public class Main {
@@ -61,12 +54,13 @@ public class Main {
 
                 // As the first argument to refer to the screen and
                 // as the second argument to create an identifier for it.
-                .addScreen(ScreenGame::new, "debug")
+                .addScreen(GameScreen::new, "game")
 
-                // You can omit the identifier, as it will be created automatically with the class name.
-                .addScreen(ScreenMenu::new)
+                // You can omit the identifier,
+                // as it will be created automatically with the class name.
+                .addScreen(GameScreen::new)
 
-                .setMainScreen("debug");
+                .setMainScreen("game");
 
         game.launch();
     }
