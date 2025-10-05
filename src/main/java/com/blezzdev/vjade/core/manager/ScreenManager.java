@@ -69,6 +69,7 @@ public class ScreenManager {
     }
 
     public void setMainScreen(String currentScreen) {
+        this.lastScreen = currentScreen;
         setCurrentScreen(currentScreen);
     }
 
