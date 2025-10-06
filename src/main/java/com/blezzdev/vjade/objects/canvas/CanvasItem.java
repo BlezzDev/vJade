@@ -28,6 +28,8 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public T setPivot(float x, float y) { setPivot(new Vector2(x, y)); return (T) this; }
+    @SuppressWarnings("unchecked")
     public T setPivot(Vector2 pivot) {
         this.pivot = pivot;
         return (T) this;
