@@ -1,6 +1,7 @@
 package com.blezzdev.vjade.tools.texture;
 
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
+import com.blezzdev.vjade.objects.canvas.Texture2D;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
@@ -17,8 +18,7 @@ import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
-import static org.lwjgl.stb.STBImage.stbi_image_free;
-import static org.lwjgl.stb.STBImage.stbi_load;
+import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class TextureRenderer extends Renderer {
@@ -45,33 +45,45 @@ public class TextureRenderer extends Renderer {
         uUseTexture = glGetUniformLocation(program, "vjUseTexture");
     }
 
-    public void loadTexGeometry(Vector2 pivot) {
-        float[] vertices = {
-                pivot.x - 1, pivot.y, 0.0f, 0.0f, 1.0f,
-                pivot.x, pivot.y, 0.0f, 1.0f, 1.0f,
-                pivot.x, pivot.y - 1, 0.0f, 1.0f, 0.0f,
-                pivot.x - 1, pivot.y - 1, 0.0f, 0.0f, 0.0f
-        };
+    public void loadTexGeometry(Vector2 pivot, boolean flip_h) {
+        float[] vertices;
+
+        if (!flip_h) {
+            vertices = new float[]{
+                    pivot.x - 1, pivot.y, 0.0f, 0.0f, 1.0f,
+                    pivot.x, pivot.y, 0.0f, 1.0f, 1.0f,
+                    pivot.x, pivot.y - 1, 0.0f, 1.0f, 0.0f,
+                    pivot.x - 1, pivot.y - 1, 0.0f, 0.0f, 0.0f
+            };
+        } else {
+            vertices = new float[]{
+                    pivot.x - 1, pivot.y, 0.0f, 1.0f, 1.0f,
+                    pivot.x, pivot.y, 0.0f, 0.0f, 1.0f,
+                    pivot.x, pivot.y - 1, 0.0f, 0.0f, 0.0f,
+                    pivot.x - 1, pivot.y - 1, 0.0f, 1.0f, 0.0f
+            };
+        }
 
         int[] indexes = {0, 1, 2, 2, 3, 0};
 
         setupTexBuffers(vertices, indexes);
     }
 
-    public void loadTexture() {
+    public void loadTexture(Texture2D.Filter filter, boolean flip_v) {
         textureId = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureId);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter.getGl());
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter.getGl());
 
         try (MemoryStack stack = stackPush()) {
             IntBuffer width = stack.mallocInt(1);
             IntBuffer height = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
+            stbi_set_flip_vertically_on_load(flip_v);
             ByteBuffer image = stbi_load(texture.getResourcePath(), width, height, channels, 0);
 
             if (image != null) {
