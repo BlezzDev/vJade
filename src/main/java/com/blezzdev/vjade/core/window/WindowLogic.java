@@ -87,6 +87,8 @@ public class WindowLogic {
     public void init() {
         enableModernSettings();
 
+        window.getScreenManager().init();
+
         int cycle = 0;
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();

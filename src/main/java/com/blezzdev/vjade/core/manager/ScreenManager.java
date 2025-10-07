@@ -40,6 +40,12 @@ public class ScreenManager {
         }
     }
 
+    public void init() {
+        if (activeScreen != null) {
+            activeScreen.init();
+        }
+    }
+
     public void screenLifeCycle(double deltaTime) {
         if (activeScreen == null) {
             activeScreen = screenList.get(currentScreen).get();
