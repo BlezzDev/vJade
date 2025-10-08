@@ -15,27 +15,27 @@ public class Vector2 {
         return "(" + x + ", " + y + ")";
     }
 
-    public Vector2 add(int x, int y) {
+    public Vector2 add(float x, float y) {
         this.x += x; this.y += y;
         return this;
     }
 
-    public Vector2 subtract(int x, int y) {
+    public Vector2 subtract(float x, float y) {
         this.x -= x; this.y -= y;
         return this;
     }
 
-    public Vector2 multiply(int x, int y) {
+    public Vector2 multiply(float x, float y) {
         this.x *= x; this.y *= y;
         return this;
     }
 
-    public Vector2 divide(int x, int y) {
+    public Vector2 divide(float x, float y) {
         this.x /= x; this.y /= y;
         return this;
     }
 
-    public Vector2 modulate(int x, int y) {
+    public Vector2 modulate(float x, float y) {
         this.x %= x; this.y %= y;
         return this;
     }
