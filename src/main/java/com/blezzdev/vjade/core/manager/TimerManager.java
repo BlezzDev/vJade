@@ -9,7 +9,9 @@ public class TimerManager {
     private final List<TimerUnit> timerList = new ArrayList<>();
 
     public void timerProcesses(double deltaTime) {
-        for (TimerUnit time : timerList) {
+        for (int i = 0; i < timerList.size(); i++) {
+            TimerUnit time = timerList.get(i);
+
             time.step((float) deltaTime);
 
             if (time.getCurrentTime() >= time.getTimeWait()) {

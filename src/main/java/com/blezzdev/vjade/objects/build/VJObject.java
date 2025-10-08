@@ -1,11 +1,10 @@
 package com.blezzdev.vjade.objects.build;
 
-import com.blezzdev.vjade.core.engine.Engine;
+import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.engine.Logger;
 import com.blezzdev.vjade.core.input.InputManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
-import com.blezzdev.vjade.core.window.WindowLogic;
 import com.blezzdev.vjade.objects.processes.LogicProcesses;
 import com.blezzdev.vjade.tools.VJade;
 
@@ -53,7 +52,6 @@ public class VJObject implements LogicProcesses {
     public Logger getLogger() { return getContext().getLogger(); }
     public InputManager getInput() { return getContext().getInput(); }
     public Monitor getMonitor() { return getContext().getMonitor(); }
-    public WindowLogic getLogic() { return getContext().getLogic(); }
 
-    public TimerManager getTimer() { return getContext().getLogic().getTimerManager(); }
+    public TimerManager getTimer() { return getContext().getTimerManager(); }
 }

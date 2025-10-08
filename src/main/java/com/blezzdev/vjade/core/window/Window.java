@@ -1,7 +1,9 @@
 package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.input.InputManager;
+import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.core.manager.TimerManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
@@ -12,10 +14,11 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.*;
 
-public class Window<T extends Window<T>> extends WindowBuilder {
+class Window<T extends Window<T>> extends WindowBuilder {
+    protected final WindowLogic windowLogic = new WindowLogic(this);
+
     private final Monitor monitor = new Monitor();
     private final InputManager inputManager = new InputManager();
-    private final WindowLogic windowLogic = new WindowLogic(this);
     private final ScreenManager screenManager = new ScreenManager();
 
     private final int[] width = new int[]{800};
@@ -29,8 +32,6 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     private int resizable = 1;
     private int visible = 1;
     private int vsync = 1;
-
-    public enum State { FULLSCREEN, MAXIMIZE, CENTERED }
 
     public Window() {
         super();
@@ -104,7 +105,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T setState(State asm) {
+    public T setState(Engine.State asm) {
         switch (asm) {
             case FULLSCREEN:
                 fullscreen();
@@ -139,11 +140,8 @@ public class Window<T extends Window<T>> extends WindowBuilder {
                 getMonitor().getRefreshRate());
     }
 
-    public WindowLogic getLogic() { return windowLogic; }
-    public long getGLWindow() { return glWindow; }
-    public int getFps() {
-        return windowLogic.getFps();
-    }
+    public Monitor getMonitor() { return monitor; }
+    public int getFps() { return windowLogic.getFps(); }
 
     @SuppressWarnings("unchecked")
     public T setPosition(int x, int y) {
@@ -216,8 +214,6 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     public Color getBackgroundColor() { return backgroundColor; }
-
-    public Monitor getMonitor() { return monitor; }
 
     public InputManager getInput() { return inputManager; }
 

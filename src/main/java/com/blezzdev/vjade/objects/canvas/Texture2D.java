@@ -40,6 +40,7 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
         texture.getRenderer().cleanup();
     }
 
+    public Texture2D setTexture(String path) { setTexture(new Texture(path)); return this; }
     public Texture2D setTexture(Texture texture) {
         texture.getRenderer().cleanup();
 

@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
-public class WindowBuilder {
+class WindowBuilder {
     private String vertexShader;
     private String fragemtShader;
     protected long glWindow;

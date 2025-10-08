@@ -2,9 +2,10 @@ package com.blezzdev.vjade.objects.collision;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.objects.build.VJObject2D;
-import com.blezzdev.vjade.tools.VJade;
 
 public class Collider extends VJObject2D<Collider> {
+    private final CollisionManager collisionManager;
+
     private final int id;
     private CollisionShape shape;
 
@@ -15,8 +16,8 @@ public class Collider extends VJObject2D<Collider> {
     }
 
     public Collider() {
-        id = VJade.getContext().getLogic()
-                .getCollisionManager().link(this);
+        this.collisionManager = getContext().getCollisionManager();
+        id = collisionManager.link(this);
     }
 
     private boolean compare(Collider collider, CollisionShape shape) {
@@ -29,8 +30,6 @@ public class Collider extends VJObject2D<Collider> {
     @Override
     public void update(double deltaTime) {
         super.update(deltaTime);
-
-        CollisionManager collisionManager = VJade.getContext().getLogic().getCollisionManager();
 
         for (Collider collider : collisionManager.getColliderList()) {
             if (collider != this) {
@@ -45,8 +44,7 @@ public class Collider extends VJObject2D<Collider> {
     public void finish() {
         super.finish();
 
-        VJade.getContext().getLogic()
-                .getCollisionManager().unlink(id);
+        collisionManager.unlink(id);
     }
 
     public Collider setShape(CollisionShape shape) {

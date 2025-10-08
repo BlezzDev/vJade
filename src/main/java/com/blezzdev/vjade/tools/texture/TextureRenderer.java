@@ -36,7 +36,7 @@ public class TextureRenderer extends Renderer {
     }
 
     public void loadUniforms() {
-        int program = VJade.getContext().getLogic().getShaderProgram();
+        int program = VJade.getContext().getShaderProgram();
 
         uProjection = glGetUniformLocation(program, "vjProjection");
         uModel = glGetUniformLocation(program, "vjModel");
@@ -99,7 +99,7 @@ public class TextureRenderer extends Renderer {
     }
 
     public void draw(CanvasItem<?> canvas) {
-        glUseProgram(VJade.getContext().getLogic().getShaderProgram());
+        glUseProgram(VJade.getContext().getShaderProgram());
 
         Vector2 winSize = VJade.getContext().getSize();
 

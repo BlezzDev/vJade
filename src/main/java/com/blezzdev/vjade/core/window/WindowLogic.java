@@ -5,7 +5,6 @@ import com.blezzdev.vjade.core.manager.TimerManager;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.stb.STBImage;
 
 import java.nio.FloatBuffer;
 
@@ -14,7 +13,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
 
-public class WindowLogic {
+class WindowLogic {
     private int shaderProgram;
 
     private final Window<?> window;

@@ -1,6 +1,10 @@
 package com.blezzdev.vjade.tools;
 
-import com.blezzdev.vjade.core.engine.Engine;
+import com.blezzdev.vjade.core.window.Engine;
+
+/// The VJade class manages the static values of a program.
+///
+/// The context keeps track of the window that is currently running.
 
 public class VJade {
     private static Engine context;

@@ -5,10 +5,6 @@ public class Screen extends VJObject {
 
     public Screen() {}
 
-    public enum Behavior {
-        CONTINUITY, INDIVIDUAL
-    }
-
     public String getIdentifier() {
         return identifier;
     }
