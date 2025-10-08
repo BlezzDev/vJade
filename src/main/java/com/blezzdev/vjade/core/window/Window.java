@@ -196,7 +196,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T setVsync(boolean vsync) {
+    public T setVSync(boolean vsync) {
         this.vsync = vsync ? GLFW_TRUE : GLFW_FALSE;
         return (T) this;
     }
@@ -238,7 +238,7 @@ public class Window<T extends Window<T>> extends WindowBuilder {
         return decorations != 0;
     }
 
-    public boolean isVsync() {
+    public boolean isVSync() {
         return vsync != 0;
     }
 
