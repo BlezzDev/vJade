@@ -48,7 +48,7 @@ public class Main {
 
                 .setTitle("vJade Program")
                 .setSize(1124, 680)
-                .setState(Window.State.CENTERED)
+                .setState(Engine.State.CENTERED)
 
                 .setResizable(false)
 
