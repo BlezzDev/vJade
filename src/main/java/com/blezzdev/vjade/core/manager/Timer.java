@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.manager;
 
-public class Timer {
+class Timer {
     private final Runnable function;
     private final float timeWait;
     private float currentTime;
