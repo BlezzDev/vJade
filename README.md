@@ -1,4 +1,4 @@
-<p style="text-align:center;">
+<p align="center">
   <img src="vjade_icon.png" width="505" alt="vJade Logo">
 </p>
 
