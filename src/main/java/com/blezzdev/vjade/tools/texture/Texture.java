@@ -23,7 +23,7 @@ public class Texture {
                 width = image.getWidth();
                 height = image.getHeight();
             } else {
-                System.out.println("Could not read image file or file is not a valid image.");
+                System.err.println("Could not read image file or file is not a valid image.");
             }
 
         } catch (IOException e) {
@@ -31,9 +31,11 @@ public class Texture {
         }
     }
 
-    public void setResourcePath(String resourcePath) {
+    public Texture setResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
         putDimensions();
+
+        return this;
     }
 
     public int getWidth() {
