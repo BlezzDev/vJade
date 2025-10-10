@@ -13,16 +13,17 @@ import com.blezzdev.vjade.tools.VJade;
 /// - Size: manages the size of the window.
 /// - Title: manages the title displayed at the top of the window.
 /// - BackgroundColor: manages the background color displayed in the window.
-/// - State: handles certain initial settings for quick configurations, there are three:
-///    - CENTERED for a centred window.
-///    - MAXIMIZED for a maximized window.
-///    - FULLSCREEN for a window that covers the entire main monitor.
 /// - Resizable: handles whether the window can be resized manually.
 /// - Decorations: handles whether the window will contain borders by operating system default.
 /// - Visible: handles whether the window is visible to the user.
 /// - Vsync: handles whether the window has VSync active.
 ///
+/// It also has methods to lighten the window configuration or offer control, such as:
 ///
+/// - centered() centralize the position of a window according to the main monitor.
+/// - fullscreen() make a window scaled to the entire main monitor.
+/// - minimized() make a minimized window.
+/// - maximized() make a maximized window.
 
 public class Engine extends Window<Engine> {
     private final Logger logger = new Logger();
