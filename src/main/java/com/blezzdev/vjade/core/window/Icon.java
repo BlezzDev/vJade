@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 class Icon {
-    private long glWindow;
+    private final long glWindow;
     private Texture texture;
 
     public Icon(long window) {
