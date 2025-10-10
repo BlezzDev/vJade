@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.objects.build;
 
+import com.blezzdev.vjade.tools.VJade;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
 
@@ -10,8 +11,8 @@ import java.io.IOException;
 import java.nio.FloatBuffer;
 
 public class Shader {
-    private String vertexShader;
-    private String fragmentShader;
+    private String vertexShader = VJade.DEFAULT_VERTEX_SHADER;
+    private String fragmentShader = VJade.DEFAULT_FRAGMENT_SHADER;
     private String geometryShader;
     private int programId;
     private int vertexShaderId;

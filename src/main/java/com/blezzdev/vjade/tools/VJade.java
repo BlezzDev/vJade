@@ -23,4 +23,40 @@ public class VJade {
     public static boolean existContext() {
         return context != null;
     }
+
+    public static final String DEFAULT_VERTEX_SHADER = """
+                #version 330 core
+                layout (location = 0) in vec3 vjPos;
+                layout (location = 1) in vec2 vjTexCoord;
+                
+                uniform mat4 vjProjection;
+                uniform mat4 vjModel;
+                
+                out vec2 TexCoord;
+                
+                void main()
+                {
+                    gl_Position = vjProjection * vjModel * vec4(vjPos, 1.0);
+                    TexCoord = vjTexCoord;
+                }
+                """;
+
+    public static final String DEFAULT_FRAGMENT_SHADER = """
+                #version 330 core
+                
+                out vec4 vjFragColor;
+                in vec2 TexCoord;
+                
+                uniform sampler2D vjDiffuseTex;
+                uniform vec4 vjModulate;
+                uniform bool vjUseTexture;
+                
+                void main() {
+                    if (vjUseTexture) {
+                        vjFragColor = texture(vjDiffuseTex, TexCoord) * vjModulate;
+                    } else {
+                        vjFragColor = vjModulate;
+                    }
+                }
+                """;
 }
