@@ -3,6 +3,7 @@ package com.blezzdev.vjade.objects.canvas;
 import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.util.types.Behavior;
 
 public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     private Color modulate = new Color(1, 1, 1, 1);
@@ -10,10 +11,6 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     private float zIndex = 0;
 
     protected Behavior behavior = Behavior.RELATIVE;
-
-    public enum Behavior {
-        RELATIVE, FIXED
-    }
 
     @SuppressWarnings("unchecked")
     public T setModulate(Color modulate) {

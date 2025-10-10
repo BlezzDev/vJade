@@ -2,6 +2,7 @@ package com.blezzdev.vjade.objects.collision;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
+import com.blezzdev.vjade.util.types.CollisionShape;
 
 public class Collider extends VJObject2D<Collider> {
     private final CollisionManager collisionManager;
@@ -10,10 +11,6 @@ public class Collider extends VJObject2D<Collider> {
     private CollisionShape shape;
 
     protected boolean colliding;
-
-    public enum CollisionShape {
-        RECTANGLE
-    }
 
     public Collider() {
         this.collisionManager = getContext().getCollisionManager();

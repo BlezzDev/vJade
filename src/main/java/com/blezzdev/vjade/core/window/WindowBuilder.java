@@ -15,7 +15,7 @@ class WindowBuilder {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
-            throw new IllegalStateException("Unable to initialize OpenGL");
+            throw new IllegalStateException("Unable to initialize OpenGL.");
         }
 
         // Configure our window.

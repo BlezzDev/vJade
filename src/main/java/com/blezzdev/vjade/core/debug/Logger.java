@@ -1,5 +1,7 @@
 package com.blezzdev.vjade.core.debug;
 
+import com.blezzdev.vjade.util.types.Level;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -10,10 +12,6 @@ import java.util.Map;
 
 public class Logger {
     private String directory;
-
-    public enum Level {
-        SUCCESS, INFO, WARN, ERROR
-    }
 
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     private final DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
