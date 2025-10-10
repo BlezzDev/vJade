@@ -3,6 +3,7 @@ package com.blezzdev.vjade.core.window;
 import com.blezzdev.vjade.core.engine.Logger;
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
+import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.tools.VJade;
 
 /// The Engine class creates the window with the
@@ -34,7 +35,7 @@ public class Engine extends Window<Engine> {
 
     public TimerManager getTimerManager() { return windowLogic.getTimerManager(); }
     public CollisionManager getCollisionManager() { return windowLogic.getCollisionManager(); }
-    public int getShaderProgram() { return windowLogic.getShaderProgram(); }
+    public Shader getShader() { return windowLogic.getShader(); }
 
     public void launch() { VJade.setContext(this); run(); }
 }
