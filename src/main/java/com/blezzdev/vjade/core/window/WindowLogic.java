@@ -88,6 +88,8 @@ class WindowLogic {
 
         window.getScreenManager().init();
 
+        glfwShowWindow(window.glWindow);
+
         int cycle = 0;
         long lastTime = System.nanoTime();
         long timer = System.currentTimeMillis();

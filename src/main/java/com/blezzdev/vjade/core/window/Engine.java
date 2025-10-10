@@ -35,7 +35,5 @@ public class Engine extends Window<Engine> {
     public CollisionManager getCollisionManager() { return windowLogic.getCollisionManager(); }
     public int getShaderProgram() { return windowLogic.getShaderProgram(); }
 
-    public enum State { FULLSCREEN, MAXIMIZE, CENTERED }
-
     public void launch() { VJade.setContext(this); run(); }
 }

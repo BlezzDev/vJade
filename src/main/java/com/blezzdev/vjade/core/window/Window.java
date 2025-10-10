@@ -1,9 +1,7 @@
 package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.input.InputManager;
-import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
-import com.blezzdev.vjade.core.manager.TimerManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
@@ -80,7 +78,6 @@ class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     private void configureDetails() {
-        glfwShowWindow(glWindow);
         glfwSwapInterval(vsync);
 
         glEnable(GL_TEXTURE_2D);
@@ -105,31 +102,26 @@ class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T setState(Engine.State asm) {
-        switch (asm) {
-            case FULLSCREEN:
-                fullscreen();
-                break;
-            case CENTERED:
-                centered();
-                break;
-            case MAXIMIZE:
-                maximize();
-                break;
-        }
+    public T maximized() {
+        glfwMaximizeWindow(glWindow);
         return (T) this;
     }
 
-    private void maximize() {
-        glfwMaximizeWindow(glWindow);
-    }
-
-    private void centered() {
+    @SuppressWarnings("unchecked")
+    public T centered() {
         setPosition((int) ((getMonitor().getSize().x - getSize().x) / 2),
                 (int) ((getMonitor().getSize().y - getSize().y) / 2));
+        return (T) this;
     }
 
-    private void fullscreen() {
+    @SuppressWarnings("unchecked")
+    public T minimized() {
+        glfwHideWindow(glWindow);
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T fullscreen() {
         setPosition(0, 0);
         setSize(getMonitor().getSize());
         setDecorations(false);
@@ -138,6 +130,8 @@ class Window<T extends Window<T>> extends WindowBuilder {
         glfwSetWindowMonitor(glWindow, glfwGetPrimaryMonitor(), 0, 0,
                 (int) getMonitor().getSize().x, (int) getMonitor().getSize().y,
                 getMonitor().getRefreshRate());
+
+        return (T) this;
     }
 
     public Monitor getMonitor() { return monitor; }
