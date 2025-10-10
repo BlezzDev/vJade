@@ -95,10 +95,10 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
         // Set the clear color.
 
-        glClearColor(backgroundColor.r1,
-                backgroundColor.g1,
-                backgroundColor.b1,
-                backgroundColor.a1);
+        glClearColor(backgroundColor.getRed(),
+                backgroundColor.getGreen(),
+                backgroundColor.getBlue(),
+                backgroundColor.getAlpha());
 
         windowLogic.init();
     }

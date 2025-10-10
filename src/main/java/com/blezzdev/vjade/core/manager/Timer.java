@@ -1,11 +1,11 @@
-package com.blezzdev.vjade.tools.time;
+package com.blezzdev.vjade.core.manager;
 
-public class TimerUnit {
+public class Timer {
     private final Runnable function;
     private final float timeWait;
     private float currentTime;
 
-    public TimerUnit(float timeWait, Runnable function) {
+    public Timer(float timeWait, Runnable function) {
         this.timeWait = timeWait;
         this.function = function;
     }

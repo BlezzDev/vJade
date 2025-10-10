@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.engine.Logger;
+import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
 import com.blezzdev.vjade.objects.build.Shader;

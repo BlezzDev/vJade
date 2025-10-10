@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.engine;
+package com.blezzdev.vjade.core.debug;
 
 import java.io.FileWriter;
 import java.io.IOException;

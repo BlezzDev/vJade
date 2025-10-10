@@ -112,7 +112,7 @@ public class TextureRenderer extends Renderer {
 
         shader.setUniformMatrix4fv("vjProjection", projectionBuffer);
         shader.setUniformMatrix4fv("vjModel", modelBuffer);
-        shader.setUniformFloat("vjModulate", modulateColor.r1, modulateColor.g1, modulateColor.b1, modulateColor.a1);
+        shader.setUniformFloat("vjModulate", modulateColor.getRed(), modulateColor.getGreen(), modulateColor.getBlue(), modulateColor.getAlpha());
         shader.setUniformBool("vjUseTexture", true);
         shader.setUniformInteger("vjDiffuseTex", 0);
 
