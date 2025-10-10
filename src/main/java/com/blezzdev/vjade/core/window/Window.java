@@ -5,6 +5,7 @@ import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.tools.texture.Texture;
 
 import java.util.function.Supplier;
 
@@ -25,6 +26,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
     private final int[] y = new int[]{30};
     private String title = "vJade window.";
     private Color backgroundColor = new Color(1, 1, 1);
+    private Icon icon = new Icon(glWindow);
 
     private int decorations = 1;
     private int resizable = 1;
@@ -161,6 +163,14 @@ class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
+    public T setIcon(String path) { setIcon(new Texture(path)); return (T) this; }
+    @SuppressWarnings("unchecked")
+    public T setIcon(Texture icon) {
+        this.icon.loadIcon(icon);
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
     public T setResizable(boolean resizable) {
         glfwSetWindowAttrib(glWindow, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
         this.resizable = glfwGetWindowAttrib(glWindow, GLFW_RESIZABLE);
@@ -211,6 +221,8 @@ class Window<T extends Window<T>> extends WindowBuilder {
     public String getTitle() {
         return title;
     }
+
+    public Texture getIcon() { return icon.getTexture(); }
 
     public Color getBackgroundColor() { return backgroundColor; }
 
