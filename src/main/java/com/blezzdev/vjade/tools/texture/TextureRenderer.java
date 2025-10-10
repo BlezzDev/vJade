@@ -87,7 +87,12 @@ public class TextureRenderer extends Renderer {
     }
 
     public void draw(CanvasItem<?> canvas) {
-        Shader shader = VJade.getContext().getShader();
+        Shader shader = canvas.getShader();
+
+        if (shader == null) {
+            shader = VJade.getContext().getShader();
+        }
+
         shader.bind();
 
         Vector2 winSize = VJade.getContext().getSize();

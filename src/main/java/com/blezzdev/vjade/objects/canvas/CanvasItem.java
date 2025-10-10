@@ -1,16 +1,25 @@
 package com.blezzdev.vjade.objects.canvas;
 
+import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import com.blezzdev.vjade.util.types.Behavior;
 
 public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
+    private Shader shader;
+
     private Color modulate = new Color(1, 1, 1, 1);
     private Vector2 pivot = new Vector2(0.5f, 0.5f);
     private float zIndex = 0;
 
     protected Behavior behavior = Behavior.RELATIVE;
+
+    @SuppressWarnings("unchecked")
+    public T setShader(Shader shader) {
+        this.shader = shader;
+        return (T) this;
+    }
 
     @SuppressWarnings("unchecked")
     public T setModulate(Color modulate) {
@@ -36,6 +45,10 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     public T setzIndex(float zIndex) {
         this.zIndex = zIndex;
         return (T) this;
+    }
+
+    public Shader getShader() {
+        return shader;
     }
 
     public Color getModulate() {
