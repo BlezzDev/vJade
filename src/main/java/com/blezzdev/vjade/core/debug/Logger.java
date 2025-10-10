@@ -36,7 +36,7 @@ public class Logger {
             try (FileWriter writer = new FileWriter(directory + "/" + fileName, true)) {
                 writer.write(text);
             } catch (IOException e) {
-                throw new RuntimeException("Error escribiendo log en archivo", e);
+                throw new RuntimeException("Error writing log to file: ", e);
             }
         }
     }
