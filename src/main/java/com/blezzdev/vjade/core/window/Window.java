@@ -3,6 +3,7 @@ package com.blezzdev.vjade.core.window;
 import com.blezzdev.vjade.core.input.InputManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.objects.build.Screen;
+import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import com.blezzdev.vjade.tools.texture.Texture;
@@ -36,45 +37,8 @@ class Window<T extends Window<T>> extends WindowBuilder {
     public Window() {
         super();
 
-        String DEFAULT_VERTEX_SHADER = """
-                #version 330 core
-                layout (location = 0) in vec3 vjPos;
-                layout (location = 1) in vec2 vjTexCoord;
-                
-                uniform mat4 vjProjection;
-                uniform mat4 vjModel;
-                
-                out vec2 TexCoord;
-                
-                void main()
-                {
-                    gl_Position = vjProjection * vjModel * vec4(vjPos, 1.0);
-                    TexCoord = vjTexCoord;
-                }
-                """;
-
-        setVertexShader(DEFAULT_VERTEX_SHADER);
-
-        String DEFAULT_FRAGMENT_SHADER = """
-                #version 330 core
-                
-                out vec4 vjFragColor;
-                in vec2 TexCoord;
-                
-                uniform sampler2D vjDiffuseTex;
-                uniform vec4 vjModulate;
-                uniform bool vjUseTexture;
-                
-                void main() {
-                    if (vjUseTexture) {
-                        vjFragColor = texture(vjDiffuseTex, TexCoord) * vjModulate;
-                    } else {
-                        vjFragColor = vjModulate;
-                    }
-                }
-                """;
-
-        setFragemtShader(DEFAULT_FRAGMENT_SHADER);
+        setVertexShader(VJade.DEFAULT_VERTEX_SHADER);
+        setFragemtShader(VJade.DEFAULT_FRAGMENT_SHADER);
 
         inputManager.init(glWindow);
     }
