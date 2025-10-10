@@ -2,19 +2,18 @@ package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
+import com.blezzdev.vjade.objects.build.Shader;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL20;
 
 import java.nio.FloatBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.*;
 
 class WindowLogic {
-    private int shaderProgram;
+    private Shader shader;
 
     private final Window<?> window;
     private final CollisionManager collisionManager = new CollisionManager();
@@ -27,38 +26,12 @@ class WindowLogic {
     }
 
     private void enableModernSettings() {
-        int vertexShader = GL20.glCreateShader(GL20.GL_VERTEX_SHADER);
-        GL20.glShaderSource(vertexShader, window.getVertexShader());
-        GL20.glCompileShader(vertexShader);
+        shader = new Shader();
+        shader.setVertexShader(window.getVertexShader());
+        shader.setFragmentShader(window.getFragemtShader());
+        shader.load();
 
-        int fragmentShader = GL20.glCreateShader(GL20.GL_FRAGMENT_SHADER);
-        GL20.glShaderSource(fragmentShader, window.getFragemtShader());
-        GL20.glCompileShader(fragmentShader);
-
-        shaderProgram = GL20.glCreateProgram();
-        GL20.glAttachShader(shaderProgram, vertexShader);
-        GL20.glAttachShader(shaderProgram, fragmentShader);
-        GL20.glLinkProgram(shaderProgram);
-
-        int success = glGetShaderi(vertexShader, GL_COMPILE_STATUS);
-        if (success == GL_FALSE) {
-            System.out.println("Vertex shader error: " + glGetShaderInfoLog(vertexShader));
-        }
-
-        success = glGetShaderi(fragmentShader, GL_COMPILE_STATUS);
-        if (success == GL_FALSE) {
-            System.out.println("Fragment shader error: " + glGetShaderInfoLog(fragmentShader));
-        }
-
-        success = glGetProgrami(shaderProgram, GL_LINK_STATUS);
-        if (success == GL_FALSE) {
-            System.out.println("Program link error: " + glGetProgramInfoLog(shaderProgram));
-        }
-
-        GL20.glDeleteShader(vertexShader);
-        GL20.glDeleteShader(fragmentShader);
-
-        glUseProgram(shaderProgram);
+        shader.bind();
 
         fixWindowScale((int) window.getSize().x, (int) window.getSize().y);
         glfwSetFramebufferSizeCallback(window.glWindow, (win, w, h) -> fixWindowScale(w, h));
@@ -68,19 +41,15 @@ class WindowLogic {
         glViewport(0, 0, w, h);
 
         Matrix4f projection = new Matrix4f().ortho2D(0, w, h, 0);
-
-        int projLoc = GL20.glGetUniformLocation(shaderProgram, "vjProjection");
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
         projection.get(fb);
-        GL20.glUseProgram(shaderProgram);
-        GL20.glUniformMatrix4fv(projLoc, false, fb);
 
-        int modulateLoc = glGetUniformLocation(shaderProgram, "vjModulate");
-        glUniform4f(modulateLoc, 1, 1, 1, 1);
+        shader.bind();
+        shader.setUniform(Shader.Uniform.MATRIX_4, "vjProjection", fb);
+        shader.setUniform(Shader.Uniform.FLOAT_4, "vjModulate", 1, 1, 1, 1);
 
         float time = (System.nanoTime() / 1_000_000_000.0f);
-        int timeLoc = glGetUniformLocation(shaderProgram, "vjTime");
-        glUniform1f(timeLoc, time);
+        shader.setUniform(Shader.Uniform.FLOAT_1, "vjTime", time);
     }
 
     public void init() {
@@ -136,6 +105,8 @@ class WindowLogic {
             glfwPollEvents();
         }
 
+        shader.cleanup();
+
         window.getScreenManager().destroy();
         timerManager.clear();
 
@@ -146,11 +117,28 @@ class WindowLogic {
         glfwSetErrorCallback(null).free();
     }
 
+    public void setShader(Shader newShader) {
+        if (this.shader != null) {
+            this.shader.cleanup();
+        }
+        this.shader = newShader;
+        if (this.shader != null) {
+            this.shader.bind();
+            fixWindowScale((int) window.getSize().x, (int) window.getSize().y);
+        }
+    }
+
+    public void bindShader() {
+        if (shader != null) {
+            shader.bind();
+        }
+    }
+
     public int getFps() {
         return fps;
     }
 
-    public int getShaderProgram() { return shaderProgram; }
+    public Shader getShader() { return shader; }
 
     public CollisionManager getCollisionManager() {
         return collisionManager;
