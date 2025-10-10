@@ -116,7 +116,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     @SuppressWarnings("unchecked")
     public T minimized() {
-        glfwHideWindow(glWindow);
+        glfwIconifyWindow(glWindow);
         return (T) this;
     }
 
@@ -169,8 +169,13 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     @SuppressWarnings("unchecked")
     public T setVisible(boolean visible) {
-        glfwSetWindowAttrib(glWindow, GLFW_VISIBLE, visible ? GLFW_TRUE : GLFW_FALSE);
-        this.visible = glfwGetWindowAttrib(glWindow, GLFW_VISIBLE);
+        if (visible) {
+            glfwShowWindow(glWindow);
+        } else {
+            glfwHideWindow(glWindow);
+        }
+
+        this.visible = visible ? 1 : 0;
         return (T) this;
     }
 
