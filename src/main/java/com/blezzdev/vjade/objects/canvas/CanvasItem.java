@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.objects.canvas;
 
-import com.blezzdev.vjade.objects.build.VJObject2D;
+import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 

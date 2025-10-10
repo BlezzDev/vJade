@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.objects.build;
+package com.blezzdev.vjade.objects.build.vjobj;
 
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;

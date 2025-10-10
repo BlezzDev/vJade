@@ -1,5 +1,7 @@
 package com.blezzdev.vjade.objects.build;
 
+import com.blezzdev.vjade.objects.build.vjobj.VJObject;
+
 public class Screen extends VJObject {
     private String identifier;
 

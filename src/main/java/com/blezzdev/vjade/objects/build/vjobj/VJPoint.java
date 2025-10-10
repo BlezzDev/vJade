@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.objects.build;
+package com.blezzdev.vjade.objects.build.vjobj;
 
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 
