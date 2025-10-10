@@ -20,16 +20,6 @@ public class Shader {
     private int geometryShaderId;
     private boolean loaded = false;
 
-    public enum Uniform {
-        INT_1,
-        FLOAT_1,
-        FLOAT_2,
-        FLOAT_3,
-        FLOAT_4,
-        MATRIX_4,
-        BOOL
-    }
-
     public Shader() {}
 
     public Shader(String vertexShaderPath, String fragmentShaderPath) {
@@ -145,18 +135,32 @@ public class Shader {
         loaded = false;
     }
 
-    public void setUniform(Uniform type, String name, Object... value) {
+    public void setUniformMatrix4fv(String name, FloatBuffer value) {
         int location = GL20.glGetUniformLocation(programId, name);
         if (location != -1) {
-            switch (type) {
-                case BOOL -> GL20.glUniform1i(location, (boolean) value[0] ? 1 : 0);
-                case INT_1 -> GL20.glUniform1i(location, (int) value[0]);
-                case FLOAT_1 -> GL20.glUniform1f(location, (float) value[0]);
-                case FLOAT_2 -> GL20.glUniform2f(location, (float) value[0], (float) value[1]);
-                case FLOAT_3 -> GL20.glUniform3f(location, (float) value[0], (float) value[1], (float) value[2]);
-                case FLOAT_4 -> GL20.glUniform4f(location, (float) value[0], (float) value[1], (float) value[2], (float) value[3]);
-                case MATRIX_4 -> GL20.glUniformMatrix4fv(location, false, (float[]) value[0]);
-                default -> throw new IllegalStateException("Unexpected value: " + type);
+            GL20.glUniformMatrix4fv(location, false, value);
+        }
+    }
+
+    public void setUniformBool(String name, boolean value) {
+        setUniformInteger(name, value ? 1 : 0);
+    }
+
+    public void setUniformInteger(String name, int value) {
+        int location = GL20.glGetUniformLocation(programId, name);
+        if (location != -1) {
+            GL20.glUniform1i(location, value);
+        }
+    }
+
+    public void setUniformFloat(String name, float... value) {
+        int location = GL20.glGetUniformLocation(programId, name);
+        if (location != -1) {
+            switch (value.length) {
+                case 1 -> GL20.glUniform1f(location, value[0]);
+                case 2 -> GL20.glUniform2f(location, value[0], value[1]);
+                case 3 -> GL20.glUniform3f(location, value[0], value[1], value[2]);
+                case 4 -> GL20.glUniform4f(location, value[0], value[1], value[2], value[3]);
             }
         }
     }

@@ -45,11 +45,11 @@ class WindowLogic {
         projection.get(fb);
 
         shader.bind();
-        shader.setUniform(Shader.Uniform.MATRIX_4, "vjProjection", fb);
-        shader.setUniform(Shader.Uniform.FLOAT_4, "vjModulate", 1, 1, 1, 1);
+        shader.setUniformMatrix4fv("vjProjection", fb);
+        shader.setUniformFloat("vjModulate", 1, 1, 1, 1);
 
         float time = (System.nanoTime() / 1_000_000_000.0f);
-        shader.setUniform(Shader.Uniform.FLOAT_1, "vjTime", time);
+        shader.setUniformFloat("vjTime", time);
     }
 
     public void init() {

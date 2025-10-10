@@ -53,7 +53,6 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
 
         textureRenderer.loadTexGeometry(getPivot(), isHorizontalFlip());
         textureRenderer.loadTexture(filter, isVerticalFlip());
-        textureRenderer.loadUniforms();
 
         return this;
     }

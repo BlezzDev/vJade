@@ -1,14 +1,17 @@
 package com.blezzdev.vjade.tools.texture;
 
+import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
 import com.blezzdev.vjade.objects.canvas.Texture2D;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
@@ -25,24 +28,8 @@ public class TextureRenderer extends Renderer {
     private int textureId;
     private Texture texture;
 
-    private int uProjection;
-    private int uModel;
-    private int uDiffuseTex;
-    private int uModulate;
-    private int uUseTexture;
-
     public TextureRenderer(Texture texture) {
         this.texture = texture;
-    }
-
-    public void loadUniforms() {
-        int program = VJade.getContext().getShader().getprogramId();
-
-        uProjection = glGetUniformLocation(program, "vjProjection");
-        uModel = glGetUniformLocation(program, "vjModel");
-        uDiffuseTex = glGetUniformLocation(program, "vjDiffuseTex");
-        uModulate = glGetUniformLocation(program, "vjModulate");
-        uUseTexture = glGetUniformLocation(program, "vjUseTexture");
     }
 
     public void loadTexGeometry(Vector2 pivot, boolean flip_h) {
@@ -99,7 +86,8 @@ public class TextureRenderer extends Renderer {
     }
 
     public void draw(CanvasItem<?> canvas) {
-        glUseProgram(VJade.getContext().getShader().getprogramId());
+        Shader shader = VJade.getContext().getShader();
+        shader.bind();
 
         Vector2 winSize = VJade.getContext().getSize();
 
@@ -116,18 +104,32 @@ public class TextureRenderer extends Renderer {
 
         Color modulateColor = canvas.getModulate();
 
-        glUniformMatrix4fv(uProjection, false, projection.get(new float[16]));
-        glUniformMatrix4fv(uModel, false, model.get(new float[16]));
-        glUniform4f(uModulate, modulateColor.r1, modulateColor.g1, modulateColor.b1, modulateColor.a1);
-        glUniform1i(uUseTexture, 1);
+        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
+        FloatBuffer modelBuffer = BufferUtils.createFloatBuffer(16);
+
+        projection.get(projectionBuffer);
+        model.get(modelBuffer);
+
+        shader.setUniformMatrix4fv("vjProjection", projectionBuffer);
+        shader.setUniformMatrix4fv("vjModel", modelBuffer);
+        shader.setUniformFloat("vjModulate", modulateColor.r1, modulateColor.g1, modulateColor.b1, modulateColor.a1);
+        shader.setUniformBool("vjUseTexture", true);
+        shader.setUniformInteger("vjDiffuseTex", 0);
 
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureId);
-        glUniform1i(uDiffuseTex, 0);
 
         glBindVertexArray(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
         glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    public void cleanup() {
+        if (textureId != 0) {
+            glDeleteTextures(textureId);
+            textureId = 0;
+        }
     }
 }
