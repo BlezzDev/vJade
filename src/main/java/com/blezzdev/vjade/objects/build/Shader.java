@@ -33,7 +33,7 @@ public class Shader {
         this.geometryShader = loadShaderFromFile(geometryShaderPath);
     }
 
-    public void load() {
+    public Shader load() {
         if (vertexShader == null || fragmentShader == null) {
             throw new IllegalStateException("Vertex and Fragment shaders must be set before loading");
         }
@@ -63,6 +63,7 @@ public class Shader {
         }
 
         loaded = true;
+        return this;
     }
 
     private int compileShader(String shaderCode, int shaderType) {
@@ -165,28 +166,28 @@ public class Shader {
         }
     }
 
-    public void setVertexShader(String vertexShader) {
-        this.vertexShader = vertexShader;
+    public Shader setVertexShader(String vertexShader) {
+        this.vertexShader = vertexShader; return this;
     }
 
-    public void setFragmentShader(String fragmentShader) {
-        this.fragmentShader = fragmentShader;
+    public Shader setFragmentShader(String fragmentShader) {
+        this.fragmentShader = fragmentShader; return this;
     }
 
-    public void setGeometryShader(String geometryShader) {
-        this.geometryShader = geometryShader;
+    public Shader setGeometryShader(String geometryShader) {
+        this.geometryShader = geometryShader; return this;
     }
 
-    public void setVertexShaderFromFile(String filePath) {
-        this.vertexShader = loadShaderFromFile(filePath);
+    public Shader setVertexShaderFromFile(String filePath) {
+        this.vertexShader = loadShaderFromFile(filePath); return this;
     }
 
-    public void setFragmentShaderFromFile(String filePath) {
-        this.fragmentShader = loadShaderFromFile(filePath);
+    public Shader setFragmentShaderFromFile(String filePath) {
+        this.fragmentShader = loadShaderFromFile(filePath); return this;
     }
 
-    public void setGeometryShaderFromFile(String filePath) {
-        this.geometryShader = loadShaderFromFile(filePath);
+    public Shader setGeometryShaderFromFile(String filePath) {
+        this.geometryShader = loadShaderFromFile(filePath); return this;
     }
 
     public String getVertexShader() {
