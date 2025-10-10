@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="vjade_icon.png" width="505" alt="vJade Logo">
+  <img src="vjade_icon.png" alt="vJade Logo">
 </p>
 
 > Developer's note: This is my first real project. I am still new to the world of formal development, as I am a minor guy, so I would greatly appreciate any recommendations or bug reports, as they would help me expand my knowledge and improve aspects of this framework. Thank you for reading this note.
