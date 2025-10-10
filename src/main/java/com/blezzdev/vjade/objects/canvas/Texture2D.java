@@ -2,11 +2,14 @@ package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.texture.Texture;
+import com.blezzdev.vjade.tools.texture.TextureRenderer;
 
 import static org.lwjgl.opengl.GL11C.GL_LINEAR;
 import static org.lwjgl.opengl.GL11C.GL_NEAREST;
 
 public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties<Texture2D> {
+    private TextureRenderer textureRenderer;
+
     private Texture texture;
     private Filter filter = Filter.LINEAR;
 
@@ -29,7 +32,7 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
         super.update(deltaTime);
 
         if (VJade.existContext()) {
-            texture.getRenderer().draw(this);
+            textureRenderer.draw(this);
         }
     }
 
@@ -37,18 +40,20 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
     public void finish() {
         super.finish();
 
-        texture.getRenderer().cleanup();
+        textureRenderer.cleanup();
     }
 
     public Texture2D setTexture(String path) { setTexture(new Texture(path)); return this; }
     public Texture2D setTexture(Texture texture) {
-        texture.getRenderer().cleanup();
+        textureRenderer = new TextureRenderer(texture);
+
+        textureRenderer.cleanup();
 
         this.texture = texture;
 
-        texture.getRenderer().loadTexGeometry(getPivot(), isHorizontalFlip());
-        texture.getRenderer().loadTexture(filter, isVerticalFlip());
-        texture.getRenderer().loadUniforms();
+        textureRenderer.loadTexGeometry(getPivot(), isHorizontalFlip());
+        textureRenderer.loadTexture(filter, isVerticalFlip());
+        textureRenderer.loadUniforms();
 
         return this;
     }

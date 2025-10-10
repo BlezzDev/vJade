@@ -6,12 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class Texture {
-    private final TextureRenderer renderer;
     private String resourcePath;
     private int width, height;
 
     public Texture(String resourcePath) {
-        renderer = new TextureRenderer(this);
         setResourcePath(resourcePath);
     }
 
@@ -48,9 +46,5 @@ public class Texture {
 
     public String getResourcePath() {
         return resourcePath;
-    }
-
-    public TextureRenderer getRenderer() {
-        return renderer;
     }
 }
