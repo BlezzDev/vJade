@@ -3,6 +3,7 @@ package com.blezzdev.vjade.objects.canvas;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.texture.Texture;
 import com.blezzdev.vjade.tools.texture.TextureRenderer;
+import com.blezzdev.vjade.util.types.Filter;
 
 import static org.lwjgl.opengl.GL11C.GL_LINEAR;
 import static org.lwjgl.opengl.GL11C.GL_NEAREST;
@@ -12,20 +13,6 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
 
     private Texture texture;
     private Filter filter = Filter.LINEAR;
-
-    public enum Filter {
-        LINEAR(GL_LINEAR), NEAREST(GL_NEAREST);
-
-        final int gl;
-
-        Filter(int gl) {
-            this.gl = gl;
-        }
-
-        public int getGl() {
-            return gl;
-        }
-    }
 
     @Override
     public void update(double deltaTime) {

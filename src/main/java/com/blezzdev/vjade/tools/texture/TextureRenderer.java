@@ -6,6 +6,7 @@ import com.blezzdev.vjade.objects.canvas.Texture2D;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.util.types.Filter;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
@@ -56,7 +57,7 @@ public class TextureRenderer extends Renderer {
         setupTexBuffers(vertices, indexes);
     }
 
-    public void loadTexture(Texture2D.Filter filter, boolean flip_v) {
+    public void loadTexture(Filter filter, boolean flip_v) {
         textureId = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, textureId);
 
