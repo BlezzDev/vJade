@@ -1,8 +1,8 @@
-package com.blezzdev.vjade.objects.processes;
+package com.blezzdev.vjade.core.manager;
 
 import com.blezzdev.vjade.objects.collision.Collider;
 
-public interface ColliderAlgorithms {
+interface ColliderAlgorithms {
     default boolean rectangleRectangle(Collider selfCollider, Collider collider) {
         return false;
     }

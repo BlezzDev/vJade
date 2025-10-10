@@ -1,7 +1,6 @@
 package com.blezzdev.vjade.core.manager;
 
 import com.blezzdev.vjade.objects.collision.Collider;
-import com.blezzdev.vjade.objects.processes.ColliderAlgorithms;
 
 import java.util.ArrayList;
 import java.util.List;

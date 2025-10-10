@@ -1,6 +1,6 @@
-package com.blezzdev.vjade.objects.processes;
+package com.blezzdev.vjade.objects.build;
 
-public interface LogicProcesses {
+interface LogicProcesses {
     default void init() {}
     default void start() {}
     default void update(double deltaTime) {}

@@ -5,7 +5,6 @@ import com.blezzdev.vjade.core.engine.Logger;
 import com.blezzdev.vjade.core.input.InputManager;
 import com.blezzdev.vjade.core.manager.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
-import com.blezzdev.vjade.objects.processes.LogicProcesses;
 import com.blezzdev.vjade.tools.VJade;
 
 import java.util.ArrayList;

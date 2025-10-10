@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.objects.canvas;
 
-public interface SpriteProperties<T> {
+interface SpriteProperties<T> {
     class Properties {
         boolean horizontalFlip = false, verticalFlip = false;
         int frame = 0, horizontalDivisions = 0, verticalDivisions = 0;
