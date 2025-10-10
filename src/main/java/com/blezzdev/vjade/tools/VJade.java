@@ -14,6 +14,9 @@ public class VJade {
     }
 
     public static Engine getContext() {
+        if (!existContext()) {
+            throw new RuntimeException("The context has not yet been defined.");
+        }
         return VJade.context;
     }
 
