@@ -18,8 +18,9 @@ class SoundBuilder {
         }
     }
 
-            int channels = channelsBuffer.get(0);
-            int sampleRate = sampleRateBuffer.get(0);
+    protected void changeVolume(float volume) {
+        alSourcef(source, AL_GAIN, volume);
+    }
 
     public void stop() {
         alSourceStop(source);
