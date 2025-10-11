@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.core.manager;
 
 import com.blezzdev.vjade.objects.collision.Collider;
-import com.blezzdev.vjade.objects.collision.RectangleCollider2D;
+import com.blezzdev.vjade.objects.collision.RectangleCollider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class CollisionManager implements ColliderAlgorithms {
     // Algorithms.
 
     @Override
-    public boolean rectangleRectangle2D(RectangleCollider2D selfCollider, RectangleCollider2D collider) {
+    public boolean rectangleRectangle2D(RectangleCollider selfCollider, RectangleCollider collider) {
         float selfMinX = selfCollider.getPosition().x - selfCollider.getSize().x / 2f;
         float selfMaxX = selfCollider.getPosition().x + selfCollider.getSize().x / 2f;
         float selfMinY = selfCollider.getPosition().y - selfCollider.getSize().y / 2f;

@@ -31,7 +31,7 @@ public class Collider extends VJObject {
         for (Collider collider : collisionManager.getColliderList()) {
             if (collider != this) {
                 if (compare(collider, Shapes.RECTANGLE)) {
-                    colliding = collisionManager.rectangleRectangle2D((RectangleCollider2D) this, (RectangleCollider2D) collider);
+                    colliding = collisionManager.rectangleRectangle2D((RectangleCollider) this, (RectangleCollider) collider);
                 }
             }
         }
