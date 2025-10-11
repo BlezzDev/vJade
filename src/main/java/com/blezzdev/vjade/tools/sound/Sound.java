@@ -10,9 +10,7 @@ public class Sound extends SoundBuilder {
 
     public Sound setResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
-
         loadSound(resourcePath);
-
         return this;
     }
 
