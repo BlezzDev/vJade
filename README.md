@@ -13,7 +13,7 @@ vJade is an open-source framework for Java (and, consequently, Kotlin), focused 
 
 ## Libraries Used
 This project works thanks to many of the features provided by the following libraries:<br/>
-- **Lwjgl** (with OpenGL 3.3 control for PC).
+- **Lwjgl** (with OpenGL and OpenAL control for PC).
 - **Joml** (with the Shader calculations).<br/>
 
 ## Learning vJade
