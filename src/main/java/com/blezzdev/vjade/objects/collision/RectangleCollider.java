@@ -7,6 +7,7 @@ public class RectangleCollider extends Collider {
     private Vector2 position;
     private Vector2 size;
 
+    public RectangleCollider() { this(0, 0, 0, 0); }
     public RectangleCollider(float x, float y, float w, float h) {
         this(new Vector2(x, y), new Vector2(w, h));
     }
