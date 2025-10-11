@@ -5,18 +5,36 @@ import com.blezzdev.vjade.tools.texture.Texture;
 import com.blezzdev.vjade.tools.texture.TextureRenderer;
 import com.blezzdev.vjade.util.types.Filter;
 
-import static org.lwjgl.opengl.GL11C.GL_LINEAR;
-import static org.lwjgl.opengl.GL11C.GL_NEAREST;
+import java.util.Objects;
 
 public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties<Texture2D> {
     private TextureRenderer textureRenderer;
 
+    private String lastPath;
     private Texture texture;
     private Filter filter = Filter.LINEAR;
 
     @Override
+    public void start() {
+        super.start();
+
+        if (textureRenderer == null) {
+            textureRenderer = new TextureRenderer(texture);
+        }
+    }
+
+    @Override
     public void update(double deltaTime) {
         super.update(deltaTime);
+
+        if (!Objects.equals(lastPath, texture.getResourcePath())) {
+            textureRenderer.cleanup();
+
+            textureRenderer.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
+            textureRenderer.loadTexture(filter, isVerticalFlip());
+
+            lastPath = texture.getResourcePath();
+        }
 
         if (VJade.existContext()) {
             textureRenderer.draw(this);
@@ -32,15 +50,7 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
 
     public Texture2D setTexture(String path) { setTexture(new Texture(path)); return this; }
     public Texture2D setTexture(Texture texture) {
-        textureRenderer = new TextureRenderer(texture);
-
-        textureRenderer.cleanup();
-
         this.texture = texture;
-
-        textureRenderer.loadTexGeometry(getPivot().vanillaFormat(), isHorizontalFlip());
-        textureRenderer.loadTexture(filter, isVerticalFlip());
-
         return this;
     }
 
