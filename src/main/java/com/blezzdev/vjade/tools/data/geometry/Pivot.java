@@ -8,7 +8,7 @@ public class Pivot {
         setPivot(x, y);
     }
 
-    public Vector2 vanillaFormat() {
+    public Vector2 toVector2() {
         return new Vector2(x, y);
     }
 
