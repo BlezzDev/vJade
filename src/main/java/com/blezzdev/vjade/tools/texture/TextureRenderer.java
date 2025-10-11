@@ -50,22 +50,33 @@ public class TextureRenderer extends Renderer {
                 .scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
     }
 
-    public void loadTexGeometry(Vector2 pivot, boolean flip) {
+    public void loadTexGeometry(boolean flip, int frameIndex, int cols, int rows) {
         float[] vertices;
+
+        float frameWidth = 1f / (cols + 1);
+        float frameHeight = 1f / (rows + 1);
+
+        int frameX = frameIndex % (cols + 1);
+        int frameY = frameIndex / (cols + 1);
+
+        float u0 = frameX * frameWidth;
+        float v0 = frameY * frameHeight;
+        float u1 = u0 + frameWidth;
+        float v1 = v0 + frameHeight;
 
         if (flip) {
             vertices = new float[]{
-                    0, 1, 0,    1.0f, 1.0f,
-                    1, 1, 0,    0.0f, 1.0f,
-                    1, 0, 0,    0.0f, 0.0f,
-                    0, 0, 0,    1.0f, 0.0f
+                    0, 1, 0,    u1, v1,
+                    1, 1, 0,    u0, v1,
+                    1, 0, 0,    u0, v0,
+                    0, 0, 0,    u1, v0
             };
         } else {
             vertices = new float[]{
-                    1, 1, 0,    1.0f, 1.0f,
-                    0, 1, 0,    0.0f, 1.0f,
-                    0, 0, 0,    0.0f, 0.0f,
-                    1, 0, 0,    1.0f, 0.0f
+                    1, 1, 0,    u1, v1,
+                    0, 1, 0,    u0, v1,
+                    0, 0, 0,    u0, v0,
+                    1, 0, 0,    u1, v0
             };
         }
 
