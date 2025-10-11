@@ -1,5 +1,8 @@
 package com.blezzdev.vjade.util.types;
 
 public enum Shapes {
-    RECTANGLE
+    // 2D        // 3D
+
+    RECTANGLE,   CUBE,
+    CIRCLE,      SPHERE
 }
