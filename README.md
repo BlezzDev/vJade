@@ -14,7 +14,7 @@ vJade is an open-source framework for Java (and, consequently, Kotlin), focused 
 ## Libraries Used
 This project works thanks to many of the features provided by the following libraries:<br/>
 - **Lwjgl** (with OpenGL 3.3 control for PC).
-- **Jolm** (with the Shader calculations).<br/>
+- **Joml** (with the Shader calculations).<br/>
 
 ## Learning vJade
 vJade provides detailed documentation on what, how, and when to use the tools offered by this framework for whatever goal you are pursuing. Within the classes themselves, in IntelliJ IDEA Community Edition (or the paid version), you can hold down Control while hovering over a class to view its contents and consult the documentation integrated into the header.
