@@ -2,7 +2,7 @@ package com.blezzdev.vjade.objects.build.vjobj;
 
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
-import com.blezzdev.vjade.core.input.InputManager;
+import com.blezzdev.vjade.core.input.Input;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
 import com.blezzdev.vjade.tools.VJade;
@@ -49,7 +49,7 @@ public class VJObject implements LogicProcesses {
 
     public Engine getContext() { return VJade.getContext(); }
     public Logger getLogger() { return getContext().getLogger(); }
-    public InputManager getInput() { return getContext().getInput(); }
+    public Input getInput() { return getContext().getInput(); }
     public Monitor getMonitor() { return getContext().getMonitor(); }
 
     public TimerManager getTimer() { return getContext().getTimerManager(); }

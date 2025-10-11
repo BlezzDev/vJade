@@ -1,12 +1,20 @@
 package com.blezzdev.vjade.core.window;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALC10;
 import org.lwjgl.opengl.GL;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 class WindowBuilder {
+    private long device;
+    private long context;
     private String vertexShader;
     private String fragemtShader;
     protected long glWindow;
@@ -32,7 +40,19 @@ class WindowBuilder {
         glWindow = glfwCreateWindow(800, 600, "vJade window.", NULL, NULL);
         glfwSetWindowPos(glWindow, 0, 30);
 
-        glfwMakeContextCurrent(glWindow); // Make the OpenGL context current
+        glfwMakeContextCurrent(glWindow);
+        GL.createCapabilities();
+
+        device = ALC10.alcOpenDevice((ByteBuffer) null);
+        if (device == NULL) throw new IllegalStateException("Failed to open audio device.");
+
+        context = ALC10.alcCreateContext(device, (IntBuffer) null);
+        if (context == NULL) throw new IllegalStateException("Failed to create OpenAL context.");
+
+        ALC10.alcMakeContextCurrent(context);
+        AL.createCapabilities(ALC.createCapabilities(device));
+
+        glfwMakeContextCurrent(glWindow);
         GL.createCapabilities();
     }
 
@@ -50,5 +70,13 @@ class WindowBuilder {
 
     public String getFragemtShader() {
         return fragemtShader;
+    }
+
+    public long getSoundDevice() {
+        return device;
+    }
+
+    public long getSoundContext() {
+        return context;
     }
 }

@@ -3,6 +3,7 @@ package com.blezzdev.vjade.core.window;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.objects.build.Shader;
+import com.blezzdev.vjade.tools.VJade;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 
@@ -10,6 +11,8 @@ import java.nio.FloatBuffer;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.openal.ALC10.alcCloseDevice;
+import static org.lwjgl.openal.ALC10.alcDestroyContext;
 import static org.lwjgl.opengl.GL11.*;
 
 class WindowLogic {
@@ -109,6 +112,9 @@ class WindowLogic {
 
         window.getScreenManager().destroy();
         timerManager.clear();
+
+        alcDestroyContext(window.getSoundContext());
+        alcCloseDevice(window.getSoundDevice());
 
         glfwFreeCallbacks(window.glWindow);
         glfwDestroyWindow(window.glWindow);
