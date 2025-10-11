@@ -44,8 +44,8 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T setRotation(float rotation_degress) {
-        this.rotation = rotation_degress;
+    public T setRotation(float rotation_degrees) {
+        this.rotation = rotation_degrees;
         return (T) this;
     }
 
