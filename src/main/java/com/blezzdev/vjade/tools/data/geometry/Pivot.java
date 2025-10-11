@@ -14,12 +14,12 @@ public class Pivot {
 
     private float filterValue(float value) {
         if (value >= 0 && value <= 1) {
-            return (value - 1) * -1;
+            return value;
         } else {
             if (value < 0) {
-                return 1;
-            } else if (value > 1) {
                 return 0;
+            } else if (value > 1) {
+                return 1;
             }
         }
         return 0;
@@ -39,10 +39,10 @@ public class Pivot {
     }
 
     public float getX() {
-        return (x - 1) * -1;
+        return x;
     }
 
     public float getY() {
-        return (x - 1) * -1;
+        return y;
     }
 }
