@@ -31,22 +31,22 @@ public class TextureRenderer extends Renderer {
         this.texture = texture;
     }
 
-    public void loadTexGeometry(Vector2 pivot, boolean flip_h) {
+    public void loadTexGeometry(Vector2 pivot, boolean flip) {
         float[] vertices;
 
-        if (flip_h) {
+        if (flip) {
             vertices = new float[]{
-                    pivot.x + 1, pivot.y, 0.0f, 1.0f, 1.0f,
-                    pivot.x, pivot.y, 0.0f, 0.0f, 1.0f,
-                    pivot.x, pivot.y + 1, 0.0f, 0.0f, 0.0f,
-                    pivot.x + 1, pivot.y + 1, 0.0f, 1.0f, 0.0f
+                    pivot.x, pivot.y + 1, 0.0f, 1.0f, 1.0f,
+                    pivot.x + 1, pivot.y + 1, 0.0f, 0.0f, 1.0f,
+                    pivot.x + 1, pivot.y, 0.0f, 0.0f, 0.0f,
+                    pivot.x, pivot.y, 0.0f, 1.0f, 0.0f
             };
         } else {
             vertices = new float[]{
-                    pivot.x + 1, pivot.y, 0.0f, 0.0f, 1.0f,
-                    pivot.x, pivot.y, 0.0f, 1.0f, 1.0f,
-                    pivot.x, pivot.y + 1, 0.0f, 1.0f, 0.0f,
-                    pivot.x + 1, pivot.y + 1, 0.0f, 0.0f, 0.0f
+                    pivot.x + 1, pivot.y + 1, 0.0f, 1.0f, 1.0f,
+                    pivot.x, pivot.y + 1, 0.0f, 0.0f, 1.0f,
+                    pivot.x, pivot.y, 0.0f, 0.0f, 0.0f,
+                    pivot.x + 1, pivot.y, 0.0f, 1.0f, 0.0f
             };
         }
 
