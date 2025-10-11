@@ -26,7 +26,7 @@ class WindowBuilder {
             throw new IllegalStateException("Unable to initialize OpenGL.");
         }
 
-        // Configure our window.
+        // Configure the window.
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -53,7 +53,6 @@ class WindowBuilder {
         AL.createCapabilities(ALC.createCapabilities(device));
 
         glfwMakeContextCurrent(glWindow);
-        GL.createCapabilities();
     }
 
     public void setFragemtShader(String fragemtShader) {
