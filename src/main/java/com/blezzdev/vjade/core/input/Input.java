@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class InputManager {
+public class Input {
     private long window;
 
     private final Map<String, int[]> bindInputs = new HashMap<>();
