@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.manager;
+package com.blezzdev.vjade.core.manager.timer;
 
 class Timer {
     private final Runnable function;

@@ -47,7 +47,7 @@ public class TextureRenderer extends Renderer {
 
                 .translate(-pivotOffsetX, -pivotOffsetY, 0)
 
-                .scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
+                .scale(canvas.getSize().x, canvas.getSize().y, 1);
     }
 
     public void loadTexGeometry(boolean flip, int frameIndex, int cols, int rows) {
@@ -129,10 +129,6 @@ public class TextureRenderer extends Renderer {
                 .ortho(0, winSize.x, winSize.y, 0, -1, 1);
 
         Matrix4f model = loadGlobalSpaceData(canvas);
-
-        switch (canvas.getSizeBehavior()) {
-            case FIXED -> model.scale(canvas.getSize().x, canvas.getSize().y, 1);
-        }
 
         Color modulateColor = canvas.getModulate();
 

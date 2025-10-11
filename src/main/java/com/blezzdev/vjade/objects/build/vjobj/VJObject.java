@@ -3,7 +3,7 @@ package com.blezzdev.vjade.objects.build.vjobj;
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.input.InputManager;
-import com.blezzdev.vjade.core.manager.TimerManager;
+import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
 import com.blezzdev.vjade.tools.VJade;
 

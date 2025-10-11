@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.manager;
+package com.blezzdev.vjade.core.manager.timer;
 
 import java.util.ArrayList;
 import java.util.List;
