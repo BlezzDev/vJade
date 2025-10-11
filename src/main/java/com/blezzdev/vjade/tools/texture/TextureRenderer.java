@@ -2,7 +2,6 @@ package com.blezzdev.vjade.tools.texture;
 
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
-import com.blezzdev.vjade.objects.canvas.Texture2D;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
@@ -20,7 +19,6 @@ import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
-import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
@@ -38,9 +36,9 @@ public class TextureRenderer extends Renderer {
 
         if (!flip_h) {
             vertices = new float[]{
-                    pivot.x - 1, pivot.y, 0.0f, 0.0f, 1.0f,
-                    pivot.x, pivot.y, 0.0f, 1.0f, 1.0f,
-                    pivot.x, pivot.y - 1, 0.0f, 1.0f, 0.0f,
+                    pivot.x - 1, pivot.y, 0.0f,     0.0f, 1.0f,
+                    pivot.x, pivot.y, 0.0f,         1.0f, 1.0f,
+                    pivot.x, pivot.y - 1, 0.0f,     1.0f, 0.0f,
                     pivot.x - 1, pivot.y - 1, 0.0f, 0.0f, 0.0f
             };
         } else {

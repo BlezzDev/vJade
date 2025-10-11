@@ -3,6 +3,7 @@ package com.blezzdev.vjade.objects.canvas;
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
 import com.blezzdev.vjade.tools.data.color.Color;
+import com.blezzdev.vjade.tools.data.geometry.Pivot;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import com.blezzdev.vjade.util.types.Behavior;
 
@@ -10,7 +11,7 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     private Shader shader;
 
     private Color modulate = new Color(1, 1, 1, 1);
-    private Vector2 pivot = new Vector2(0.5f, 0.5f);
+    private Pivot pivot = new Pivot(0.5f, 0.5f);
     private float zIndex = 0;
 
     protected Behavior behavior = Behavior.RELATIVE;
@@ -34,9 +35,9 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public T setPivot(float x, float y) { setPivot(new Vector2(x, y)); return (T) this; }
+    public T setPivot(float x, float y) { setPivot(new Pivot(x, y)); return (T) this; }
     @SuppressWarnings("unchecked")
-    public T setPivot(Vector2 pivot) {
+    public T setPivot(Pivot pivot) {
         this.pivot = pivot;
         return (T) this;
     }
@@ -57,7 +58,7 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
 
     public float getzIndex() { return zIndex; }
 
-    public Vector2 getPivot() {
+    public Pivot getPivot() {
         return pivot;
     }
 
