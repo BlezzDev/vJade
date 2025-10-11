@@ -1,26 +1,26 @@
 package com.blezzdev.vjade.objects.collision;
 
 import com.blezzdev.vjade.core.manager.CollisionManager;
-import com.blezzdev.vjade.objects.build.vjobj.VJObject2D;
-import com.blezzdev.vjade.util.types.CollisionShape;
+import com.blezzdev.vjade.objects.build.vjobj.VJObject;
+import com.blezzdev.vjade.util.types.Shapes;
 
-public class Collider extends VJObject2D<Collider> {
-    private final CollisionManager collisionManager;
-
+public class Collider extends VJObject {
+    protected final CollisionManager collisionManager;
+    protected final Shapes shape;
     private final int id;
-    private CollisionShape shape;
 
     protected boolean colliding;
 
-    public Collider() {
+    public Collider(Shapes shape) {
+        this.shape = shape;
         this.collisionManager = getContext().getCollisionManager();
         id = collisionManager.link(this);
     }
 
-    private boolean compare(Collider collider, CollisionShape shape) {
+    private boolean compare(Collider collider, Shapes shape) {
         return compare(collider, shape, shape);
     }
-    private boolean compare(Collider collider, CollisionShape selfShape, CollisionShape shape) {
+    private boolean compare(Collider collider, Shapes selfShape, Shapes shape) {
         return getShape() == selfShape && collider.getShape() == shape;
     }
 
@@ -30,8 +30,8 @@ public class Collider extends VJObject2D<Collider> {
 
         for (Collider collider : collisionManager.getColliderList()) {
             if (collider != this) {
-                if (compare(collider, CollisionShape.RECTANGLE)) {
-                    colliding = collisionManager.rectangleRectangle(this, collider);
+                if (compare(collider, Shapes.RECTANGLE)) {
+                    colliding = collisionManager.rectangleRectangle2D((RectangleCollider2D) this, (RectangleCollider2D) collider);
                 }
             }
         }
@@ -44,11 +44,6 @@ public class Collider extends VJObject2D<Collider> {
         collisionManager.unlink(id);
     }
 
-    public Collider setShape(CollisionShape shape) {
-        this.shape = shape;
-        return this;
-    }
-
     public boolean isColliding() {
         return colliding;
     }
@@ -56,5 +51,5 @@ public class Collider extends VJObject2D<Collider> {
     public int getId() {
         return id;
     }
-    public CollisionShape getShape() { return shape; }
+    public Shapes getShape() { return shape; }
 }
