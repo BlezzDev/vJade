@@ -25,6 +25,16 @@ interface SpriteProperties<T> {
             this.verticalFlip = verticalFlip;
         }
 
+        public void setFlips(boolean vertical, boolean horizontal) {
+            setVerticalFlip(vertical);
+            setHorizontalFlip(horizontal);
+        }
+
+        public void setDivisions(int vertical, int horizontal) {
+            setVerticalDivisions(vertical);
+            setHorizontalDivisions(horizontal);
+        }
+
         public int getFrame() {
             return frame;
         }
@@ -73,6 +83,18 @@ interface SpriteProperties<T> {
     default T setHorizontalDivisions(int divs) {
         properties.setHorizontalDivisions(divs);
 
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    default T setDivisions(int div_v, int div_h) {
+        properties.setDivisions(div_v, div_h);
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    default T setFlips(int flip_v, int flip_h) {
+        properties.setDivisions(flip_v, flip_h);
         return (T) this;
     }
 
