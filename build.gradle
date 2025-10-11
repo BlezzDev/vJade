@@ -22,10 +22,8 @@ ext {
 dependencies {
     implementation 'org.joml:joml:1.10.5'
 
-    implementation 'org.lwjgl:lwjgl-openal:3.3.3'
-    implementation 'org.lwjgl:lwjgl-openal:3.3.3:natives-windows'
-    implementation 'org.lwjgl:lwjgl-openal:3.3.3:natives-linux'
-    implementation 'org.lwjgl:lwjgl-openal:3.3.3:natives-macos'
+    implementation "org.lwjgl:lwjgl-openal:${lwjglVersion}"
+    implementation "org.lwjgl:lwjgl-openal:${lwjglVersion}:${lwjglNatives}"
 
     implementation "org.lwjgl:lwjgl:${lwjglVersion}"
     implementation "org.lwjgl:lwjgl-glfw:${lwjglVersion}"
