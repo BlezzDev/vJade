@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.input.InputManager;
+import com.blezzdev.vjade.core.input.Input;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.VJade;
@@ -18,7 +18,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
     protected final WindowLogic windowLogic = new WindowLogic(this);
 
     private final Monitor monitor = new Monitor();
-    private final InputManager inputManager = new InputManager();
+    private final Input input = new Input();
     private final ScreenManager screenManager = new ScreenManager();
 
     private final int[] width = new int[]{800};
@@ -40,7 +40,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
         setVertexShader(VJade.DEFAULT_VERTEX_SHADER);
         setFragemtShader(VJade.DEFAULT_FRAGMENT_SHADER);
 
-        inputManager.init(glWindow);
+        input.init(glWindow);
     }
 
     private void configureDetails() {
@@ -190,7 +190,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     public Color getBackgroundColor() { return backgroundColor; }
 
-    public InputManager getInput() { return inputManager; }
+    public Input getInput() { return input; }
 
     public ScreenManager getScreenManager() { return screenManager; }
 
