@@ -31,22 +31,41 @@ public class TextureRenderer extends Renderer {
         this.texture = texture;
     }
 
+    private Matrix4f loadGlobalSpaceData(CanvasItem<?> canvas) {
+        float width  = texture.getWidth() * canvas.getSize().x;
+        float height = texture.getHeight() * canvas.getSize().y;
+
+        float pivotOffsetX = width * canvas.getPivot().getX();
+        float pivotOffsetY = height * canvas.getPivot().getY();
+
+        return new Matrix4f()
+                .translate(canvas.getPosition().x, canvas.getPosition().y, canvas.getzIndex())
+
+                .translate(pivotOffsetX, pivotOffsetY, 0)
+
+                .rotateZ((float) Math.toRadians(canvas.getRotation()))
+
+                .translate(-pivotOffsetX, -pivotOffsetY, 0)
+
+                .scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
+    }
+
     public void loadTexGeometry(Vector2 pivot, boolean flip) {
         float[] vertices;
 
         if (flip) {
             vertices = new float[]{
-                    pivot.x, pivot.y + 1, 0.0f, 1.0f, 1.0f,
-                    pivot.x + 1, pivot.y + 1, 0.0f, 0.0f, 1.0f,
-                    pivot.x + 1, pivot.y, 0.0f, 0.0f, 0.0f,
-                    pivot.x, pivot.y, 0.0f, 1.0f, 0.0f
+                    0, 1, 0,    1.0f, 1.0f,
+                    1, 1, 0,    0.0f, 1.0f,
+                    1, 0, 0,    0.0f, 0.0f,
+                    0, 0, 0,    1.0f, 0.0f
             };
         } else {
             vertices = new float[]{
-                    pivot.x + 1, pivot.y + 1, 0.0f, 1.0f, 1.0f,
-                    pivot.x, pivot.y + 1, 0.0f, 0.0f, 1.0f,
-                    pivot.x, pivot.y, 0.0f, 0.0f, 0.0f,
-                    pivot.x + 1, pivot.y, 0.0f, 1.0f, 0.0f
+                    1, 1, 0,    1.0f, 1.0f,
+                    0, 1, 0,    0.0f, 1.0f,
+                    0, 0, 0,    0.0f, 0.0f,
+                    1, 0, 0,    1.0f, 0.0f
             };
         }
 
@@ -98,9 +117,7 @@ public class TextureRenderer extends Renderer {
         Matrix4f projection = new Matrix4f()
                 .ortho(0, winSize.x, winSize.y, 0, -1, 1);
 
-        Matrix4f model = new Matrix4f()
-                .translate(canvas.getPosition().x, canvas.getPosition().y, canvas.getzIndex())
-                .scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
+        Matrix4f model = loadGlobalSpaceData(canvas);
 
         switch (canvas.getSizeBehavior()) {
             case FIXED -> model.scale(canvas.getSize().x, canvas.getSize().y, 1);

@@ -12,6 +12,7 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
 
     private Color modulate = new Color(1, 1, 1, 1);
     private Pivot pivot = new Pivot(0.5f, 0.5f);
+    private float rotation = 0;
     private float zIndex = 0;
 
     protected Behavior behavior = Behavior.RELATIVE;
@@ -43,6 +44,12 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
     }
 
     @SuppressWarnings("unchecked")
+    public T setRotation(float rotation_degress) {
+        this.rotation = rotation_degress;
+        return (T) this;
+    }
+
+    @SuppressWarnings("unchecked")
     public T setzIndex(float zIndex) {
         this.zIndex = zIndex;
         return (T) this;
@@ -58,9 +65,9 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJObject2D<T> {
 
     public float getzIndex() { return zIndex; }
 
-    public Pivot getPivot() {
-        return pivot;
-    }
+    public Pivot getPivot() { return pivot; }
+
+    public float getRotation() { return rotation; }
 
     public Behavior getSizeBehavior() { return behavior; }
 }
