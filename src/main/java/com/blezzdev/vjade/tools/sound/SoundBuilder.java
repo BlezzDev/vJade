@@ -1,6 +1,5 @@
 package com.blezzdev.vjade.tools.sound;
 
-import com.blezzdev.vjade.tools.VJade;
 import org.lwjgl.openal.AL10;
 
 import static org.lwjgl.openal.AL10.*;
