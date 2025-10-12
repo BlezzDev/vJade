@@ -5,22 +5,16 @@ import com.blezzdev.vjade.tools.sound.Sound;
 
 public class AudioPlayer extends VJObject {
     private final Sound sound = new Sound();
-    private String lastPath = "";
 
+    private String resourcePath;
     private float volume = 1;
     private float pitch = 1;
 
-    @Override
-    public void update(double deltaTime) {
-        super.update(deltaTime);
+    private void updateProperties() {
+        sound.load(resourcePath);
 
-        if (!lastPath.equals(sound.getResourcePath())) {
-            sound.load();
-            sound.setVolume(volume);
-            sound.setPitch(pitch);
-
-            lastPath = sound.getResourcePath();
-        }
+        sound.setVolume(volume);
+        sound.setPitch(pitch);
     }
 
     @Override
@@ -40,21 +34,24 @@ public class AudioPlayer extends VJObject {
 
     public AudioPlayer setVolume(int volume) {
         this.volume = volume;
+        updateProperties();
         return this;
     }
 
     public AudioPlayer setPitch(float pitch) {
         this.pitch = pitch;
+        updateProperties();
         return this;
     }
 
     public AudioPlayer setAudio(String path) {
-        sound.setResourcePath(path);
+        this.resourcePath = path;
+        updateProperties();
         return this;
     }
 
     public String getAudio() {
-        return sound.getResourcePath();
+        return resourcePath;
     }
 
     public float getAudioDuration() {

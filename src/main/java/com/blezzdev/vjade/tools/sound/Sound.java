@@ -1,11 +1,9 @@
 package com.blezzdev.vjade.tools.sound;
 
 public class Sound extends SoundBuilder {
-    private String resourcePath;
-
-    public void load() {
+    public void load(String resourcePath) {
         genSoundData();
-        setResourcePath(resourcePath);
+        loadSound(resourcePath);
     }
 
     public void setVolume(float volume) {
@@ -14,14 +12,5 @@ public class Sound extends SoundBuilder {
 
     public void setPitch(float pitch) {
         changePitch(pitch);
-    }
-
-    public void setResourcePath(String resourcePath) {
-        this.resourcePath = resourcePath;
-        loadSound(resourcePath);
-    }
-
-    public String getResourcePath() {
-        return resourcePath;
     }
 }
