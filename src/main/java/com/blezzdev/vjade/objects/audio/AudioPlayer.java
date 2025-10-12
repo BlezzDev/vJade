@@ -7,7 +7,8 @@ public class AudioPlayer extends VJObject {
     private final Sound sound = new Sound();
     private String lastPath = "";
 
-    private float volume;
+    private float volume = 1;
+    private float pitch = 1;
 
     @Override
     public void update(double deltaTime) {
@@ -16,6 +17,7 @@ public class AudioPlayer extends VJObject {
         if (!lastPath.equals(sound.getResourcePath())) {
             sound.load();
             sound.setVolume(volume);
+            sound.setPitch(pitch);
 
             lastPath = sound.getResourcePath();
         }
@@ -36,8 +38,13 @@ public class AudioPlayer extends VJObject {
         sound.stop();
     }
 
-    public AudioPlayer setVolume(float volume) {
+    public AudioPlayer setVolume(int volume) {
         this.volume = volume;
+        return this;
+    }
+
+    public AudioPlayer setPitch(float pitch) {
+        this.pitch = pitch;
         return this;
     }
 
@@ -56,5 +63,9 @@ public class AudioPlayer extends VJObject {
 
     public float getVolume() {
         return volume;
+    }
+
+    public float getPitch() {
+        return pitch;
     }
 }

@@ -32,6 +32,10 @@ class SoundBuilder {
         alSourcef(source, AL_GAIN, volume);
     }
 
+    protected void changePitch(float pitch) {
+        alSourcef(source, AL_PITCH, pitch);
+    }
+
     public void stop() {
         alSourceStop(source);
     }

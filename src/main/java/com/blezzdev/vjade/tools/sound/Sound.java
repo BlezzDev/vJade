@@ -12,6 +12,10 @@ public class Sound extends SoundBuilder {
         changeVolume(volume);
     }
 
+    public void setPitch(float pitch) {
+        changePitch(pitch);
+    }
+
     public void setResourcePath(String resourcePath) {
         this.resourcePath = resourcePath;
         loadSound(resourcePath);
