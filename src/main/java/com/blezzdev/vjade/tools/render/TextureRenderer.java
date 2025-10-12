@@ -64,17 +64,17 @@ public class TextureRenderer extends Renderer {
 
         if (flip) {
             vertices = new float[]{
-                    0, 1, 0,    u1, v1,
-                    1, 1, 0,    u0, v1,
-                    1, 0, 0,    u0, v0,
-                    0, 0, 0,    u1, v0
+                    -0.5f, 0.5f, 0,    u1, v1,
+                    0.5f, 0.5f, 0,    u0, v1,
+                    0.5f, -0.5f, 0,    u0, v0,
+                    -0.5f, -0.5f, 0,    u1, v0
             };
         } else {
             vertices = new float[]{
-                    1, 1, 0,    u1, v1,
-                    0, 1, 0,    u0, v1,
-                    0, 0, 0,    u0, v0,
-                    1, 0, 0,    u1, v0
+                    0.5f, 0.5f, 0,    u1, v1,
+                    -0.5f, 0.5f, 0,    u0, v1,
+                    -0.5f, -0.5f, 0,    u0, v0,
+                    0.5f, -0.5f, 0,    u1, v0
             };
         }
 
