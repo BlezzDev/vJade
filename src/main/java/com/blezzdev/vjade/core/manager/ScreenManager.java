@@ -82,4 +82,6 @@ public class ScreenManager {
     public void setCurrentScreen(String currentScreen) {
         this.currentScreen = currentScreen;
     }
+
+    public Screen getCurrentScreen() { return activeScreen; }
 }

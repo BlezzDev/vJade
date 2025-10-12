@@ -19,6 +19,15 @@ public class VJObject implements LogicProcesses {
     }
 
     @Override
+    public void init() {
+        LogicProcesses.super.init();
+
+        for (VJObject object : objectList) {
+            object.init();
+        }
+    }
+
+    @Override
     public void start() {
         LogicProcesses.super.start();
 
@@ -37,11 +46,29 @@ public class VJObject implements LogicProcesses {
     }
 
     @Override
+    public void end_scene() {
+        LogicProcesses.super.end_scene();
+
+        for (VJObject object : objectList) {
+            object.end_scene();
+        }
+    }
+
+    @Override
     public void finish() {
         LogicProcesses.super.finish();
 
         for (VJObject object : objectList) {
             object.finish();
+        }
+    }
+
+    @Override
+    public void end_program() {
+        LogicProcesses.super.end_program();
+
+        for (VJObject object : objectList) {
+            object.end_program();
         }
     }
 
