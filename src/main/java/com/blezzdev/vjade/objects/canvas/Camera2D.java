@@ -1,13 +1,12 @@
 package com.blezzdev.vjade.objects.canvas;
 
-import com.blezzdev.vjade.objects.build.item.PointItem;
-import com.blezzdev.vjade.objects.build.item.VJObject;
+import com.blezzdev.vjade.objects.build.item.VJPoint;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Rect2;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.render.View;
 
-public class Camera2D extends VJObject implements PointItem<Camera2D> {
+public class Camera2D extends VJPoint<Camera2D> {
     private float rotation = 0f;
     private float zoom = 1f;
     private Rect2 worldBounds = new Rect2(
@@ -28,7 +27,7 @@ public class Camera2D extends VJObject implements PointItem<Camera2D> {
                 .setWorldBounds(worldBounds.x, worldBounds.y, worldBounds.width, worldBounds.height)
                 .setZoom(1)
                 .setRotation(0)
-                .setPosition(0, 0);
+                .setPosition(new Vec2(0, 0));
 
         VJade.setView(view);
     }
@@ -64,13 +63,6 @@ public class Camera2D extends VJObject implements PointItem<Camera2D> {
         this.target = target;
         this.followSmoothness = smoothness;
         this.following = true;
-        return this;
-    }
-
-    @Override
-    public Camera2D setPosition(float x, float y) {
-        PointItem.super.setPosition(x, y);
-        view.setPosition(getPosition());
         return this;
     }
 

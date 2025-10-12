@@ -1,18 +1,35 @@
 package com.blezzdev.vjade.objects.collision;
 
-import com.blezzdev.vjade.objects.build.item.RectItem;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.util.types.Shapes;
 
-public class RectangleCollider extends Collider implements RectItem<RectangleCollider> {
+public class RectangleCollider extends Collider {
+    private Vec2 position;
+    private Vec2 size;
+
     public RectangleCollider() { this(0, 0, 0, 0); }
     public RectangleCollider(float x, float y, float w, float h) {
         this(new Vec2(x, y), new Vec2(w, h));
     }
     public RectangleCollider(Vec2 position, Vec2 size) {
         super(Shapes.RECTANGLE);
+    }
 
-        setPosition(position);
-        setSize(size);
+    public RectangleCollider setPosition(Vec2 position) {
+        this.position = position;
+        return this;
+    }
+
+    public RectangleCollider setSize(Vec2 size) {
+        this.size = size;
+        return this;
+    }
+
+    public Vec2 getPosition() {
+        return position;
+    }
+
+    public Vec2 getSize() {
+        return size;
     }
 }

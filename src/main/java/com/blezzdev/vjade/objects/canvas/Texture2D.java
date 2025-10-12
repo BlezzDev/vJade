@@ -7,9 +7,15 @@ import com.blezzdev.vjade.util.types.Filter;
 
 import java.util.Objects;
 
-public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties<Texture2D> {
+public class Texture2D extends CanvasItem<Texture2D> {
     private TextureRenderer textureRenderer;
 
+    boolean horizontalFlip = false, verticalFlip = false;
+    int frame = 0, horizontalDivisions = 0, verticalDivisions = 0;
+
+    public boolean isVerticalFlip() {
+        return verticalFlip;
+    }
     private String lastPath;
     private Texture texture;
     private Filter filter = Filter.LINEAR;
@@ -56,6 +62,36 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
         return this;
     }
 
+    public Texture2D setFrame(int frame) {
+        this.frame = frame; return this;
+    }
+
+    public Texture2D setHorizontalDivisions(int horizontalDivisions) {
+        this.horizontalDivisions = horizontalDivisions; return this;
+    }
+
+    public Texture2D setHorizontalFlip(boolean horizontalFlip) {
+        this.horizontalFlip = horizontalFlip; return this;
+    }
+
+    public Texture2D setVerticalDivisions(int verticalDivisions) {
+        this.verticalDivisions = verticalDivisions; return this;
+    }
+
+    public Texture2D setVerticalFlip(boolean verticalFlip) {
+        this.verticalFlip = verticalFlip; return this;
+    }
+
+    public Texture2D setFlips(boolean vertical, boolean horizontal) {
+        setVerticalFlip(vertical);
+        setHorizontalFlip(horizontal); return this;
+    }
+
+    public Texture2D setDivisions(int vertical, int horizontal) {
+        setVerticalDivisions(vertical);
+        setHorizontalDivisions(horizontal); return this;
+    }
+
     public void setFilter(Filter filter) {
         this.filter = filter;
     }
@@ -67,4 +103,21 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
     public Filter getFilter() {
         return filter;
     }
+
+    public int getFrame() {
+        return frame;
+    }
+
+    public int getHorizontalDivisions() {
+        return horizontalDivisions;
+    }
+
+    public int getVerticalDivisions() {
+        return verticalDivisions;
+    }
+
+    public boolean isHorizontalFlip() {
+        return horizontalFlip;
+    }
+
 }

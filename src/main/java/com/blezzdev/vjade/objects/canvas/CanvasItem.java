@@ -1,15 +1,14 @@
 package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.objects.build.Shader;
-import com.blezzdev.vjade.objects.build.item.RectItem;
 import com.blezzdev.vjade.objects.build.item.VJObject;
+import com.blezzdev.vjade.objects.build.item.VJRect;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Pivot;
 import com.blezzdev.vjade.util.types.Behavior;
 
-public class CanvasItem<T extends CanvasItem<T>> extends VJObject implements RectItem<T> {
+public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
     private Shader shader;
-
     private Color modulate = new Color(1, 1, 1, 1);
     private Pivot pivot = new Pivot(0.5f, 0.5f);
     private float rotation = 0;
