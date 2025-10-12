@@ -39,10 +39,10 @@ public class Camera2D extends VJPoint<Camera2D> {
         if (following && target != null) {
             Vec2 currentPos = getPosition();
 
-            float factor = 1f - (float)Math.pow(1f - followSmoothness, deltaTime * 60f);
+            float factor = 1f - (float)Math.pow(1f - followSmoothness, (deltaTime * 60f));
 
-            float newX = (currentPos.x + (-(target.x - (VJade.getContext().getSize().x / 2)) - currentPos.x) * factor);
-            float newY = (currentPos.y + (-(target.y - (VJade.getContext().getSize().y / 2)) - currentPos.y) * factor);
+            float newX = (currentPos.x + (-(target.x - (VJade.getContext().getSize().x / (2 / zoom))) - currentPos.x / (1 / zoom)) * factor);
+            float newY = (currentPos.y + (-(target.y - (VJade.getContext().getSize().y / (2 / zoom))) - currentPos.y / (1 / zoom)) * factor);
 
             setPosition(newX , newY);
             view.setPosition(getPosition());
