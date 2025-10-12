@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.tools.sound;
 
-public class Sound extends SoundBuilder {
+public class Sound extends RawSoundBuilder {
     public void load(String resourcePath) {
         genSoundData();
         loadSound(resourcePath);

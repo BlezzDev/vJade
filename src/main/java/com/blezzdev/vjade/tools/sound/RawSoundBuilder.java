@@ -4,7 +4,7 @@ import org.lwjgl.openal.AL10;
 
 import static org.lwjgl.openal.AL10.*;
 
-class SoundBuilder {
+class RawSoundBuilder {
     private int buffer, source;
 
     protected void genSoundData() {
