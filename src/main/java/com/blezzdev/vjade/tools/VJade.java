@@ -1,6 +1,7 @@
 package com.blezzdev.vjade.tools;
 
 import com.blezzdev.vjade.core.window.Engine;
+import com.blezzdev.vjade.tools.render.View;
 
 /// The VJade class manages the static values of a program.
 ///
@@ -8,9 +9,14 @@ import com.blezzdev.vjade.core.window.Engine;
 
 public class VJade {
     private static Engine context;
+    private static View view;
 
     public static void setContext(Engine context) {
         VJade.context = context;
+    }
+
+    public static void setView(View view) {
+        VJade.view = view;
     }
 
     public static Engine getContext() {
@@ -18,6 +24,10 @@ public class VJade {
             throw new RuntimeException("The context has not yet been defined.");
         }
         return VJade.context;
+    }
+
+    public static View getView() {
+        return view;
     }
 
     public static boolean existContext() {
@@ -29,14 +39,13 @@ public class VJade {
                 layout (location = 0) in vec3 vjPos;
                 layout (location = 1) in vec2 vjTexCoord;
                 
-                uniform mat4 vjProjection;
-                uniform mat4 vjModel;
+                uniform mat4 vjTransform;
                 
                 out vec2 TexCoord;
                 
                 void main()
                 {
-                    gl_Position = vjProjection * vjModel * vec4(vjPos, 1.0);
+                    gl_Position = vjTransform * vec4(vjPos, 1.0);
                     TexCoord = vjTexCoord;
                 }
                 """;

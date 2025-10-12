@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.texture;
+package com.blezzdev.vjade.tools.render;
 
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
 import static org.lwjgl.opengl.GL20.*;

@@ -15,10 +15,10 @@ package com.blezzdev.vjade.tools.data.geometry;
 /// more directly you can use the corresponding setters (setX() and setY()).
 
 public class Vec2 {
-    public float x;
-    public float y;
+    public float x, y;
 
-    public Vec2() { this(0, 0); }
+    public Vec2() { this(0); }
+    public Vec2(float i) { this(i, i); }
     public Vec2(float x, float y) {
         this.x = x;
         this.y = y;

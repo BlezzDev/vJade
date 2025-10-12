@@ -1,8 +1,8 @@
 package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
-import com.blezzdev.vjade.tools.texture.Texture;
-import com.blezzdev.vjade.tools.texture.TextureRenderer;
+import com.blezzdev.vjade.tools.render.Texture;
+import com.blezzdev.vjade.tools.render.TextureRenderer;
 import com.blezzdev.vjade.util.types.Filter;
 
 import java.util.Objects;
@@ -27,17 +27,19 @@ public class Texture2D extends CanvasItem<Texture2D> implements SpriteProperties
     public void update(double deltaTime) {
         super.update(deltaTime);
 
-        if (!Objects.equals(lastPath, texture.getResourcePath())) {
-            textureRenderer.cleanup();
+        if (textureRenderer != null) {
+            if (!Objects.equals(lastPath, texture.getResourcePath())) {
+                textureRenderer.cleanup();
 
-            textureRenderer.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
-            textureRenderer.loadTexture(filter, isVerticalFlip());
+                textureRenderer.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
+                textureRenderer.loadTexture(filter, isVerticalFlip());
 
-            lastPath = texture.getResourcePath();
-        }
+                lastPath = texture.getResourcePath();
+            }
 
-        if (VJade.existContext()) {
-            textureRenderer.draw(this);
+            if (VJade.existContext()) {
+                textureRenderer.draw(this);
+            }
         }
     }
 

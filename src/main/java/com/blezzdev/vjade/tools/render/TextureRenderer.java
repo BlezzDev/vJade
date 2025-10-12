@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.texture;
+package com.blezzdev.vjade.tools.render;
 
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
@@ -114,17 +114,18 @@ public class TextureRenderer extends Renderer {
 
     public void draw(CanvasItem<?> canvas) {
         Shader shader = canvas.getShader();
-
         if (shader == null) {
             shader = VJade.getContext().getShader();
         }
 
         shader.bind();
-
         Vec2 winSize = VJade.getContext().getSize();
 
-        Matrix4f projection = new Matrix4f()
-                .ortho(0, winSize.x, winSize.y, 0, -1, 1);
+        Matrix4f projection = new Matrix4f().ortho(0, winSize.x, winSize.y, 0, -1, 1);
+        Matrix4f view = (VJade.getView() != null) ? VJade.getView().getViewMatrix() : new Matrix4f().identity();
+
+        Matrix4f pv = new Matrix4f();
+        projection.mul(view, pv);
 
         Matrix4f model = loadGlobalSpaceData(canvas);
 
@@ -133,17 +134,20 @@ public class TextureRenderer extends Renderer {
             case FIXED -> model.scale(canvas.getSize().x, canvas.getSize().y, 1);
         }
 
+        Matrix4f transform = new Matrix4f();
+        pv.mul(model, transform);
+
         Color modulateColor = canvas.getModulate();
+        FloatBuffer transformBuffer = BufferUtils.createFloatBuffer(16);
+        transform.get(transformBuffer);
 
-        FloatBuffer projectionBuffer = BufferUtils.createFloatBuffer(16);
-        FloatBuffer modelBuffer = BufferUtils.createFloatBuffer(16);
-
-        projection.get(projectionBuffer);
-        model.get(modelBuffer);
-
-        shader.setUniformMatrix4fv("vjProjection", projectionBuffer);
-        shader.setUniformMatrix4fv("vjModel", modelBuffer);
-        shader.setUniformFloat("vjModulate", modulateColor.getRed(), modulateColor.getGreen(), modulateColor.getBlue(), modulateColor.getAlpha());
+        shader.setUniformMatrix4fv("vjTransform", transformBuffer);
+        shader.setUniformFloat("vjModulate",
+                modulateColor.getRed(),
+                modulateColor.getGreen(),
+                modulateColor.getBlue(),
+                modulateColor.getAlpha()
+        );
         shader.setUniformBool("vjUseTexture", true);
         shader.setUniformInteger("vjDiffuseTex", 0);
 
