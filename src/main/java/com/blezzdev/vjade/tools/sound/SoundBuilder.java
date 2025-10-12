@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.tools.sound;
 
+import com.blezzdev.vjade.tools.VJade;
 import org.lwjgl.openal.AL10;
 
 import static org.lwjgl.openal.AL10.*;
@@ -18,6 +19,16 @@ class SoundBuilder {
         }
     }
 
+    public float getDuration() {
+        int size = alGetBufferi(buffer, AL_SIZE);
+        int channels = alGetBufferi(buffer, AL_CHANNELS);
+        int bits = alGetBufferi(buffer, AL_BITS);
+        int freq = alGetBufferi(buffer, AL_FREQUENCY);
+
+        int bytesPerSample = (bits / 8) * channels;
+        return (float) size / (freq * bytesPerSample);
+    }
+
     protected void changeVolume(float volume) {
         alSourcef(source, AL_GAIN, volume);
     }
@@ -28,10 +39,6 @@ class SoundBuilder {
 
     public void play() {
         alSourcePlay(source);
-
-        while (alGetSourcei(source, AL_SOURCE_STATE) == AL_PLAYING) {
-            try { Thread.sleep(100); } catch (InterruptedException ignored) {}
-        }
     }
 
     public void cleanup() {
