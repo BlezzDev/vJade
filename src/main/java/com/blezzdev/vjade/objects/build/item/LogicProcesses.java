@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.objects.build.vjobj;
+package com.blezzdev.vjade.objects.build.item;
 
 interface LogicProcesses {
     default void init() {}

@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.objects.collision;
 
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
-import com.blezzdev.vjade.objects.build.vjobj.VJObject;
+import com.blezzdev.vjade.objects.build.item.VJObject;
 import com.blezzdev.vjade.util.types.Shapes;
 
 public class Collider extends VJObject {

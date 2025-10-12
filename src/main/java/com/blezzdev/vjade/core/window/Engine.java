@@ -37,5 +37,5 @@ public class Engine extends Window<Engine> {
     public CollisionManager getCollisionManager() { return windowLogic.getCollisionManager(); }
     public Shader getShader() { return windowLogic.getShader(); }
 
-    public void launch() { VJade.setContext(this); run(); }
+    public Engine launch() { VJade.setContext(this); run(); return this; }
 }

@@ -1,10 +1,10 @@
 package com.blezzdev.vjade.objects.collision;
 
+import com.blezzdev.vjade.objects.build.item.PointItem;
 import com.blezzdev.vjade.tools.data.geometry.Vector2;
 import com.blezzdev.vjade.util.types.Shapes;
 
-public class CircleCollider extends Collider {
-    public Vector2 position;
+public class CircleCollider extends Collider implements PointItem<CircleCollider> {
     public float radius;
 
     public CircleCollider() { this(0, 0, 0); }
@@ -12,22 +12,13 @@ public class CircleCollider extends Collider {
     public CircleCollider(Vector2 position, float radius) {
         super(Shapes.CIRCLE);
 
-        this.position = position;
+        setPosition(position);
         this.radius = radius;
-    }
-
-    public CircleCollider setPosition(Vector2 position) {
-        this.position = position;
-        return this;
     }
 
     public CircleCollider setRadius(float radius) {
         this.radius = radius;
         return this;
-    }
-
-    public Vector2 getPosition() {
-        return position;
     }
 
     public float getRadius() {
