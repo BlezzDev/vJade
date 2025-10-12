@@ -11,7 +11,9 @@ public class AudioPlayer extends VJObject {
     private float pitch = 1;
 
     private void updateProperties() {
-        sound.load(resourcePath);
+        if (resourcePath != null && !sound.isLoaded()) {
+            sound.load(resourcePath);
+        }
 
         sound.setVolume(volume);
         sound.setPitch(pitch);
