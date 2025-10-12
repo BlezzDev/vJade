@@ -5,7 +5,7 @@ import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
-import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.texture.Texture;
 
 import java.util.function.Supplier;
@@ -111,7 +111,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T setSize(Vector2 size) { setSize((int) size.x, (int) size.y); return (T) this; }
+    public T setSize(Vec2 size) { setSize((int) size.x, (int) size.y); return (T) this; }
     @SuppressWarnings("unchecked")
     public T setSize(int width, int height) {
         glfwSetWindowSize(glWindow, width, height);
@@ -172,14 +172,14 @@ class Window<T extends Window<T>> extends WindowBuilder {
         return (T) this;
     }
 
-    public Vector2 getPosition() {
+    public Vec2 getPosition() {
         glfwGetWindowPos(glWindow, x, y);
-        return new Vector2(x[0], y[0]);
+        return new Vec2(x[0], y[0]);
     }
 
-    public Vector2 getSize() {
+    public Vec2 getSize() {
         glfwGetWindowSize(glWindow, width, height);
-        return new Vector2(width[0], height[0]);
+        return new Vec2(width[0], height[0]);
     }
 
     public String getTitle() {

@@ -3,7 +3,7 @@ package com.blezzdev.vjade.core.manager.collider;
 import com.blezzdev.vjade.objects.collision.CircleCollider;
 import com.blezzdev.vjade.objects.collision.Collider;
 import com.blezzdev.vjade.objects.collision.RectangleCollider;
-import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.tools.data.geometry.Vec2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +34,8 @@ public class CollisionManager implements ColliderAlgorithms {
 
     @Override
     public boolean circleCircle(CircleCollider self, CircleCollider other) {
-        Vector2 center1 = self.getPosition();
-        Vector2 center2 = other.getPosition();
+        Vec2 center1 = self.getPosition();
+        Vec2 center2 = other.getPosition();
 
         float dx = center1.x - center2.x;
         float dy = center1.y - center2.y;

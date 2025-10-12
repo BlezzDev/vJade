@@ -14,12 +14,12 @@ package com.blezzdev.vjade.tools.data.geometry;
 /// If you need to set values in the following way
 /// more directly you can use the corresponding setters (setX() and setY()).
 
-public class Vector2 {
+public class Vec2 {
     public float x;
     public float y;
 
-    public Vector2() { this(0, 0); }
-    public Vector2(float x, float y) {
+    public Vec2() { this(0, 0); }
+    public Vec2(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -29,37 +29,37 @@ public class Vector2 {
         return "(" + x + ", " + y + ")";
     }
 
-    public Vector2 add(float x, float y) {
+    public Vec2 add(float x, float y) {
         this.x += x; this.y += y;
         return this;
     }
 
-    public Vector2 subtract(float x, float y) {
+    public Vec2 subtract(float x, float y) {
         this.x -= x; this.y -= y;
         return this;
     }
 
-    public Vector2 multiply(float x, float y) {
+    public Vec2 multiply(float x, float y) {
         this.x *= x; this.y *= y;
         return this;
     }
 
-    public Vector2 divide(float x, float y) {
+    public Vec2 divide(float x, float y) {
         this.x /= x; this.y /= y;
         return this;
     }
 
-    public Vector2 modulate(float x, float y) {
+    public Vec2 modulate(float x, float y) {
         this.x %= x; this.y %= y;
         return this;
     }
 
-    public Vector2 setX(float x) {
+    public Vec2 setX(float x) {
         this.x = x;
         return this;
     }
 
-    public Vector2 setY(float y) {
+    public Vec2 setY(float y) {
         this.y = y;
         return this;
     }

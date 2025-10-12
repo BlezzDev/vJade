@@ -4,7 +4,7 @@ import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
-import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.util.types.Filter;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -121,7 +121,7 @@ public class TextureRenderer extends Renderer {
 
         shader.bind();
 
-        Vector2 winSize = VJade.getContext().getSize();
+        Vec2 winSize = VJade.getContext().getSize();
 
         Matrix4f projection = new Matrix4f()
                 .ortho(0, winSize.x, winSize.y, 0, -1, 1);

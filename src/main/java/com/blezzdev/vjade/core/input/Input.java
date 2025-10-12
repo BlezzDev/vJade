@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.input;
 
-import com.blezzdev.vjade.tools.data.geometry.Vector2;
+import com.blezzdev.vjade.tools.data.geometry.Vec2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,8 +130,8 @@ public class Input {
         return !mouseButtons[button];
     }
 
-    public Vector2 getMousePos() {
-        return new Vector2( (float) mouseX, (float) mouseY);
+    public Vec2 getMousePos() {
+        return new Vec2( (float) mouseX, (float) mouseY);
     }
 
     public double getScrollX() {

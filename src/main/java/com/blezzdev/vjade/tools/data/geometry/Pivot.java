@@ -8,8 +8,8 @@ public class Pivot {
         setPivot(x, y);
     }
 
-    public Vector2 toVector2() {
-        return new Vector2(x, y);
+    public Vec2 toVector2() {
+        return new Vec2(x, y);
     }
 
     private float filterValue(float value) {
