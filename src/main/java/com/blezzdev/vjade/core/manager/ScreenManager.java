@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.manager;
 
-import com.blezzdev.vjade.objects.build.Screen2D;
+import com.blezzdev.vjade.objects.build.Screen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,13 +8,13 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class ScreenManager {
-    private final Map<String, Supplier<Screen2D>> screenList = new HashMap<>();
+    private final Map<String, Supplier<Screen>> screenList = new HashMap<>();
 
     private boolean firstScreenFrame = true;
     private String lastScreen;
     private String currentScreen;
 
-    private Screen2D activeScreen;
+    private Screen activeScreen;
 
     private void startScreenLifeCycle() {
         if (firstScreenFrame) {
@@ -66,11 +66,11 @@ public class ScreenManager {
         }
     }
 
-    public void register(Supplier<Screen2D> screen, String identifier) {
+    public void register(Supplier<Screen> screen, String identifier) {
         screenList.put(identifier, screen);
     }
 
-    public Map<String, Supplier<Screen2D>> getList() {
+    public Map<String, Supplier<Screen>> getList() {
         return screenList;
     }
 
@@ -83,5 +83,5 @@ public class ScreenManager {
         this.currentScreen = currentScreen;
     }
 
-    public Screen2D getCurrentScreen() { return activeScreen; }
+    public Screen getCurrentScreen() { return activeScreen; }
 }
