@@ -17,6 +17,10 @@ public class Geometry {
         vertices.add(new Vertex().setPosition(x, y, z).setUV(u, v));
     }
 
+    public List<Vertex> getVertices() {
+        return vertices;
+    }
+
     public int[] getBufferedIndexes() {
         int[] indexBuffer = new int[indexes.size()];
         for (int i = 0; i < indexes.size(); i++) {
