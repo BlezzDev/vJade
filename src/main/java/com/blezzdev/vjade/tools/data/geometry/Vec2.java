@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.tools.data.geometry;
 
-/// Vector2 is a mathematical class designed to
+/// Vec2 is a mathematical class designed to
 /// manage coordinates in two-dimensional planes.
 ///
 /// has 5 methods to modify its values in a more comfortable way:
