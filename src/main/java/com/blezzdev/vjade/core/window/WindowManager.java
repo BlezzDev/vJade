@@ -1,0 +1,45 @@
+package com.blezzdev.vjade.core.window;
+
+import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.core.manager.UserInterfaceManager;
+import com.blezzdev.vjade.core.manager.collider.CollisionManager;
+import com.blezzdev.vjade.core.manager.input.InputManager;
+import com.blezzdev.vjade.core.manager.timer.TimerManager;
+
+public class WindowManager {
+    private final UserInterfaceManager userInterface = new UserInterfaceManager();
+    private final CollisionManager collision = new CollisionManager();
+    private final ScreenManager screen = new ScreenManager();
+    private final BatchManager batch = new BatchManager();
+    private final TimerManager timer = new TimerManager();
+    private final InputManager input = new InputManager();
+
+    public void update(double deltaTime) {
+        timer.update(deltaTime);
+    }
+
+    public InputManager getInput() {
+        return input;
+    }
+
+    public CollisionManager getCollision() {
+        return collision;
+    }
+
+    public UserInterfaceManager getUserInterface() {
+        return userInterface;
+    }
+
+    public BatchManager getBatch() {
+        return batch;
+    }
+
+    public ScreenManager getScreen() {
+        return screen;
+    }
+
+    public TimerManager getTimer() {
+        return timer;
+    }
+}

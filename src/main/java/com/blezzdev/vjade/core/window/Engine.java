@@ -1,7 +1,11 @@
 package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.debug.Logger;
+import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
+import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.tools.VJade;
@@ -33,9 +37,14 @@ public class Engine extends Window<Engine> {
         return logger;
     }
 
-    public TimerManager getTimerManager() { return windowLogic.getTimerManager(); }
-    public CollisionManager getCollisionManager() { return windowLogic.getCollisionManager(); }
     public Shader getShader() { return windowLogic.getShader(); }
+
+    public UserInterfaceManager getUserInterface() { return getManagers().getUserInterface(); }
+    public CollisionManager getCollision() { return getManagers().getCollision(); }
+    public ScreenManager getScreen() { return getManagers().getScreen(); }
+    public TimerManager getTimer() { return getManagers().getTimer(); }
+    public InputManager getInput() { return getManagers().getInput(); }
+    public BatchManager getBatch() { return getManagers().getBatch(); }
 
     public Engine launch() { VJade.setContext(this); run(); return this; }
 }

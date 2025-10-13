@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.input.Input;
+import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.objects.build.Screen;
@@ -19,9 +19,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
     protected final WindowLogic windowLogic = new WindowLogic(this);
 
     private final Monitor monitor = new Monitor();
-    private final Input input = new Input();
-    private final ScreenManager screenManager = new ScreenManager();
-    private final UserInterfaceManager userInterfaceManager = new UserInterfaceManager();
+    private final WindowManager windowManager = new WindowManager();
 
     private final int[] width = new int[]{800};
     private final int[] height = new int[]{600};
@@ -42,7 +40,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
         setVertexShader(VJade.DEFAULT_VERTEX_SHADER);
         setFragemtShader(VJade.DEFAULT_FRAGMENT_SHADER);
 
-        input.init(glWindow);
+        windowManager.getInput().init(glWindow);
     }
 
     private void configureDetails() {
@@ -108,10 +106,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     public Monitor getMonitor() { return monitor; }
     public int getFps() { return windowLogic.getFps(); }
-
-    public Input getInput() { return input; }
-    public ScreenManager getScreenManager() { return screenManager; }
-    public UserInterfaceManager getUIManager() { return userInterfaceManager; }
+    public WindowManager getManagers() { return windowManager; }
 
     @SuppressWarnings("unchecked")
     public T setPosition(int x, int y) {
@@ -223,17 +218,17 @@ class Window<T extends Window<T>> extends WindowBuilder {
     public T addScreen(Supplier<Screen> screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
     @SuppressWarnings("unchecked")
     public T addScreen(Supplier<Screen> screen, String identifier) {
-        screenManager.register(screen, identifier);
+        getManagers().getScreen().register(screen, identifier);
         return (T) this;
     }
 
     @SuppressWarnings("unchecked")
     public T setMainScreen(String identifier) {
-        screenManager.setMainScreen(identifier);
+        getManagers().getScreen().setMainScreen(identifier);
         return (T) this;
     }
 
     public void changeScreen(String identifier) {
-        screenManager.setCurrentScreen(identifier);
+        getManagers().getScreen().setCurrentScreen(identifier);
     }
 }

@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.input;
+package com.blezzdev.vjade.core.manager.input;
 
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 
@@ -7,7 +7,7 @@ import java.util.Map;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-public class Input {
+public class InputManager {
     private long window;
 
     private final Map<String, int[]> bindInputs = new HashMap<>();

@@ -13,7 +13,7 @@ public class Collider extends VJObject {
 
     public Collider(Shapes shape) {
         this.shape = shape;
-        this.collisionManager = getContext().getCollisionManager();
+        this.collisionManager = getContext().getManagers().getCollision();
         id = collisionManager.link(this);
     }
 

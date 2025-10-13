@@ -59,7 +59,7 @@ class WindowLogic {
     public void init() {
         enableModernSettings();
 
-        window.getScreenManager().init();
+        window.getManagers().getScreen().init();
 
         glfwShowWindow(window.glWindow);
 
@@ -95,10 +95,8 @@ class WindowLogic {
 
             */
 
-            timerManager.timerProcesses(deltaTime); // Run time processes.
-            window.getScreenManager().screenLifeCycle(deltaTime); // Run screen processes.
-
-            window.getInput().update();
+            window.getManagers().getScreen().update(deltaTime);
+            window.getManagers().getInput().update();
 
             cycle++;
 
@@ -113,8 +111,8 @@ class WindowLogic {
 
         shader.cleanup();
 
-        window.getScreenManager().destroy();
-        timerManager.clear();
+        window.getManagers().getScreen().destroy();
+        window.getManagers().getTimer().clear();
 
         alcDestroyContext(window.getSoundContext());
         alcCloseDevice(window.getSoundDevice());
@@ -152,11 +150,4 @@ class WindowLogic {
     }
 
     public Shader getShader() { return shader; }
-
-    public CollisionManager getCollisionManager() {
-        return collisionManager;
-    }
-    public TimerManager getTimerManager() {
-        return timerManager;
-    }
 }

@@ -11,7 +11,7 @@ public class Screen extends VJObject {
         if (srcUI.getIdentifier() == null) {
             throw new RuntimeException("This user interface screen has been registered before.");
         } else {
-            getContext().getUIManager().linkScreen(this, srcUI);
+            getUserInterface().linkScreen(this, srcUI);
         }
     }
 

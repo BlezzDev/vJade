@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.core.input;
+package com.blezzdev.vjade.core.manager.input;
 
 import static org.lwjgl.glfw.GLFW.*;
 

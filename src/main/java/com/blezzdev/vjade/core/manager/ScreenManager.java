@@ -16,14 +16,14 @@ public class ScreenManager {
 
     private Screen activeScreen;
 
-    private void startScreenLifeCycle() {
+    private void start() {
         if (firstScreenFrame) {
             firstScreenFrame = false;
             activeScreen.start();
         }
     }
 
-    private void finishScreenLifeCycle() {
+    private void finish() {
         if (!Objects.equals(lastScreen, currentScreen)) {
             if (activeScreen != null) {
                 activeScreen.end_scene();
@@ -36,7 +36,7 @@ public class ScreenManager {
             activeScreen = screenList.get(currentScreen).get();
             activeScreen.setIdentifier(currentScreen);
 
-            startScreenLifeCycle();
+            start();
         }
     }
 
@@ -46,17 +46,17 @@ public class ScreenManager {
         }
     }
 
-    public void screenLifeCycle(double deltaTime) {
+    public void update(double deltaTime) {
         if (activeScreen == null) {
             activeScreen = screenList.get(currentScreen).get();
             activeScreen.setIdentifier(currentScreen);
         }
 
-        startScreenLifeCycle();
+        start();
 
         activeScreen.update(deltaTime);
 
-        finishScreenLifeCycle();
+        finish();
     }
 
     public void destroy() {

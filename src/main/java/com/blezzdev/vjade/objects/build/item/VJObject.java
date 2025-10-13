@@ -1,8 +1,12 @@
 package com.blezzdev.vjade.objects.build.item;
 
+import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.ScreenManager;
+import com.blezzdev.vjade.core.manager.UserInterfaceManager;
+import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
-import com.blezzdev.vjade.core.input.Input;
+import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
 import com.blezzdev.vjade.tools.VJade;
@@ -76,8 +80,12 @@ public class VJObject implements LogicProcesses {
 
     public Engine getContext() { return VJade.getContext(); }
     public Logger getLogger() { return getContext().getLogger(); }
-    public Input getInput() { return getContext().getInput(); }
     public Monitor getMonitor() { return getContext().getMonitor(); }
 
-    public TimerManager getTimer() { return getContext().getTimerManager(); }
+    public UserInterfaceManager getUserInterface() { return getContext().getUserInterface(); }
+    public CollisionManager getCollision() { return getContext().getManagers().getCollision(); }
+    public ScreenManager getScreen() { return getContext().getManagers().getScreen(); }
+    public TimerManager getTimer() { return getContext().getManagers().getTimer(); }
+    public InputManager getInput() { return getContext().getManagers().getInput(); }
+    public BatchManager getBatch() { return getContext().getManagers().getBatch(); }
 }
