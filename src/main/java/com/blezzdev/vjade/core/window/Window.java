@@ -100,6 +100,10 @@ class Window<T extends Window<T>> extends WindowBuilder {
         return (T) this;
     }
 
+    public void shutdown() {
+        windowLogic.shutdown();
+    }
+
     public Monitor getMonitor() { return monitor; }
     public int getFps() { return windowLogic.getFps(); }
 

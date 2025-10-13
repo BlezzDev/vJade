@@ -3,7 +3,6 @@ package com.blezzdev.vjade.core.window;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.objects.build.Shader;
-import com.blezzdev.vjade.tools.VJade;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 
@@ -17,6 +16,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 class WindowLogic {
     private Shader shader;
+
+    private boolean shutdown = false;
 
     private final Window<?> window;
     private final CollisionManager collisionManager = new CollisionManager();
@@ -106,6 +107,8 @@ class WindowLogic {
 
             glfwSwapBuffers(window.glWindow);
             glfwPollEvents();
+
+            if (shutdown) { break; }
         }
 
         shader.cleanup();
@@ -132,6 +135,10 @@ class WindowLogic {
             this.shader.bind();
             fixWindowScale((int) window.getSize().x, (int) window.getSize().y);
         }
+    }
+
+    public void shutdown() {
+        this.shutdown = true;
     }
 
     public void bindShader() {
