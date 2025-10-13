@@ -2,7 +2,7 @@ package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.input.Input;
 import com.blezzdev.vjade.core.manager.ScreenManager;
-import com.blezzdev.vjade.objects.build.Screen;
+import com.blezzdev.vjade.objects.build.Screen2D;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
@@ -218,9 +218,9 @@ class Window<T extends Window<T>> extends WindowBuilder {
     }
 
     @SuppressWarnings("unchecked")
-    public T addScreen(Supplier<Screen> screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
+    public T addScreen(Supplier<Screen2D> screen) { addScreen(screen, screen.getClass().getSimpleName()); return (T) this; }
     @SuppressWarnings("unchecked")
-    public T addScreen(Supplier<Screen> screen, String identifier) {
+    public T addScreen(Supplier<Screen2D> screen, String identifier) {
         screenManager.register(screen, identifier);
         return (T) this;
     }

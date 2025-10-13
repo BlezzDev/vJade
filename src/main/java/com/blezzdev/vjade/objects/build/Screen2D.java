@@ -2,10 +2,10 @@ package com.blezzdev.vjade.objects.build;
 
 import com.blezzdev.vjade.objects.build.item.VJObject;
 
-public class Screen extends VJObject {
+public class Screen2D extends VJObject {
     private String identifier;
 
-    public Screen() {}
+    public Screen2D() {}
 
     public String getIdentifier() {
         return identifier;
