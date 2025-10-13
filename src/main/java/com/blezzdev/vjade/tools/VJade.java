@@ -6,6 +6,8 @@ import com.blezzdev.vjade.tools.render.View;
 /// The VJade class manages the static values of a program.
 ///
 /// The context keeps track of the window that is currently running.
+///
+/// The view manages the program's point of view.
 
 public class VJade {
     private static Engine context;
