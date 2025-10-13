@@ -4,6 +4,7 @@ import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
+import com.blezzdev.vjade.tools.data.geometry.Geometry;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.util.types.Filter;
 import org.joml.Matrix4f;
@@ -49,7 +50,7 @@ public class TextureRenderer extends Renderer {
     }
 
     public void loadTexGeometry(boolean flip, int frameIndex, int cols, int rows) {
-        float[] vertices;
+        Geometry geometry = new Geometry();
 
         float frameWidth = 1f / (cols + 1);
         float frameHeight = 1f / (rows + 1);
@@ -63,24 +64,20 @@ public class TextureRenderer extends Renderer {
         float v1 = v0 + frameHeight;
 
         if (flip) {
-            vertices = new float[]{
-                    -0.5f, 0.5f, 0,    u1, v1,
-                    0.5f, 0.5f, 0,    u0, v1,
-                    0.5f, -0.5f, 0,    u0, v0,
-                    -0.5f, -0.5f, 0,    u1, v0
-            };
+            geometry.newVertex(-0.5f, 0.5f, 0, u1, v1);
+            geometry.newVertex(0.5f, 0.5f, 0, u0, v1);
+            geometry.newVertex(0.5f, -0.5f, 0, u0, v0);
+            geometry.newVertex(-0.5f, -0.5f, 0, u1, v0);
         } else {
-            vertices = new float[]{
-                    0.5f, 0.5f, 0,    u1, v1,
-                    -0.5f, 0.5f, 0,    u0, v1,
-                    -0.5f, -0.5f, 0,    u0, v0,
-                    0.5f, -0.5f, 0,    u1, v0
-            };
+            geometry.newVertex(0.5f, 0.5f, 0, u1, v1);
+            geometry.newVertex(-0.5f, 0.5f, 0, u0, v1);
+            geometry.newVertex(-0.5f, -0.5f, 0, u0, v0);
+            geometry.newVertex(0.5f, -0.5f, 0, u1, v0);
         }
 
-        int[] indexes = {0, 1, 2, 2, 3, 0};
+        geometry.setIndexes(0, 1, 2, 2, 3, 0);
 
-        setupTexBuffers(vertices, indexes);
+        setupTexBuffers(geometry);
     }
 
     public void loadTexture(Filter filter, boolean flip_v) {
