@@ -13,9 +13,6 @@ public class Texture2D extends CanvasItem<Texture2D> {
     boolean horizontalFlip = false, verticalFlip = false;
     int frame = 0, horizontalDivisions = 0, verticalDivisions = 0;
 
-    public boolean isVerticalFlip() {
-        return verticalFlip;
-    }
     private String lastPath;
     private Texture texture;
     private Filter filter = Filter.LINEAR;
@@ -120,4 +117,5 @@ public class Texture2D extends CanvasItem<Texture2D> {
         return horizontalFlip;
     }
 
+    public boolean isVerticalFlip() { return verticalFlip; }
 }
