@@ -5,7 +5,7 @@ import com.blezzdev.vjade.tools.data.geometry.Geometry;
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
 import static org.lwjgl.opengl.GL20.*;
 
-public class Renderer {
+public class BufferLoader {
     protected int vbo, vao, ebo;
 
     public void setupTexBuffers(Geometry geometry) {

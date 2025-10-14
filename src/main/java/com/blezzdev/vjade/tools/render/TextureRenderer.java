@@ -24,7 +24,7 @@ import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
-public class TextureRenderer extends Renderer {
+public class TextureRenderer extends BufferLoader {
     private int textureId;
     private Texture texture;
 
