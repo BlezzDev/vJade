@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.tools;
 
 import com.blezzdev.vjade.core.window.Engine;
-import com.blezzdev.vjade.tools.render.View;
+import com.blezzdev.vjade.tools.data.render.View;
 
 /// The VJade class manages the static values of a program.
 ///

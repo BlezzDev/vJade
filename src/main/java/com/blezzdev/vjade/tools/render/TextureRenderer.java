@@ -6,6 +6,7 @@ import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Geometry;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
+import com.blezzdev.vjade.tools.data.render.Texture;
 import com.blezzdev.vjade.util.types.Filter;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;

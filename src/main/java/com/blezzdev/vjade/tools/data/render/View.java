@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.render;
+package com.blezzdev.vjade.tools.data.render;
 
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import org.joml.Matrix4f;

@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
-import com.blezzdev.vjade.tools.render.Texture;
+import com.blezzdev.vjade.tools.data.render.Texture;
 import com.blezzdev.vjade.tools.render.TextureRenderer;
 import com.blezzdev.vjade.util.types.Filter;
 

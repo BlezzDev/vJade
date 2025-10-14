@@ -1,13 +1,10 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.manager.input.InputManager;
-import com.blezzdev.vjade.core.manager.ScreenManager;
-import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.objects.build.Screen;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
-import com.blezzdev.vjade.tools.render.Texture;
+import com.blezzdev.vjade.tools.data.render.Texture;
 
 import java.util.function.Supplier;
 

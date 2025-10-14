@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.tools.render.Texture;
+import com.blezzdev.vjade.tools.data.render.Texture;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.stb.STBImage;

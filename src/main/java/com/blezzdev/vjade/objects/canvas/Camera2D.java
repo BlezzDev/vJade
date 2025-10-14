@@ -4,7 +4,7 @@ import com.blezzdev.vjade.objects.build.item.VJPoint;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Rect2;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
-import com.blezzdev.vjade.tools.render.View;
+import com.blezzdev.vjade.tools.data.render.View;
 
 public class Camera2D extends VJPoint<Camera2D> {
     private float rotation = 0f;

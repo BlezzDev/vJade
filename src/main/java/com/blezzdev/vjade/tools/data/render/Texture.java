@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.render;
+package com.blezzdev.vjade.tools.data.render;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
