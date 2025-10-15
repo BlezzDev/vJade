@@ -1,6 +1,7 @@
 package com.blezzdev.vjade.objects.build;
 
 import com.blezzdev.vjade.tools.VJade;
+import com.blezzdev.vjade.tools.data.color.Color;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL32;
 
@@ -136,7 +137,9 @@ public class Shader {
         loaded = false;
     }
 
-    public void setUniformMatrix4fv(String name, FloatBuffer value) {
+    // Shader's uniforms setups.
+
+    public void setUniformMatrix4(String name, FloatBuffer value) {
         int location = GL20.glGetUniformLocation(programId, name);
         if (location != -1) {
             GL20.glUniformMatrix4fv(location, false, value);
@@ -154,6 +157,15 @@ public class Shader {
         }
     }
 
+    public void setUniformColor(String name, Color color) {
+        setUniformFloat(name,
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                color.getAlpha()
+        );
+    }
+
     public void setUniformFloat(String name, float... value) {
         int location = GL20.glGetUniformLocation(programId, name);
         if (location != -1) {
@@ -165,6 +177,8 @@ public class Shader {
             }
         }
     }
+
+    // Setters & getters.
 
     public Shader setVertexShader(String vertexShader) {
         this.vertexShader = vertexShader; return this;

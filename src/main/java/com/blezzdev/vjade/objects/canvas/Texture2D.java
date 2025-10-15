@@ -2,13 +2,13 @@ package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.render.Texture;
-import com.blezzdev.vjade.tools.render.TextureRenderer;
+import com.blezzdev.vjade.tools.render.TextureDraw;
 import com.blezzdev.vjade.util.types.Filter;
 
 import java.util.Objects;
 
 public class Texture2D extends CanvasItem<Texture2D> {
-    private TextureRenderer textureRenderer;
+    private TextureDraw texPainter;
 
     boolean horizontalFlip = false, verticalFlip = false;
     int frame = 0, horizontalDivisions = 0, verticalDivisions = 0;
@@ -21,8 +21,8 @@ public class Texture2D extends CanvasItem<Texture2D> {
     public void start() {
         super.start();
 
-        if (textureRenderer == null) {
-            textureRenderer = new TextureRenderer(texture);
+        if (texPainter == null) {
+            texPainter = new TextureDraw(texture);
         }
     }
 
@@ -30,18 +30,18 @@ public class Texture2D extends CanvasItem<Texture2D> {
     public void update(double deltaTime) {
         super.update(deltaTime);
 
-        if (textureRenderer != null) {
+        if (texPainter != null) {
             if (!Objects.equals(lastPath, texture.getResourcePath())) {
-                textureRenderer.cleanup();
+                texPainter.cleanup();
 
-                textureRenderer.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
-                textureRenderer.loadTexture(filter, isVerticalFlip());
+                texPainter.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
+                texPainter.loadTexture(filter, isVerticalFlip());
 
                 lastPath = texture.getResourcePath();
             }
 
             if (VJade.existContext()) {
-                textureRenderer.draw(this);
+                texPainter.draw(this);
             }
         }
     }
@@ -50,7 +50,7 @@ public class Texture2D extends CanvasItem<Texture2D> {
     public void finish() {
         super.finish();
 
-        textureRenderer.cleanup();
+        texPainter.cleanup();
     }
 
     public Texture2D setTexture(String path) { setTexture(new Texture(path)); return this; }

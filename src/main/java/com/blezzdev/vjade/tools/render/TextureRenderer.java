@@ -1,53 +1,25 @@
 package com.blezzdev.vjade.tools.render;
 
-import com.blezzdev.vjade.objects.build.Shader;
-import com.blezzdev.vjade.objects.canvas.CanvasItem;
-import com.blezzdev.vjade.tools.VJade;
-import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Geometry;
-import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.data.render.Texture;
 import com.blezzdev.vjade.util.types.Filter;
-import org.joml.Matrix4f;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
-import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13C.glActiveTexture;
 import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class TextureRenderer extends BufferLoader {
-    private int textureId;
-    private Texture texture;
+    protected int textureId;
+    protected Texture texture;
 
     public TextureRenderer(Texture texture) {
         this.texture = texture;
-    }
-
-    private Matrix4f loadGlobalSpaceData(CanvasItem<?> canvas) {
-        float width  = texture.getWidth() * canvas.getSize().x;
-        float height = texture.getHeight() * canvas.getSize().y;
-
-        float pivotOffsetX = width * canvas.getPivot().getX();
-        float pivotOffsetY = height * canvas.getPivot().getY();
-
-        return new Matrix4f()
-                .translate(canvas.getPosition().x, canvas.getPosition().y, canvas.getzIndex())
-
-                .translate(pivotOffsetX, pivotOffsetY, 0)
-
-                .rotateZ((float) Math.toRadians(canvas.getRotation()))
-
-                .translate(-pivotOffsetX, -pivotOffsetY, 0);
     }
 
     public void loadTexGeometry(boolean flip, int frameIndex, int cols, int rows) {
@@ -107,55 +79,6 @@ public class TextureRenderer extends BufferLoader {
             }
         }
 
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-
-    public void draw(CanvasItem<?> canvas) {
-        Shader shader = canvas.getShader();
-        if (shader == null) {
-            shader = VJade.getContext().getShader();
-        }
-
-        shader.bind();
-        Vec2 winSize = VJade.getContext().getSize();
-
-        Matrix4f projection = new Matrix4f().ortho(0, winSize.x, winSize.y, 0, -1, 1);
-        Matrix4f view = (VJade.getView() != null) ? VJade.getView().getViewMatrix() : new Matrix4f().identity();
-
-        Matrix4f pv = new Matrix4f();
-        projection.mul(view, pv);
-
-        Matrix4f model = loadGlobalSpaceData(canvas);
-
-        switch (canvas.getSizeBehavior()) {
-            case RELATIVE -> model.scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
-            case FIXED -> model.scale(canvas.getSize().x, canvas.getSize().y, 1);
-        }
-
-        Matrix4f transform = new Matrix4f();
-        pv.mul(model, transform);
-
-        Color modulateColor = canvas.getModulate();
-        FloatBuffer transformBuffer = BufferUtils.createFloatBuffer(16);
-        transform.get(transformBuffer);
-
-        shader.setUniformMatrix4fv("vjTransform", transformBuffer);
-        shader.setUniformFloat("vjModulate",
-                modulateColor.getRed(),
-                modulateColor.getGreen(),
-                modulateColor.getBlue(),
-                modulateColor.getAlpha()
-        );
-        shader.setUniformBool("vjUseTexture", true);
-        shader.setUniformInteger("vjDiffuseTex", 0);
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, textureId);
-
-        glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        glBindVertexArray(0);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 

@@ -18,6 +18,10 @@ public class Vec2 {
     public float x, y;
 
     public Vec2() { this(0); }
+
+    public Vec2(int i) { this(i, i); }
+    public Vec2(int x, int y) { this((float) x, (float) y); }
+
     public Vec2(float i) { this(i, i); }
     public Vec2(float x, float y) {
         this.x = x;
