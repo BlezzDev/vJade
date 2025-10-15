@@ -1,5 +1,7 @@
 package com.blezzdev.vjade.tools.data.geometry;
 
+import com.blezzdev.vjade.tools.VJade;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +33,11 @@ public class Geometry {
     }
 
     public float[] getBuffer() {
-        float[] vertexBuffer = new float[vertices.size() * Vertex.size()];
+        float[] vertexBuffer = new float[vertices.size() * VJade.VERTEX_SIZE];
         for (int i = 0; i < vertices.size(); i++) {
             Vertex v = vertices.get(i);
-            for (int j = 0; j < Vertex.size(); j++) {
-                vertexBuffer[i * Vertex.size() + j] = v.getBuffer()[j];
+            for (int j = 0; j < VJade.VERTEX_SIZE; j++) {
+                vertexBuffer[i * VJade.VERTEX_SIZE + j] = v.getBuffer()[j];
             }
         }
 
