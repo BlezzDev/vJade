@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL20.*;
 public class BufferLoader {
     protected int vbo, vao, ebo;
 
-    public void setupTexBuffers(Geometry geometry) {
+    public void setupRectBuffers(Geometry geometry) {
         vao = glGenVertexArrays();
         vbo = glGenBuffers();
         ebo = glGenBuffers();

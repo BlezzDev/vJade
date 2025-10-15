@@ -78,7 +78,7 @@ public class TextureRenderer extends BufferLoader {
 
         geometry.setIndexes(0, 1, 2, 2, 3, 0);
 
-        setupTexBuffers(geometry);
+        setupRectBuffers(geometry);
     }
 
     public void loadTexture(Filter filter, boolean flip_v) {
