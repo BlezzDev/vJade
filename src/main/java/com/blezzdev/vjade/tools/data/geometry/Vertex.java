@@ -11,8 +11,6 @@ public class Vertex {
         return this;
     }
 
-    public static int size() { return 5; }
-
     public Vertex setUV(float u, float v) {
         uv[0] = u;
         uv[1] = v;

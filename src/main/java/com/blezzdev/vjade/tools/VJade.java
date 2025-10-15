@@ -70,4 +70,7 @@ public class VJade {
                     }
                 }
                 """;
+
+    public static final short MAX_TEXTURE_CAPACITY = 1024;
+    public static final byte VERTEX_SIZE = 5;
 }
