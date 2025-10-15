@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.tools.render;
 
+import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Geometry;
 
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
@@ -21,9 +22,13 @@ public class BufferLoader {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, geometry.getBufferedIndexes(), GL_STATIC_DRAW);
 
+        int stride = VJade.VERTEX_SIZE * Float.BYTES;
+
+        // Position. (x, y, z)
         glVertexAttribPointer(0, 3, GL_FLOAT, false, 5 * Float.BYTES, 0);
         glEnableVertexAttribArray(0);
 
+        // Texture coordinates. (u, v)
         glVertexAttribPointer(1, 2, GL_FLOAT, false, 5 * Float.BYTES, 3 * Float.BYTES);
         glEnableVertexAttribArray(1);
 
