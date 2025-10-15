@@ -17,7 +17,7 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
 
-public class TextureDraw extends TextureRenderer {
+public class TextureDraw extends TextureLoader {
     public TextureDraw(Texture texture) {
         super(texture);
     }
