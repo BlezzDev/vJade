@@ -13,9 +13,9 @@ public class DynamicBufferLoader {
     protected int vbo, vao, ebo;
     protected FloatBuffer vertexBuffer;
 
-    private int[] loadIndices() {
-        int[] indices = new int[VJade.MAX_TEXTURE_CAPACITY / 4 * 6];
-        for (int i = 0, j = 0; i < VJade.MAX_TEXTURE_CAPACITY; i += 4, j += 6) {
+    private int[] loadIndices(int vertexSize, int indexesSize) {
+        int[] indices = new int[VJade.MAX_TEXTURE_CAPACITY * indexesSize];
+        for (int i = 0, j = 0; i < VJade.MAX_TEXTURE_CAPACITY * vertexSize; i += 4, j += 6) {
             indices[j] = i;
             indices[j + 1] = i + 1;
             indices[j + 2] = i + 2;
@@ -32,33 +32,47 @@ public class DynamicBufferLoader {
         vbo = glGenBuffers();
         ebo = glGenBuffers();
 
-        int[] indices = loadIndices();
+        int vertexCount = geometry.getVertices().size();
+        int indexesCount = geometry.getBufferedIndexes().length;
+
+        int[] indices = loadIndices(vertexCount, indexesCount);
 
         glBindVertexArray(vao);
 
+        int vboSize = VJade.MAX_TEXTURE_CAPACITY * vertexCount * VJade.VERTEX_SIZE * Float.BYTES;
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, VJade.MAX_TEXTURE_CAPACITY * VJade.VERTEX_SIZE * 4, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vboSize, GL_DYNAMIC_DRAW);
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, geometry.getBufferedIndexes(), GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
         int stride = VJade.VERTEX_SIZE * Float.BYTES;
 
-        // Position.
+        // Position. (x, y, z)
         glVertexAttribPointer(0, 3, GL_FLOAT, false, stride, 0);
         glEnableVertexAttribArray(0);
 
-        // Texture coordinates.
+        // Texture coordinates. (u, v)
         glVertexAttribPointer(1, 2, GL_FLOAT, false, stride, 3 * Float.BYTES);
         glEnableVertexAttribArray(1);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
 
-        vertexBuffer = BufferUtils.createFloatBuffer(VJade.MAX_TEXTURE_CAPACITY * VJade.VERTEX_SIZE);
+        vertexBuffer = BufferUtils.createFloatBuffer(VJade.MAX_TEXTURE_CAPACITY * vertexCount * VJade.VERTEX_SIZE);
+    }
+
+    public void updateBuffer(FloatBuffer data) {
+        data.flip(); // Reset buffer.
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, data);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
 
     public void cleanup() {
+        glBindVertexArray(0);
+
         glDeleteVertexArrays(vao);
         glDeleteBuffers(vbo);
         glDeleteBuffers(ebo);
