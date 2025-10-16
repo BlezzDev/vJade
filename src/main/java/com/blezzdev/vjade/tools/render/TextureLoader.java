@@ -82,7 +82,10 @@ public class TextureLoader extends BufferLoader {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    @Override
     public void cleanup() {
+        super.cleanup();
+
         if (textureId != 0) {
             glDeleteTextures(textureId);
             textureId = 0;
