@@ -18,19 +18,12 @@ public class Texture2D extends CanvasItem<Texture2D> {
     private Filter filter = Filter.LINEAR;
 
     @Override
-    public void start() {
-        super.start();
-
-        if (texPainter == null) {
-            texPainter = new TextureDraw(texture);
-        }
-    }
-
-    @Override
     public void update(double deltaTime) {
         super.update(deltaTime);
 
-        if (texPainter != null) {
+        if (texPainter == null) {
+            texPainter = new TextureDraw(texture);
+        } else {
             if (!Objects.equals(lastPath, texture.getResourcePath())) {
                 texPainter.cleanup();
 
