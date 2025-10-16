@@ -17,6 +17,14 @@ public class Vertex {
         return this;
     }
 
+    public Vec3 getPosition() {
+        return position;
+    }
+
+    public float[] getUV() {
+        return uv;
+    }
+
     public float[] getBuffer() {
         return new float[]{
                 position.x, position.y, position.z, uv[0], uv[1]
