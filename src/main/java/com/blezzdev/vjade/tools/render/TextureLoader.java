@@ -15,7 +15,6 @@ import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class TextureLoader extends BufferLoader {
-    protected int textureId;
     protected Texture texture;
 
     public TextureLoader(Texture texture) {
@@ -54,8 +53,8 @@ public class TextureLoader extends BufferLoader {
     }
 
     public void loadTexture(Filter filter, boolean flip_v) {
-        textureId = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, textureId);
+        texture.enableTexture();
+        glBindTexture(GL_TEXTURE_2D, texture.getId());
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -86,9 +85,6 @@ public class TextureLoader extends BufferLoader {
     public void cleanup() {
         super.cleanup();
 
-        if (textureId != 0) {
-            glDeleteTextures(textureId);
-            textureId = 0;
-        }
+        texture.disableTexture();
     }
 }

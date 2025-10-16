@@ -5,9 +5,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static org.lwjgl.opengl.GL11C.glDeleteTextures;
+import static org.lwjgl.opengl.GL11C.glGenTextures;
+
 public class Texture {
     private String resourcePath;
     private int width, height;
+    private int id;
 
     public Texture(String resourcePath) {
         setResourcePath(resourcePath);
@@ -37,6 +41,19 @@ public class Texture {
 
         return this;
     }
+
+    public void enableTexture() {
+        id = glGenTextures();
+    }
+
+    public void disableTexture() {
+        if (id != 0) {
+            glDeleteTextures(id);
+            id = 0;
+        }
+    }
+
+    public int getId() { return id; }
 
     public int getWidth() {
         return width;
