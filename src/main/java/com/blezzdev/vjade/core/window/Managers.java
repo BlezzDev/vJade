@@ -1,6 +1,5 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.manager.batch.BatchManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
@@ -11,7 +10,6 @@ public class Managers {
     private final UserInterfaceManager userInterface = new UserInterfaceManager();
     private final CollisionManager collision = new CollisionManager();
     private final ScreenManager screen = new ScreenManager();
-    private final BatchManager batch = new BatchManager();
     private final TimerManager timer = new TimerManager();
     private final InputManager input = new InputManager();
 
@@ -41,10 +39,6 @@ public class Managers {
 
     public UserInterfaceManager getUserInterface() {
         return userInterface;
-    }
-
-    public BatchManager getBatch() {
-        return batch;
     }
 
     public ScreenManager getScreen() {

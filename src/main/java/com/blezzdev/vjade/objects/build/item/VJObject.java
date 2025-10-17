@@ -1,6 +1,5 @@
 package com.blezzdev.vjade.objects.build.item;
 
-import com.blezzdev.vjade.core.manager.batch.BatchManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
@@ -87,5 +86,4 @@ public class VJObject implements LogicProcesses {
     public ScreenManager getScreen() { return getContext().getManagers().getScreen(); }
     public TimerManager getTimer() { return getContext().getManagers().getTimer(); }
     public InputManager getInput() { return getContext().getManagers().getInput(); }
-    public BatchManager getBatch() { return getContext().getManagers().getBatch(); }
 }
