@@ -74,7 +74,17 @@ public class ScreenManager {
         return screenList;
     }
 
+    private boolean onList(String screen) {
+        for (String name : screenList.keySet()) {
+            if (Objects.equals(name, screen)) return true;
+        }
+
+        return false;
+    }
+
     public void setMainScreen(String currentScreen) {
+        if (!onList(currentScreen)) throw new RuntimeException("The screen " + currentScreen + " doesn't exist.");
+
         this.lastScreen = currentScreen;
         setCurrentScreen(currentScreen);
     }
