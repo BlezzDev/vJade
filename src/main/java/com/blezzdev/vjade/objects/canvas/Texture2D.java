@@ -1,20 +1,18 @@
 package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
-import com.blezzdev.vjade.tools.data.render.Texture;
 import com.blezzdev.vjade.tools.render.TextureDraw;
 import com.blezzdev.vjade.util.types.Filter;
 
 import java.util.Objects;
 
-public class Texture2D extends CanvasItem<Texture2D> {
+public class Texture2D extends TextureEntity<Texture2D> {
     private TextureDraw texPainter;
 
     boolean horizontalFlip = false, verticalFlip = false;
     int frame = 0, horizontalDivisions = 0, verticalDivisions = 0;
 
     private String lastPath;
-    private Texture texture;
     private Filter filter = Filter.LINEAR;
 
     @Override
@@ -22,15 +20,15 @@ public class Texture2D extends CanvasItem<Texture2D> {
         super.update(deltaTime);
 
         if (texPainter == null) {
-            texPainter = new TextureDraw(texture);
+            texPainter = new TextureDraw(getTexture());
         } else {
-            if (!Objects.equals(lastPath, texture.getResourcePath())) {
+            if (!Objects.equals(lastPath, getTexture().getResourcePath())) {
                 texPainter.cleanup();
 
                 texPainter.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
                 texPainter.loadTexture(filter, isVerticalFlip());
 
-                lastPath = texture.getResourcePath();
+                lastPath = getTexture().getResourcePath();
             }
 
             if (VJade.existContext()) {
@@ -44,12 +42,6 @@ public class Texture2D extends CanvasItem<Texture2D> {
         super.finish();
 
         texPainter.cleanup();
-    }
-
-    public Texture2D setTexture(String path) { setTexture(new Texture(path)); return this; }
-    public Texture2D setTexture(Texture texture) {
-        this.texture = texture;
-        return this;
     }
 
     public Texture2D setFrame(int frame) {
@@ -84,10 +76,6 @@ public class Texture2D extends CanvasItem<Texture2D> {
 
     public void setFilter(Filter filter) {
         this.filter = filter;
-    }
-
-    public Texture getTexture() {
-        return texture;
     }
 
     public Filter getFilter() {

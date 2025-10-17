@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.objects.build.item;
 
-import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.batch.BatchManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;

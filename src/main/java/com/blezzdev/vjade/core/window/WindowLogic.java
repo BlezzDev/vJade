@@ -20,8 +20,6 @@ class WindowLogic {
     private boolean shutdown = false;
 
     private final Window<?> window;
-    private final CollisionManager collisionManager = new CollisionManager();
-    private final TimerManager timerManager = new TimerManager();
 
     private int fps;
 
@@ -59,7 +57,7 @@ class WindowLogic {
     public void init() {
         enableModernSettings();
 
-        window.getManagers().getScreen().init();
+        window.getManagers().start();
 
         glfwShowWindow(window.glWindow);
 
@@ -95,8 +93,7 @@ class WindowLogic {
 
             */
 
-            window.getManagers().getScreen().update(deltaTime);
-            window.getManagers().getInput().update();
+            window.getManagers().update(deltaTime);
 
             cycle++;
 
@@ -111,8 +108,7 @@ class WindowLogic {
 
         shader.cleanup();
 
-        window.getManagers().getScreen().destroy();
-        window.getManagers().getTimer().clear();
+        window.getManagers().end();
 
         alcDestroyContext(window.getSoundContext());
         alcCloseDevice(window.getSoundDevice());

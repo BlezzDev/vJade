@@ -1,13 +1,13 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.batch.BatchManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 
-public class WindowManager {
+public class Managers {
     private final UserInterfaceManager userInterface = new UserInterfaceManager();
     private final CollisionManager collision = new CollisionManager();
     private final ScreenManager screen = new ScreenManager();
@@ -15,8 +15,20 @@ public class WindowManager {
     private final TimerManager timer = new TimerManager();
     private final InputManager input = new InputManager();
 
+    public void start() {
+        screen.init();
+        input.init();
+    }
+
     public void update(double deltaTime) {
+        screen.update(deltaTime);
         timer.update(deltaTime);
+        input.update();
+    }
+
+    public void end() {
+        screen.destroy();
+        timer.clear();
     }
 
     public InputManager getInput() {

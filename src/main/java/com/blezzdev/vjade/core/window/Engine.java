@@ -1,7 +1,7 @@
 package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.debug.Logger;
-import com.blezzdev.vjade.core.manager.BatchManager;
+import com.blezzdev.vjade.core.manager.batch.BatchManager;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;

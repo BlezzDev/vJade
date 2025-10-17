@@ -16,7 +16,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
     protected final WindowLogic windowLogic = new WindowLogic(this);
 
     private final Monitor monitor = new Monitor();
-    private final WindowManager windowManager = new WindowManager();
+    private final Managers windowManager = new Managers();
 
     private final int[] width = new int[]{800};
     private final int[] height = new int[]{600};
@@ -36,8 +36,6 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
         setVertexShader(VJade.DEFAULT_VERTEX_SHADER);
         setFragemtShader(VJade.DEFAULT_FRAGMENT_SHADER);
-
-        windowManager.getInput().init(glWindow);
     }
 
     private void configureDetails() {
@@ -103,7 +101,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     public Monitor getMonitor() { return monitor; }
     public int getFps() { return windowLogic.getFps(); }
-    public WindowManager getManagers() { return windowManager; }
+    public Managers getManagers() { return windowManager; }
 
     @SuppressWarnings("unchecked")
     public T setPosition(int x, int y) {

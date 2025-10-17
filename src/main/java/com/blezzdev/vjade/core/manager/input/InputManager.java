@@ -2,6 +2,7 @@ package com.blezzdev.vjade.core.manager.input;
 
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,8 +23,8 @@ public class InputManager {
     private double scrollX, scrollY;
     private long cursor = glfwCreateStandardCursor(GLFW_ARROW_CURSOR);
 
-    public void init(long window) {
-        this.window = window;
+    public void init() {
+        this.window = glfwGetCurrentContext();
 
         // Keyboard callback.
 
