@@ -64,9 +64,9 @@ public class Main {
                 // as it will be created automatically with the class name.
                 .addScreen(GameScreen::new)
 
-                .setMainScreen("game");
-
-        game.launch();
+                .setMainScreen("game")
+        
+                .launch();
     }
 }
 ```
