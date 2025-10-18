@@ -25,7 +25,7 @@ public class Texture2D extends TextureEntity<Texture2D> {
             if (!Objects.equals(lastPath, getTexture().getResourcePath())) {
                 texPainter.cleanup();
 
-                texPainter.loadTexGeometry(isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
+                texPainter.loadTexGeometry(getModulate(), isHorizontalFlip(), getFrame(), getVerticalDivisions(), getHorizontalDivisions());
                 texPainter.loadTexture(filter, isVerticalFlip());
 
                 lastPath = getTexture().getResourcePath();

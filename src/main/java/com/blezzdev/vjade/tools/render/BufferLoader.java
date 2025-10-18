@@ -24,13 +24,17 @@ public class BufferLoader {
 
         int stride = VJade.VERTEX_SIZE * Float.BYTES;
 
-        // Position. (x, y, z)
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 5 * Float.BYTES, 0);
+        // Position (x, y, z).
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, stride, 0);
         glEnableVertexAttribArray(0);
 
-        // Texture coordinates. (u, v)
-        glVertexAttribPointer(1, 2, GL_FLOAT, false, 5 * Float.BYTES, 3 * Float.BYTES);
+        // Texture coordinates (u, v).
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, stride, 3 * Float.BYTES);
         glEnableVertexAttribArray(1);
+
+        // Color (r, g, b, a).
+        glVertexAttribPointer(2, 4, GL_FLOAT, false, stride, 5 * Float.BYTES);
+        glEnableVertexAttribArray(2);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);

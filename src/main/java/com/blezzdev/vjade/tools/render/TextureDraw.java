@@ -3,7 +3,6 @@ package com.blezzdev.vjade.tools.render;
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
 import com.blezzdev.vjade.tools.VJade;
-import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.data.render.Texture;
 import org.joml.Matrix4f;
@@ -62,9 +61,8 @@ public class TextureDraw extends TextureLoader {
         return transform;
     }
 
-    private void callUniforms(Shader shader, FloatBuffer transformBuffer, Color modulateColor) {
+    private void callUniforms(Shader shader, FloatBuffer transformBuffer) {
         shader.setUniformMatrix4("vjTransform", transformBuffer);
-        shader.setUniformColor("vjModulate", modulateColor);
         shader.setUniformBool("vjUseTexture", true);
         shader.setUniformInteger("vjDiffuseTex", 0);
     }
@@ -87,12 +85,11 @@ public class TextureDraw extends TextureLoader {
         Matrix4f pv = loadPVMatrix();
         Matrix4f model = loadModelMatrix(canvas);
         Matrix4f transform = loadTransformMatrix(canvas, model, pv);
-        Color modulateColor = canvas.getModulate();
 
         FloatBuffer transformBuffer = BufferUtils.createFloatBuffer(16);
         transform.get(transformBuffer);
 
-        callUniforms(shader, transformBuffer, modulateColor);
+        callUniforms(shader, transformBuffer);
         enableMainTasks(); // Active textures, draw and quit.
     }
 

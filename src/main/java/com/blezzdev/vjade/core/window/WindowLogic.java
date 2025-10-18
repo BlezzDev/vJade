@@ -48,7 +48,6 @@ class WindowLogic {
 
         shader.bind();
         shader.setUniformMatrix4("vjProjection", fb);
-        shader.setUniformFloat("vjModulate", 1, 1, 1, 1);
 
         float time = (System.nanoTime() / 1_000_000_000.0f);
         shader.setUniformFloat("vjTime", time);

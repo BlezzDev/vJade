@@ -1,11 +1,17 @@
 package com.blezzdev.vjade.tools.render;
 
+import com.blezzdev.vjade.tools.VJade;
+import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.Geometry;
+import com.blezzdev.vjade.tools.data.geometry.Vec2;
+import com.blezzdev.vjade.tools.data.geometry.Vec3;
 import com.blezzdev.vjade.tools.data.render.Texture;
 import com.blezzdev.vjade.util.types.Filter;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
@@ -21,7 +27,7 @@ public class TextureLoader extends BufferLoader {
         this.texture = texture;
     }
 
-    public void loadTexGeometry(boolean flip, int frameIndex, int cols, int rows) {
+    public void loadTexGeometry(Color color, boolean flip, int frameIndex, int cols, int rows) {
         Geometry geometry = new Geometry();
 
         float frameWidth = 1f / (cols + 1);
@@ -36,15 +42,15 @@ public class TextureLoader extends BufferLoader {
         float v1 = v0 + frameHeight;
 
         if (flip) {
-            geometry.newVertex(-0.5f, 0.5f, 0, u1, v1);
-            geometry.newVertex(0.5f, 0.5f, 0, u0, v1);
-            geometry.newVertex(0.5f, -0.5f, 0, u0, v0);
-            geometry.newVertex(-0.5f, -0.5f, 0, u1, v0);
+            geometry.newVertex(new Vec3(-0.5f, 0.5f, 0), new Vec2(u1, v1), color);
+            geometry.newVertex(new Vec3(0.5f, 0.5f, 0), new Vec2(u0, v1), color);
+            geometry.newVertex(new Vec3(0.5f, -0.5f, 0), new Vec2(u0, v0), color);
+            geometry.newVertex(new Vec3(-0.5f, -0.5f, 0), new Vec2(u1, v0), color);
         } else {
-            geometry.newVertex(0.5f, 0.5f, 0, u1, v1);
-            geometry.newVertex(-0.5f, 0.5f, 0, u0, v1);
-            geometry.newVertex(-0.5f, -0.5f, 0, u0, v0);
-            geometry.newVertex(0.5f, -0.5f, 0, u1, v0);
+            geometry.newVertex(new Vec3(0.5f, 0.5f, 0), new Vec2(u1, v1), color);
+            geometry.newVertex(new Vec3(-0.5f, 0.5f, 0), new Vec2(u0, v1), color);
+            geometry.newVertex(new Vec3(-0.5f, -0.5f, 0), new Vec2(u0, v0), color);
+            geometry.newVertex(new Vec3(0.5f, -0.5f, 0), new Vec2(u1, v0), color);
         }
 
         geometry.setIndexes(0, 1, 2, 2, 3, 0);
