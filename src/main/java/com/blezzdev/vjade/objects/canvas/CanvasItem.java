@@ -8,19 +8,12 @@ import com.blezzdev.vjade.tools.data.geometry.Pivot;
 import com.blezzdev.vjade.util.types.Behavior;
 
 public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
-    private Shader shader;
     private Color modulate = new Color(1, 1, 1, 1);
     private Pivot pivot = new Pivot(0.5f, 0.5f);
     private float rotation = 0;
     private float zIndex = 0;
 
     protected Behavior behavior = Behavior.RELATIVE;
-
-    @SuppressWarnings("unchecked")
-    public T setShader(Shader shader) {
-        this.shader = shader;
-        return (T) this;
-    }
 
     @SuppressWarnings("unchecked")
     public T setModulate(Color modulate) {
@@ -52,10 +45,6 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
     public T setzIndex(float zIndex) {
         this.zIndex = zIndex;
         return (T) this;
-    }
-
-    public Shader getShader() {
-        return shader;
     }
 
     public Color getModulate() {
