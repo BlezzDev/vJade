@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.render;
+package com.blezzdev.vjade.tools.render.dynamic;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Geometry;
@@ -13,9 +13,9 @@ public class DynamicBufferLoader {
     protected int vbo, vao, ebo;
     protected FloatBuffer vertexBuffer;
 
-    private int[] loadIndices(int vertexSize, int indexesSize) {
-        int[] indices = new int[VJade.MAX_TEXTURE_CAPACITY * indexesSize];
-        for (int i = 0, j = 0; i < VJade.MAX_TEXTURE_CAPACITY * vertexSize; i += 4, j += 6) {
+    private int[] loadIndices() {
+        int[] indices = new int[VJade.MAX_TEXTURE_CAPACITY * 6];
+        for (int i = 0, j = 0; i < VJade.MAX_TEXTURE_CAPACITY * 4; i += 4, j += 6) {
             indices[j] = i;
             indices[j + 1] = i + 1;
             indices[j + 2] = i + 2;
@@ -27,19 +27,16 @@ public class DynamicBufferLoader {
         return indices;
     }
 
-    public void setupRectBuffers(Geometry geometry) {
+    public void setupRectBuffers() {
         vao = glGenVertexArrays();
         vbo = glGenBuffers();
         ebo = glGenBuffers();
 
-        int vertexCount = geometry.getVertices().size();
-        int indexesCount = geometry.getBufferedIndexes().length;
-
-        int[] indices = loadIndices(vertexCount, indexesCount);
+        int[] indices = loadIndices();
 
         glBindVertexArray(vao);
 
-        int vboSize = VJade.MAX_TEXTURE_CAPACITY * vertexCount * VJade.VERTEX_SIZE * Float.BYTES;
+        int vboSize = VJade.MAX_TEXTURE_CAPACITY * 4 * VJade.VERTEX_SIZE * Float.BYTES;
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferData(GL_ARRAY_BUFFER, vboSize, GL_DYNAMIC_DRAW);
 
@@ -63,7 +60,7 @@ public class DynamicBufferLoader {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
 
-        vertexBuffer = BufferUtils.createFloatBuffer(VJade.MAX_TEXTURE_CAPACITY * vertexCount * VJade.VERTEX_SIZE);
+        vertexBuffer = BufferUtils.createFloatBuffer(VJade.MAX_TEXTURE_CAPACITY * 4 * VJade.VERTEX_SIZE);
     }
 
     public void updateBuffer(FloatBuffer data) {
