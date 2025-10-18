@@ -2,6 +2,7 @@ package com.blezzdev.vjade.tools.render;
 
 import com.blezzdev.vjade.objects.build.Shader;
 import com.blezzdev.vjade.objects.canvas.CanvasItem;
+import com.blezzdev.vjade.objects.canvas.TextureEntity;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.data.render.Texture;
@@ -21,19 +22,19 @@ public class TextureDraw extends TextureLoader {
         super(texture);
     }
 
-    private Matrix4f loadModelMatrix(CanvasItem<?> canvas) {
-        float width  = texture.getWidth() * canvas.getSize().x;
-        float height = texture.getHeight() * canvas.getSize().y;
+    private Matrix4f loadModelMatrix(CanvasItem<?> entity) {
+        float width  = texture.getWidth() * entity.getSize().x;
+        float height = texture.getHeight() * entity.getSize().y;
 
-        float pivotOffsetX = width * canvas.getPivot().getX();
-        float pivotOffsetY = height * canvas.getPivot().getY();
+        float pivotOffsetX = width * entity.getPivot().getX();
+        float pivotOffsetY = height * entity.getPivot().getY();
 
         return new Matrix4f()
-                .translate(canvas.getPosition().x, canvas.getPosition().y, canvas.getzIndex())
+                .translate(entity.getPosition().x, entity.getPosition().y, entity.getzIndex())
 
                 .translate(pivotOffsetX, pivotOffsetY, 0)
 
-                .rotateZ((float) Math.toRadians(canvas.getRotation()))
+                .rotateZ((float) Math.toRadians(entity.getRotation()))
 
                 .translate(-pivotOffsetX, -pivotOffsetY, 0);
     }
@@ -50,10 +51,10 @@ public class TextureDraw extends TextureLoader {
         return pv;
     }
 
-    private Matrix4f loadTransformMatrix(CanvasItem<?> canvas, Matrix4f model, Matrix4f pv) {
-        switch (canvas.getSizeBehavior()) {
-            case RELATIVE -> model.scale(texture.getWidth() * canvas.getSize().x, texture.getHeight() * canvas.getSize().y, 1);
-            case FIXED -> model.scale(canvas.getSize().x, canvas.getSize().y, 1);
+    private Matrix4f loadTransformMatrix(TextureEntity<?> entity, Matrix4f model, Matrix4f pv) {
+        switch (entity.getSizeBehavior()) {
+            case RELATIVE -> model.scale(texture.getWidth() * entity.getSize().x, texture.getHeight() * entity.getSize().y, 1);
+            case FIXED -> model.scale(entity.getSize().x, entity.getSize().y, 1);
         }
 
         Matrix4f transform = new Matrix4f();
@@ -78,13 +79,13 @@ public class TextureDraw extends TextureLoader {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    public void draw(CanvasItem<?> canvas) {
-        Shader shader = loadShader(canvas);
+    public void draw(TextureEntity<?> entity) {
+        Shader shader = loadShader(entity);
 
         // Load transform data.
         Matrix4f pv = loadPVMatrix();
-        Matrix4f model = loadModelMatrix(canvas);
-        Matrix4f transform = loadTransformMatrix(canvas, model, pv);
+        Matrix4f model = loadModelMatrix(entity);
+        Matrix4f transform = loadTransformMatrix(entity, model, pv);
 
         FloatBuffer transformBuffer = BufferUtils.createFloatBuffer(16);
         transform.get(transformBuffer);
@@ -93,8 +94,8 @@ public class TextureDraw extends TextureLoader {
         enableMainTasks(); // Active textures, draw and quit.
     }
 
-    private Shader loadShader(CanvasItem<?> canvas) {
-        Shader shader = canvas.getShader();
+    private Shader loadShader(TextureEntity<?> entity) {
+        Shader shader = entity.getShader();
         if (shader == null) {
             shader = VJade.getContext().getShader();
         }
