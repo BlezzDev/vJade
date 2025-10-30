@@ -76,4 +76,6 @@ public class VJade {
 
     public static final short MAX_TEXTURE_CAPACITY = 1024;
     public static final byte VERTEX_SIZE = 9;
+    public static final byte VERTICES_PER_TEXTURE = 4;
+    public static final byte INDICES_PER_TEXTURE = 6;
 }
