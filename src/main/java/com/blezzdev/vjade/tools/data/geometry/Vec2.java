@@ -24,8 +24,7 @@ public class Vec2 {
 
     public Vec2(float i) { this(i, i); }
     public Vec2(float x, float y) {
-        this.x = x;
-        this.y = y;
+        set(x, y);
     }
 
     @Override
@@ -55,6 +54,12 @@ public class Vec2 {
 
     public Vec2 modulate(float x, float y) {
         this.x %= x; this.y %= y;
+        return this;
+    }
+
+    public Vec2 set(float x, float y) {
+        this.x = x;
+        this.y = y;
         return this;
     }
 
