@@ -2,12 +2,14 @@ package com.blezzdev.vjade.objects.build.item;
 
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
+import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
+import com.blezzdev.vjade.objects.canvas.CanvasEntity;
 import com.blezzdev.vjade.tools.VJade;
 
 import java.util.ArrayList;
@@ -82,8 +84,9 @@ public class VJObject implements LogicProcesses {
     public Monitor getMonitor() { return getContext().getMonitor(); }
 
     public UserInterfaceManager getUserInterface() { return getContext().getUserInterface(); }
-    public CollisionManager getCollision() { return getContext().getManagers().getCollision(); }
-    public ScreenManager getScreen() { return getContext().getManagers().getScreen(); }
-    public TimerManager getTimer() { return getContext().getManagers().getTimer(); }
-    public InputManager getInput() { return getContext().getManagers().getInput(); }
+    public CollisionManager getCollision() { return getContext().getCollision(); }
+    public ScreenManager getScreen() { return getContext().getScreen(); }
+    public CanvasManager getCanvas() { return getContext().getCanvas(); }
+    public TimerManager getTimer() { return getContext().getTimer(); }
+    public InputManager getInput() { return getContext().getInput(); }
 }

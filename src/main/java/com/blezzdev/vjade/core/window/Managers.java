@@ -2,6 +2,7 @@ package com.blezzdev.vjade.core.window;
 
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
+import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
@@ -10,18 +11,21 @@ public class Managers {
     private final UserInterfaceManager userInterface = new UserInterfaceManager();
     private final CollisionManager collision = new CollisionManager();
     private final ScreenManager screen = new ScreenManager();
+    private final CanvasManager canvas = new CanvasManager();
     private final TimerManager timer = new TimerManager();
     private final InputManager input = new InputManager();
 
     public void start() {
         screen.init();
         input.init();
+        canvas.init();
     }
 
     public void update(double deltaTime) {
         screen.update(deltaTime);
         timer.update(deltaTime);
         input.update();
+        canvas.update();
     }
 
     public void end() {
@@ -48,4 +52,6 @@ public class Managers {
     public TimerManager getTimer() {
         return timer;
     }
+
+    public CanvasManager getCanvas() { return canvas; }
 }

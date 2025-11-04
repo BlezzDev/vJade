@@ -28,20 +28,20 @@ public class VJade {
 
     public static final String DEFAULT_VERTEX_SHADER = """
                 #version 330 core
-                layout (location = 0) in vec3 vjPos;
-                layout (location = 1) in vec2 vjTexCoord;
-                layout (location = 2) in vec4 vjColor;
+                layout (location = 0) in vec3 pos;
+                layout (location = 1) in vec2 texCoordinates;
+                layout (location = 2) in vec4 color;
                 
-                uniform mat4 vjTransform;
+                uniform mat4 vProjection;
                 
-                out vec2 TexCoord;
-                out vec4 Modulate;
+                out vec2 fTexCoordinates;
+                out vec4 fModulate;
                 
                 void main()
                 {
-                    gl_Position = vjTransform * vec4(vjPos, 1.0);
-                    TexCoord = vjTexCoord;
-                    Modulate = vjColor;
+                    gl_Position = vProjection * vec4(pos, 1.0);
+                    fTexCoordinates = texCoordinates;
+                    fModulate = color;
                 }
                 """;
 
@@ -49,17 +49,18 @@ public class VJade {
                 #version 330 core
                 
                 out vec4 FragColor;
-                in vec2 TexCoord;
-                in vec4 Modulate;
                 
-                uniform sampler2D vjDiffuseTex;
-                uniform bool vjUseTexture;
+                in vec2 fTexCoordinates;
+                in vec4 fModulate;
+                
+                uniform sampler2D fDiffuseTex;
+                uniform bool fUseTexture;
                 
                 void main() {
-                    if (vjUseTexture) {
-                        FragColor = texture(vjDiffuseTex, TexCoord) * Modulate;
+                    if (fUseTexture) {
+                        FragColor = texture(fDiffuseTex, fTexCoordinates) * fModulate;
                     } else {
-                        FragColor = Modulate;
+                        FragColor = fModulate;
                     }
                 }
                 """;

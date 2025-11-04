@@ -3,6 +3,7 @@ package com.blezzdev.vjade.core.window;
 import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
+import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
@@ -41,6 +42,7 @@ public class Engine extends Window<Engine> {
     public UserInterfaceManager getUserInterface() { return getManagers().getUserInterface(); }
     public CollisionManager getCollision() { return getManagers().getCollision(); }
     public ScreenManager getScreen() { return getManagers().getScreen(); }
+    public CanvasManager getCanvas() { return getManagers().getCanvas(); }
     public TimerManager getTimer() { return getManagers().getTimer(); }
     public InputManager getInput() { return getManagers().getInput(); }
 

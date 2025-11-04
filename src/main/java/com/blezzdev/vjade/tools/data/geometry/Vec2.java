@@ -22,6 +22,8 @@ public class Vec2 {
     public Vec2(int i) { this(i, i); }
     public Vec2(int x, int y) { this((float) x, (float) y); }
 
+    public Vec2(Vec2 vector2) { this(vector2.x, vector2.y); }
+
     public Vec2(float i) { this(i, i); }
     public Vec2(float x, float y) {
         set(x, y);
@@ -57,6 +59,7 @@ public class Vec2 {
         return this;
     }
 
+    public Vec2 set(Vec2 vector2) { set(vector2.x, vector2.y); return this; }
     public Vec2 set(float x, float y) {
         this.x = x;
         this.y = y;
