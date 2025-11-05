@@ -38,24 +38,41 @@ public class Vec2 {
         this.x += x; this.y += y;
         return this;
     }
-
     public Vec2 subtract(float x, float y) {
         this.x -= x; this.y -= y;
         return this;
     }
-
     public Vec2 multiply(float x, float y) {
         this.x *= x; this.y *= y;
         return this;
     }
-
     public Vec2 divide(float x, float y) {
         this.x /= x; this.y /= y;
         return this;
     }
-
     public Vec2 modulate(float x, float y) {
         this.x %= x; this.y %= y;
+        return this;
+    }
+
+    public Vec2 add(float i) {
+        this.x += i; this.y += i;
+        return this;
+    }
+    public Vec2 subtract(float i) {
+        this.x -= i; this.y -= i;
+        return this;
+    }
+    public Vec2 multiply(float i) {
+        this.x *= i; this.y *= i;
+        return this;
+    }
+    public Vec2 divide(float i) {
+        this.x /= i; this.y /= i;
+        return this;
+    }
+    public Vec2 modulate(float i) {
+        this.x %= i; this.y %= i;
         return this;
     }
 
