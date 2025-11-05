@@ -1,8 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.manager.collider.CollisionManager;
-import com.blezzdev.vjade.core.manager.timer.TimerManager;
-import com.blezzdev.vjade.objects.build.Shader;
+import com.blezzdev.vjade.tools.canvas.Shader;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
 

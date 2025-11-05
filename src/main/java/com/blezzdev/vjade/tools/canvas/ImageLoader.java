@@ -1,10 +1,9 @@
 package com.blezzdev.vjade.tools.canvas;
 
-import com.blezzdev.vjade.tools.data.geometry.Rect2;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.util.types.Filter;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
@@ -26,14 +25,23 @@ class ImageLoader {
 
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter.getGl());
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, filter.getGl());
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter.mipmap);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, filter.gl);
+
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL13.GL_TEXTURE_COMPRESSED, GL11.GL_TRUE);
 
         if (image != null) {
             int format = channels.get(0) == 4 ? GL11.GL_RGBA : GL11.GL_RGB;
-            GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, format, width.get(0), height.get(0),
-                    0, format, GL11.GL_UNSIGNED_BYTE, image);
+
+            GL11.glTexImage2D(
+                    GL11.GL_TEXTURE_2D, 0, format,
+                    width.get(0), height.get(0),
+                    0, format, GL11.GL_UNSIGNED_BYTE, image
+            );
             glGenerateMipmap(GL11.GL_TEXTURE_2D);
+
+            IntBuffer compressed = MemoryStack.stackMallocInt(1);
+            GL11.glGetTexLevelParameteriv(GL11.GL_TEXTURE_2D, 0, GL13.GL_TEXTURE_COMPRESSED, compressed);
             STBImage.stbi_image_free(image);
         }
 

@@ -63,7 +63,7 @@ class BufferLoader {
         glBindVertexArray(vao);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, GL_STREAM_DRAW);
 
         loadLayouts();
         setupIndices();

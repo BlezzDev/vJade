@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.objects.build;
+package com.blezzdev.vjade.tools.canvas;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;

@@ -7,7 +7,7 @@ import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
-import com.blezzdev.vjade.objects.build.Shader;
+import com.blezzdev.vjade.tools.canvas.Shader;
 import com.blezzdev.vjade.tools.VJade;
 
 /// The Engine class creates the window with the

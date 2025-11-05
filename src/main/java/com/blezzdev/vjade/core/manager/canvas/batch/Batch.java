@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.manager.canvas.batch;
 
-import com.blezzdev.vjade.objects.build.Shader;
+import com.blezzdev.vjade.tools.canvas.Shader;
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.canvas.Texture;
 import com.blezzdev.vjade.tools.data.color.Color;

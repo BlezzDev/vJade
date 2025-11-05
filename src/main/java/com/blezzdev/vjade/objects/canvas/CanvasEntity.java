@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.objects.canvas;
 
-import com.blezzdev.vjade.objects.build.Shader;
+import com.blezzdev.vjade.tools.canvas.Shader;
 import com.blezzdev.vjade.tools.canvas.Texture;
 
 public class CanvasEntity<T extends CanvasEntity<T>> extends CanvasItem<T> {
