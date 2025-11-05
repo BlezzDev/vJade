@@ -34,6 +34,27 @@ public class Vec2 {
         return "(" + x + ", " + y + ")";
     }
 
+    public Vec2 add(Vec2 vector) {
+        this.x += vector.x; this.y += vector.y;
+        return this;
+    }
+    public Vec2 subtract(Vec2 vector) {
+        this.x -= vector.x; this.y -= vector.y;
+        return this;
+    }
+    public Vec2 multiply(Vec2 vector) {
+        this.x *= vector.x; this.y *= vector.y;
+        return this;
+    }
+    public Vec2 divide(Vec2 vector) {
+        this.x /= vector.x; this.y /= vector.y;
+        return this;
+    }
+    public Vec2 modulate(Vec2 vector) {
+        this.x %= vector.x; this.y %= vector.y;
+        return this;
+    }
+
     public Vec2 add(float x, float y) {
         this.x += x; this.y += y;
         return this;
