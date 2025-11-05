@@ -18,63 +18,49 @@ import java.util.List;
 public class VJObject implements LogicProcesses {
     private final List<VJObject> objectList = new ArrayList<>();
 
+    // Insert a new object as a child object.
+
     public <T extends VJObject> T instance(T object) {
         objectList.add(object);
         return object;
     }
 
+    // Declarative functions of the program life cycle.
+
     @Override
     public void init() {
         LogicProcesses.super.init();
-
-        for (VJObject object : objectList) {
-            object.init();
-        }
+        objectList.forEach(obj -> obj.init());
     }
-
     @Override
     public void start() {
         LogicProcesses.super.start();
-
-        for (VJObject object : objectList) {
-            object.start();
-        }
+        objectList.forEach(obj -> obj.start());
     }
-
     @Override
     public void update(double deltaTime) {
         LogicProcesses.super.update(deltaTime);
-
-        for (VJObject object : objectList) {
-            object.update(deltaTime);
-        }
+        objectList.forEach(obj -> obj.update(deltaTime));
     }
-
+    @Override
+    public void render(double deltaTime) {
+        LogicProcesses.super.render(deltaTime);
+        objectList.forEach(obj -> obj.render(deltaTime));
+    }
     @Override
     public void end_scene() {
         LogicProcesses.super.end_scene();
-
-        for (VJObject object : objectList) {
-            object.end_scene();
-        }
+        objectList.forEach(obj -> obj.end_scene());
     }
-
     @Override
     public void finish() {
         LogicProcesses.super.finish();
-
-        for (VJObject object : objectList) {
-            object.finish();
-        }
+        objectList.forEach(obj -> obj.finish());
     }
-
     @Override
     public void end_program() {
         LogicProcesses.super.end_program();
-
-        for (VJObject object : objectList) {
-            object.end_program();
-        }
+        objectList.forEach(obj -> obj.end_program());
     }
 
     public void changeScene(String identifier) { getContext().changeScreen(identifier); }
