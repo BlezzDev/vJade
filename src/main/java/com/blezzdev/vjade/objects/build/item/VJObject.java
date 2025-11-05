@@ -3,6 +3,7 @@ package com.blezzdev.vjade.objects.build.item;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
+import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
@@ -43,9 +44,9 @@ public class VJObject implements LogicProcesses {
         objectList.forEach(obj -> obj.update(deltaTime));
     }
     @Override
-    public void render(double deltaTime) {
-        LogicProcesses.super.render(deltaTime);
-        objectList.forEach(obj -> obj.render(deltaTime));
+    public void render(CanvasManager canvas) {
+        LogicProcesses.super.render(canvas);
+        objectList.forEach(obj -> obj.render(canvas));
     }
     @Override
     public void end_scene() {

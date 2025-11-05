@@ -1,6 +1,9 @@
 package com.blezzdev.vjade.objects.dim2;
 
+import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
+import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
 import com.blezzdev.vjade.objects.canvas.CanvasEntity;
+import com.blezzdev.vjade.tools.data.geometry.Vec3;
 
 import java.util.Objects;
 
@@ -8,24 +11,26 @@ public class Texture2D extends CanvasEntity<Texture2D> {
     private String lastTexture;
 
     @Override
-    public void start() {
-        super.start();
-        addToCanvas();
-    }
+    public void render(CanvasManager canvas) {
+        super.render(canvas);
 
-    @Override
-    public void update(double deltaTime) {
-        super.update(deltaTime);
+        draw(canvas);
 
         if (!Objects.equals(getTexture().getResourcePath(), lastTexture)) {
             lastTexture = getTexture().getResourcePath();
 
-            addToCanvas();
+            updateTexture();
         }
     }
 
-    private void addToCanvas() {
+    private void updateTexture() {
         getTexture().load();
-        getCanvas().addEntity(this);
+    }
+
+    private void draw(CanvasManager canvas) {
+        canvas.getBatch().draw(getTexture(),                    // Set the texture.
+                new Vec3(getPosition()), getSize(), getPivot(), // Dimensional properties how position, size and pivot.
+                getModulate(), getSizeBehavior(),               // Special things how modulate and size behavior.
+                getRotation(), getzIndex());                    // Floats how rotation and z-index.
     }
 }

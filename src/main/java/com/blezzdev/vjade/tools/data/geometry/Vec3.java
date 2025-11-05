@@ -17,6 +17,9 @@ package com.blezzdev.vjade.tools.data.geometry;
 public class Vec3 extends Vec2 {
     public float z;
 
+    public Vec3(Vec2 vector) { this(vector.x, vector.y, 0); }
+    public Vec3(Vec3 vector) { this(vector.x, vector.y, vector.z); }
+
     public Vec3() { this(0); }
     public Vec3(float i) { this(i, i, i); }
     public Vec3(float x, float y, float z) {

@@ -1,5 +1,7 @@
 package com.blezzdev.vjade.core.manager;
 
+import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
+import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
 import com.blezzdev.vjade.objects.build.Screen;
 
 import java.util.HashMap;
@@ -57,6 +59,12 @@ public class ScreenManager {
         activeScreen.update(deltaTime);
 
         finish();
+    }
+
+    public void render(CanvasManager canvas) {
+        if (activeScreen != null) {
+            activeScreen.render(canvas);
+        }
     }
 
     public void destroy() {

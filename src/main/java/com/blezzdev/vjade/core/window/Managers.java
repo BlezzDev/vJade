@@ -24,8 +24,9 @@ public class Managers {
     public void update(double deltaTime) {
         screen.update(deltaTime);
         timer.update(deltaTime);
+
+        canvas.update(screen);
         input.update();
-        canvas.update();
     }
 
     public void end() {
