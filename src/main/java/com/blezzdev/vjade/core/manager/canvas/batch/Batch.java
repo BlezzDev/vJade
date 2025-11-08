@@ -7,7 +7,6 @@ import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.*;
 import com.blezzdev.vjade.util.types.Behavior;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.system.MemoryUtil;
 
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
 import static org.lwjgl.opengl.GL15C.*;
@@ -24,14 +23,18 @@ public class Batch extends BufferLoader {
     private final RenderCalculator calc = new RenderCalculator();
     private final float[] uvs = new float[4];
 
-    public void begin(Shader shader) {
-        if (shader == null) currentShader = VJade.getContext().getShader();
-        else currentShader = shader;
+    private int currentVertexOffset = 0;
+    private boolean usingPersistentMapping = false;
 
+    public void begin() {
         drawing = true;
         indexCount = 0;
         textureBound = false;
-        vertexBuffer.clear();
+        currentVertexOffset = 0;
+
+        if (vertexBuffer != null) {
+            vertexBuffer.clear();
+        }
 
         currentShader.bind();
         currentShader.setUniformBool("fUseTexture", true);
@@ -39,7 +42,12 @@ public class Batch extends BufferLoader {
         glBindVertexArray(vao);
     }
 
-    public void draw(Texture texture, Vec3 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex) {
+    public void draw(Shader shader, Texture texture, Vec3 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex) {
+        if (shader != currentShader) {
+            if (indexCount > 0) flush();
+            currentShader = shader;
+        }
+
         if (!textureBound || texture != currentTexture) {
             if (indexCount > 0) flush();
             currentTexture = texture;
@@ -58,7 +66,11 @@ public class Batch extends BufferLoader {
         calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
         calc.buildGeometry(position, transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), currentGeometry);
 
-        vertexBuffer.put(currentGeometry.getBuffer());
+        float[] geometryBuffer = currentGeometry.getBuffer();
+        vertexBuffer.position(currentVertexOffset);
+        vertexBuffer.put(geometryBuffer);
+
+        currentVertexOffset += geometryBuffer.length;
         indexCount += VJade.INDICES_PER_TEXTURE;
     }
 
@@ -67,23 +79,12 @@ public class Batch extends BufferLoader {
         flush();
     }
 
-    public void destroy() {
-        glDeleteVertexArrays(vao);
-        glDeleteBuffers(vbo);
-        glDeleteBuffers(ebo);
-        MemoryUtil.memFree(vertexBuffer);
-    }
-
     private void flush() {
         if (indexCount == 0) return;
 
-        vertexBuffer.flip();
-
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, vertexBuffer);
-
         if (currentTexture != null) {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture.getId());
+
             currentShader.setUniformBool("fUseTexture", true);
             currentShader.setUniformInteger("fDiffuseTex", 0);
         } else {
@@ -92,7 +93,6 @@ public class Batch extends BufferLoader {
 
         glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 
-        vertexBuffer.clear();
         indexCount = 0;
         textureBound = false;
     }

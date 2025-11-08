@@ -32,6 +32,7 @@ public class Managers {
     public void end() {
         screen.destroy();
         timer.clear();
+        canvas.clear();
     }
 
     public InputManager getInput() {

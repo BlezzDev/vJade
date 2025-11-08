@@ -1,17 +1,21 @@
 package com.blezzdev.vjade.core.manager.canvas.batch;
 
 import com.blezzdev.vjade.tools.VJade;
+import org.lwjgl.opengl.GL45C;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.opengl.ARBVertexArrayObject.glBindVertexArray;
-import static org.lwjgl.opengl.ARBVertexArrayObject.glGenVertexArrays;
+import static org.lwjgl.opengl.ARBVertexArrayObject.*;
 import static org.lwjgl.opengl.GL11C.GL_FLOAT;
 import static org.lwjgl.opengl.GL15C.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL30C.GL_MAP_WRITE_BIT;
+import static org.lwjgl.opengl.GL30C.glMapBufferRange;
+import static org.lwjgl.opengl.GL44.GL_MAP_COHERENT_BIT;
+import static org.lwjgl.opengl.GL44.GL_MAP_PERSISTENT_BIT;
 
 class BufferLoader {
     int vao, vbo, ebo;
@@ -21,6 +25,8 @@ class BufferLoader {
     static final int VERTEX_SIZE_BYTES = VJade.VERTEX_SIZE * Float.BYTES;
     static final int SPRITE_SIZE_BYTES = VJade.VERTICES_PER_TEXTURE * VERTEX_SIZE_BYTES;
     static final int BUFFER_SIZE = VJade.MAX_TEXTURE_CAPACITY * SPRITE_SIZE_BYTES;
+
+    static final int MAP_FLAGS = GL_MAP_WRITE_BIT | GL_MAP_PERSISTENT_BIT | GL_MAP_COHERENT_BIT;
 
     public BufferLoader() {
         setupBuffers();
@@ -61,9 +67,11 @@ class BufferLoader {
         ebo = glGenBuffers();
 
         glBindVertexArray(vao);
-
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, GL_STREAM_DRAW);
+
+        GL45C.glBufferStorage(GL_ARRAY_BUFFER, BUFFER_SIZE, MAP_FLAGS);
+
+        vertexBuffer = glMapBufferRange(GL_ARRAY_BUFFER, 0, BUFFER_SIZE, MAP_FLAGS).asFloatBuffer();
 
         loadLayouts();
         setupIndices();
@@ -71,8 +79,22 @@ class BufferLoader {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
         MemoryUtil.memFree(indexBuffer);
+    }
 
-        int vertexCapacity = VJade.MAX_TEXTURE_CAPACITY * VJade.VERTICES_PER_TEXTURE * VJade.VERTEX_SIZE;
-        vertexBuffer = MemoryUtil.memAllocFloat(vertexCapacity);
+    public void cleanup() {
+        if (vbo != 0) {
+            glBindBuffer(GL_ARRAY_BUFFER, vbo);
+            glUnmapBuffer(GL_ARRAY_BUFFER);
+            glDeleteBuffers(vbo);
+            vbo = 0;
+        }
+        if (ebo != 0) {
+            glDeleteBuffers(ebo);
+            ebo = 0;
+        }
+        if (vao != 0) {
+            glDeleteVertexArrays(vao);
+            vao = 0;
+        }
     }
 }
