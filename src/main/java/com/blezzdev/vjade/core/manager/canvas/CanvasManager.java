@@ -23,7 +23,7 @@ public class CanvasManager {
 
         // Draw on batch.
 
-        batch.begin(null); // Adds a default shader.
+        batch.begin(); // Adds a default shader.
 
         screenManager.render(this);
 
