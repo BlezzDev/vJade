@@ -36,9 +36,6 @@ public class Batch extends BufferLoader {
             vertexBuffer.clear();
         }
 
-        currentShader.bind();
-        currentShader.setUniformBool("fUseTexture", true);
-        currentShader.setUniformInteger("fDiffuseTex", 0);
         glBindVertexArray(vao);
     }
 
@@ -47,7 +44,9 @@ public class Batch extends BufferLoader {
 
         if (shader != currentShader) {
             if (indexCount > 0) flush();
-            currentShader = shader;
+
+            if (shader == null) currentShader = VJade.getContext().getShader();
+            else currentShader = shader;
         }
 
         if (!textureBound || texture != currentTexture) {
@@ -92,6 +91,9 @@ public class Batch extends BufferLoader {
 
     private void flush() {
         if (indexCount == 0) return;
+        if (currentShader == null) currentShader = VJade.getContext().getShader();
+
+        currentShader.bind();
 
         if (currentTexture != null) {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture.getId());
