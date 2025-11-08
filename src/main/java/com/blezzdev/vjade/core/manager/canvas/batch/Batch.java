@@ -22,11 +22,11 @@ public class Batch extends BufferLoader {
     private final Vec2 transformSize = new Vec2();
     private final RenderCalculator calc = new RenderCalculator();
     private final float[] uvs = new float[4];
-
     private int currentVertexOffset = 0;
-    private boolean usingPersistentMapping = false;
 
     public void begin() {
+        // Init parameters.
+
         drawing = true;
         indexCount = 0;
         textureBound = false;
@@ -43,6 +43,8 @@ public class Batch extends BufferLoader {
     }
 
     public void draw(Shader shader, Texture texture, Vec3 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex) {
+        // Verify if a parameter needs a flush.
+
         if (shader != currentShader) {
             if (indexCount > 0) flush();
             currentShader = shader;
@@ -63,15 +65,24 @@ public class Batch extends BufferLoader {
             transformSize.multiply(texture.getSize().x, texture.getSize().y);
         }
 
+        // Transform texture.
+
         calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
         calc.buildGeometry(position, transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), currentGeometry);
+        float[] geometryBuffer = transformGeometry();
 
+        // Update parameters.
+
+        currentVertexOffset += geometryBuffer.length;
+        indexCount += VJade.INDICES_PER_TEXTURE;
+    }
+
+    private float[] transformGeometry() {
         float[] geometryBuffer = currentGeometry.getBuffer();
         vertexBuffer.position(currentVertexOffset);
         vertexBuffer.put(geometryBuffer);
 
-        currentVertexOffset += geometryBuffer.length;
-        indexCount += VJade.INDICES_PER_TEXTURE;
+        return geometryBuffer;
     }
 
     public void end() {
