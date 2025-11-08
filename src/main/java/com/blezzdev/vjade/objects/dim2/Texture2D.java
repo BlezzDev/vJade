@@ -29,9 +29,12 @@ public class Texture2D extends CanvasEntity<Texture2D> {
     }
 
     private void draw(CanvasManager canvas) {
-        canvas.getBatch().draw(getShader(), getTexture(),                    // Set the shader and texture.
-                new Vec3(getPosition()), getSize(), getPivot(), // Dimensional properties how position, size and pivot.
-                getModulate(), getSizeBehavior(),               // Special things how modulate and size behavior.
-                getRotation(), getzIndex());                    // Floats how rotation and z-index.
+        canvas.getBatch().draw(getShader(), getTexture(),
+
+                new Vec3(getPosition().x, getPosition().y, getzIndex()),
+                getSize(), getPivot(),
+
+                getModulate(), getSizeBehavior(),
+                getRotation(), canvas.getView());
     }
 }
