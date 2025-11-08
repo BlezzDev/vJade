@@ -25,7 +25,7 @@ public class Collider extends VJObject {
     }
 
     @Override
-    public void update(double deltaTime) {
+    public void update(float deltaTime) {
         super.update(deltaTime);
 
         for (Collider collider : collisionManager.getColliderList().values()) {

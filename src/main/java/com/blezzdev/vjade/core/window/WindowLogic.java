@@ -68,7 +68,7 @@ class WindowLogic {
             // Window data.
 
             long now = System.nanoTime();
-            double deltaTime = (now - lastTime) / 1_000_000_000.0;
+            float deltaTime = (float) ((now - lastTime) / 1_000_000_000.0);
             lastTime = now;
 
             if (System.currentTimeMillis() - timer >= 1000) {

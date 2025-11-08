@@ -21,7 +21,7 @@ public class Managers {
         canvas.init();
     }
 
-    public void update(double deltaTime) {
+    public void update(float deltaTime) {
         screen.update(deltaTime);
         timer.update(deltaTime);
 

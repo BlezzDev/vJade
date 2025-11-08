@@ -39,7 +39,7 @@ public class VJObject implements LogicProcesses {
         objectList.forEach(obj -> obj.start());
     }
     @Override
-    public void update(double deltaTime) {
+    public void update(float deltaTime) {
         LogicProcesses.super.update(deltaTime);
         objectList.forEach(obj -> obj.update(deltaTime));
     }

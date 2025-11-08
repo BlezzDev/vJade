@@ -48,7 +48,7 @@ public class ScreenManager {
         }
     }
 
-    public void update(double deltaTime) {
+    public void update(float deltaTime) {
         if (activeScreen == null) {
             activeScreen = screenList.get(currentScreen).get();
             activeScreen.setIdentifier(currentScreen);
