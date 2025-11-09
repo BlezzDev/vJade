@@ -13,14 +13,15 @@ class RenderCalculator {
     private final Vector3f worldVertex = new Vector3f();
 
     void buildGeometry(Vec3 position, Vec2 size, Pivot pivot, float[] uvs, Color color, float rotation, boolean hFlip, float zoom, Vec2 view, Geometry geom) {
-        transform.identity()
-                .translate(position.x, position.y, position.z)
-                .translate(pivot.getX() * size.x, pivot.getY() * size.y, 0)
-                .rotateZ((float) -Math.toRadians(rotation))
-                .translate(-pivot.getX() * size.x, -pivot.getY() * size.y, 0);
+        transform.identity();
 
         if (zoom != 0) transform.scale(zoom, zoom, 1);
         if (view != null) transform.translate(-view.x, -view.y, 0);
+
+        transform.translate(position.x, position.y, position.z)
+                .translate(pivot.getX() * size.x, pivot.getY() * size.y, 0)
+                .rotateZ((float) -Math.toRadians(rotation))
+                .translate(-pivot.getX() * size.x, -pivot.getY() * size.y, 0);
 
         float halfW = size.x * 0.5f;
         float halfH = size.y * 0.5f;
