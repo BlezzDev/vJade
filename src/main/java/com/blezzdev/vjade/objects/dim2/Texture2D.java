@@ -2,7 +2,6 @@ package com.blezzdev.vjade.objects.dim2;
 
 import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
 import com.blezzdev.vjade.objects.canvas.CanvasEntity;
-import com.blezzdev.vjade.tools.data.geometry.Vec3;
 
 import java.util.Objects;
 
@@ -13,12 +12,14 @@ public class Texture2D extends CanvasEntity<Texture2D> {
     public void render(float deltaTime, CanvasManager canvas) {
         super.render(deltaTime, canvas);
 
-        draw(canvas);
+        if (getTexture() != null) {
+            draw(canvas);
 
-        if (!Objects.equals(getTexture().getResourcePath(), lastTexture)) {
-            lastTexture = getTexture().getResourcePath();
+            if (!Objects.equals(getTexture().getResourcePath(), lastTexture)) {
+                lastTexture = getTexture().getResourcePath();
 
-            updateTexture();
+                updateTexture();
+            }
         }
     }
 
