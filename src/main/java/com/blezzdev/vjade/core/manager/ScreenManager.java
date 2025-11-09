@@ -61,9 +61,9 @@ public class ScreenManager {
         finish();
     }
 
-    public void render(CanvasManager canvas) {
+    public void render(float deltaTime, CanvasManager canvas) {
         if (activeScreen != null) {
-            activeScreen.render(canvas);
+            activeScreen.render(deltaTime, canvas);
         }
     }
 
