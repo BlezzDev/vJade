@@ -17,7 +17,7 @@ class ImageLoader {
 
     private void updateParameters(IntBuffer width, IntBuffer height, Vec2 size) {
         id = GL11.glGenTextures();
-        size.set(width.get(), height.get());
+        size.set(width.get(0), height.get(0));
     }
 
     private void loadTextureData(IntBuffer width, IntBuffer height, IntBuffer channels, Filter filter, ByteBuffer image) {
@@ -30,9 +30,10 @@ class ImageLoader {
 
         if (image != null) {
             int format = channels.get(0) == 4 ? GL11.GL_RGBA : GL11.GL_RGB;
+            int internalFormat = channels.get(0) == 4 ? GL11.GL_RGBA8 : GL11.GL_RGB8;
 
             GL11.glTexImage2D(
-                    GL11.GL_TEXTURE_2D, 0, format,
+                    GL11.GL_TEXTURE_2D, 0, internalFormat,
                     width.get(0), height.get(0),
                     0, format, GL11.GL_UNSIGNED_BYTE, image
             );

@@ -103,7 +103,7 @@ class WindowLogic {
         }
 
         shader.cleanup();
-
+        window.getIcon().destroy();
         window.getManagers().end();
 
         alcDestroyContext(window.getSoundContext());
