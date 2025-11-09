@@ -14,13 +14,13 @@ public class CanvasManager {
         zoom = 1;
     }
 
-    public void update(ScreenManager screenManager) {
+    public void update(float deltaTime, ScreenManager screenManager) {
 
         // Draw on batch.
 
         batch.begin(); // Adds a default shader.
 
-        screenManager.render(this);
+        screenManager.render(deltaTime, this);
 
         batch.end();
     }

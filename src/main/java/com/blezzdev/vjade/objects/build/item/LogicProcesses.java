@@ -6,7 +6,7 @@ interface LogicProcesses {
     default void init() {}
     default void start() {}
     default void update(float deltaTime) {}
-    default void render(CanvasManager canvas) {}
+    default void render(float deltaTime, CanvasManager canvas) {}
     default void finish() {}
     default void end_scene() {}
     default void end_program() {}

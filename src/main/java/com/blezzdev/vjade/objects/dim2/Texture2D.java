@@ -10,8 +10,8 @@ public class Texture2D extends CanvasEntity<Texture2D> {
     private String lastTexture;
 
     @Override
-    public void render(CanvasManager canvas) {
-        super.render(canvas);
+    public void render(float deltaTime, CanvasManager canvas) {
+        super.render(deltaTime, canvas);
 
         draw(canvas);
 

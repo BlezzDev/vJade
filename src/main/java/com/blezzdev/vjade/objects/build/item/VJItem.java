@@ -42,9 +42,9 @@ public class VJItem implements LogicProcesses {
         objectList.forEach(obj -> obj.update(deltaTime));
     }
     @Override
-    public void render(CanvasManager canvas) {
-        LogicProcesses.super.render(canvas);
-        objectList.forEach(obj -> obj.render(canvas));
+    public void render(float deltaTime, CanvasManager canvas) {
+        LogicProcesses.super.render(deltaTime, canvas);
+        objectList.forEach(obj -> obj.render(deltaTime, canvas));
     }
     @Override
     public void end_scene() {
