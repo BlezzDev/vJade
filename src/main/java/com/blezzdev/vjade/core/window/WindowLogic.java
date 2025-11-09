@@ -81,17 +81,16 @@ class WindowLogic {
 
             /*
 
-            ¡ DESEÁNDOTE,
-            CADA DIA, CADA NOCHE, DESEÁNDOTE,
-            PARA HUNDIRME EN TUS ABISMOS, INVENTÁNDOTE,
-            CUANDO TIEMBLO Y ME DERRAMO SOBRE ELLA !
+            CASI TODOS SABEMOS QUERER...
+            PERO POCOS SABEMOS AMAR...
+            PORQUE AMAR Y QUERER NO ES IGUAL,
+            AMAR ES SUFRIR, QUERER ES GOZAR...
 
-            PD: i hate shaders.
+            PD: i hate sprite batching.
 
             */
 
             window.getManagers().update(deltaTime);
-
             cycle++;
 
             // Poll for window events.
