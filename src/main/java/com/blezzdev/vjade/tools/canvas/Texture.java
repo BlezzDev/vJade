@@ -24,16 +24,16 @@ public class Texture extends Image {
     }
 
     public Texture setHorizontalDivisions(int h) {
-        this.hDivs = h;
+        this.hDivs = Math.max(1, h);
         return this;
     }
     public Texture setVerticalDivisions(int v) {
-        this.vDivs = v;
+        this.vDivs = Math.max(1, v);
         return this;
     }
     public Texture setDivisions(int v, int h) {
-        this.vDivs = v;
-        this.hDivs = h;
+        this.vDivs = Math.max(1, v);
+        this.hDivs = Math.max(1, h);
         return this;
     }
     public Texture setHorizontalFlip(boolean h) {
@@ -50,7 +50,7 @@ public class Texture extends Image {
         return this;
     }
     public Texture setFrame(int frame) {
-        this.frame = frame;
+        this.frame = Math.max(0, frame);
         return this;
     }
 
