@@ -1,6 +1,6 @@
 package com.blezzdev.vjade.core.debug;
 
-import com.blezzdev.vjade.util.types.Level;
+import com.blezzdev.vjade.util.types.LogLevel;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,16 +16,16 @@ public class Logger {
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     private final DateTimeFormatter fileFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
 
-    private final Map<Level, String> color = new HashMap<>();
+    private final Map<LogLevel, String> color = new HashMap<>();
 
     public Logger() {
-        color.put(Level.SUCCESS, "\u001B[32m");
-        color.put(Level.INFO, "\u001B[0m");
-        color.put(Level.WARN, "\u001B[33m");
-        color.put(Level.ERROR, "\u001B[1;31m");
+        color.put(LogLevel.SUCCESS, "\u001B[32m");
+        color.put(LogLevel.INFO, "\u001B[0m");
+        color.put(LogLevel.WARN, "\u001B[33m");
+        color.put(LogLevel.ERROR, "\u001B[1;31m");
     }
 
-    public void log(Level level, String message) {
+    public void log(LogLevel level, String message) {
         String time = LocalTime.now().format(timeFormatter);
         String text = String.format("[%s] [%s]: %s%n", time, level, message);
 
@@ -41,10 +41,10 @@ public class Logger {
         }
     }
 
-    public void success(String message) { log(Level.SUCCESS, message); }
-    public void info(String message) { log(Level.INFO, message); }
-    public void warn(String message) { log(Level.WARN, message); }
-    public void error(String message) { log(Level.ERROR, message); }
+    public void success(String message) { log(LogLevel.SUCCESS, message); }
+    public void info(String message) { log(LogLevel.INFO, message); }
+    public void warn(String message) { log(LogLevel.WARN, message); }
+    public void error(String message) { log(LogLevel.ERROR, message); }
 
     public void setLogDirectory(String directory) {
         this.directory = directory;
