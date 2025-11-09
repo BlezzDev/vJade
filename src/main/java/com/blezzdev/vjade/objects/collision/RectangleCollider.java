@@ -15,11 +15,13 @@ public class RectangleCollider extends Collider {
         super(Shapes.RECTANGLE);
     }
 
+    public RectangleCollider setPosition(float x, float y) { setPosition(new Vec2(x, y)); return this; }
     public RectangleCollider setPosition(Vec2 position) {
         this.position = position;
         return this;
     }
 
+    public RectangleCollider setSize(float width, float height) { setSize(new Vec2(width, height)); return this; }
     public RectangleCollider setSize(Vec2 size) {
         this.size = size;
         return this;

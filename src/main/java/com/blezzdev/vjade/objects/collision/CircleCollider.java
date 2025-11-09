@@ -16,6 +16,7 @@ public class CircleCollider extends Collider {
         setRadius(radius);
     }
 
+    public CircleCollider setPosition(float x, float y) { setPosition(new Vec2(x, y)); return this; }
     public CircleCollider setPosition(Vec2 position) {
         this.position = position;
         return this;
