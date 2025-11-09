@@ -1,9 +1,9 @@
 package com.blezzdev.vjade.objects.audio;
 
-import com.blezzdev.vjade.objects.build.item.VJObject;
+import com.blezzdev.vjade.objects.build.item.VJItem;
 import com.blezzdev.vjade.tools.sound.Sound;
 
-public class AudioPlayer extends VJObject {
+public class AudioPlayer extends VJItem {
     private final Sound sound = new Sound();
 
     private String resourcePath;

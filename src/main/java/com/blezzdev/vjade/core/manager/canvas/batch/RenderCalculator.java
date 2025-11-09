@@ -21,17 +21,21 @@ class RenderCalculator {
 
         if (view != null) transform.translate(-view.x, -view.y, 0);
 
+        float halfW = size.x * 0.5f;
+        float halfH = size.y * 0.5f;
+
         if (hFlip) {
-            transformVertex(0, 0, uvs[2], uvs[1], geom, color, transform);
-            transformVertex(size.x, 0, uvs[0], uvs[1], geom, color, transform);
-            transformVertex(size.x, size.y, uvs[0], uvs[3], geom, color, transform);
-            transformVertex(0, size.y, uvs[2], uvs[3], geom, color, transform);
+            transformVertex(-halfW, -halfH, uvs[2], uvs[1], geom, color, transform);
+            transformVertex( halfW, -halfH, uvs[0], uvs[1], geom, color, transform);
+            transformVertex( halfW,  halfH, uvs[0], uvs[3], geom, color, transform);
+            transformVertex(-halfW,  halfH, uvs[2], uvs[3], geom, color, transform);
         } else {
-            transformVertex(0, 0, uvs[0], uvs[1], geom, color, transform);
-            transformVertex(size.x, 0, uvs[2], uvs[1], geom, color, transform);
-            transformVertex(size.x, size.y, uvs[2], uvs[3], geom, color, transform);
-            transformVertex(0, size.y, uvs[0], uvs[3], geom, color, transform);
+            transformVertex(-halfW, -halfH, uvs[0], uvs[1], geom, color, transform);
+            transformVertex( halfW, -halfH, uvs[2], uvs[1], geom, color, transform);
+            transformVertex( halfW,  halfH, uvs[2], uvs[3], geom, color, transform);
+            transformVertex(-halfW,  halfH, uvs[0], uvs[3], geom, color, transform);
         }
+
     }
 
     private void transformVertex(float x, float y, float u, float v,

@@ -2,7 +2,7 @@ package com.blezzdev.vjade.objects.build.item;
 
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 
-public class VJPoint<T extends VJPoint<T>> extends VJObject {
+public class VJPoint<T extends VJPoint<T>> extends VJItem {
     private Vec2 position = new Vec2();
 
     @SuppressWarnings("unchecked")

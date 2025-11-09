@@ -1,8 +1,8 @@
 package com.blezzdev.vjade.objects.build;
 
-import com.blezzdev.vjade.objects.build.item.VJObject;
+import com.blezzdev.vjade.objects.build.item.VJItem;
 
-public class Screen extends VJObject {
+public class Screen extends VJItem {
     private String identifier;
 
     public Screen() {}

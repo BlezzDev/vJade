@@ -3,25 +3,23 @@ package com.blezzdev.vjade.objects.build.item;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
-import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
 import com.blezzdev.vjade.core.manager.collider.CollisionManager;
 import com.blezzdev.vjade.core.window.Engine;
 import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.manager.input.InputManager;
 import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.core.window.Monitor;
-import com.blezzdev.vjade.objects.canvas.CanvasEntity;
 import com.blezzdev.vjade.tools.VJade;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VJObject implements LogicProcesses {
-    private final List<VJObject> objectList = new ArrayList<>();
+public class VJItem implements LogicProcesses {
+    private final List<VJItem> objectList = new ArrayList<>();
 
     // Insert a new object as a child object.
 
-    public <T extends VJObject> T instance(T object) {
+    public <T extends VJItem> T instance(T object) {
         objectList.add(object);
         return object;
     }
