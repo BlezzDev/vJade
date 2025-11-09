@@ -19,8 +19,8 @@ class RenderCalculator {
                 .rotateZ((float) -Math.toRadians(rotation))
                 .translate(-pivot.getX() * size.x, -pivot.getY() * size.y, 0);
 
-        if (view != null) transform.translate(-view.x, -view.y, 0);
         if (zoom != 0) transform.scale(zoom, zoom, 1);
+        if (view != null) transform.translate(-view.x, -view.y, 0);
 
         float halfW = size.x * 0.5f;
         float halfH = size.y * 0.5f;

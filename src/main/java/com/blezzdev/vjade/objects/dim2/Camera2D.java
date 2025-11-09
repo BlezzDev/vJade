@@ -15,12 +15,11 @@ public class Camera2D extends VJPoint<Camera2D> {
 
         if (target != null) {
             float smoothFactor = 1f - (float) Math.pow(1f - target.getSmooth(), deltaTime * 60f);
-            float zoom = Math.max(0.1f, target.getZoom());
 
             Vec2 targetPoint = target.getPoint();
             Vec2 screenCenter = new Vec2(
-                    VJade.getContext().getSize().x / (2f * zoom),
-                    VJade.getContext().getSize().y / (2f * zoom)
+                    VJade.getContext().getSize().x / (2f * getTarget().getZoom()),
+                    VJade.getContext().getSize().y / (2f * getTarget().getZoom())
             );
 
             Vec2 desiredPosition = new Vec2(
@@ -34,7 +33,7 @@ public class Camera2D extends VJPoint<Camera2D> {
 
             setPosition(newX, newY);
 
-            canvas.setZoom(zoom);
+            canvas.setZoom(getTarget().getZoom());
         }
 
         canvas.setView(getPosition());

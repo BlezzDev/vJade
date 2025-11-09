@@ -34,6 +34,8 @@ public class Texture2D extends CanvasEntity<Texture2D> {
 
                 getModulate(), getSizeBehavior(),
                 getRotation(), getzIndex(),
+
+                canvas.getZoom(),
                 canvas.getView());
     }
 }

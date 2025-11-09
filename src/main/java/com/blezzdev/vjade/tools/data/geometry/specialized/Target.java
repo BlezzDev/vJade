@@ -28,7 +28,7 @@ public class Target {
     }
 
     public void setZoom(float zoom) {
-        this.zoom = Math.max(0, zoom);
+        this.zoom = Math.max(Float.MIN_VALUE, zoom);
     }
 
     public Vec2 getPoint() {
