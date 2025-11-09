@@ -1,7 +1,8 @@
-package com.blezzdev.vjade.tools.data.geometry;
+package com.blezzdev.vjade.tools.data.geometry.specialized;
 
 import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.data.color.Color;
+import com.blezzdev.vjade.tools.data.geometry.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;

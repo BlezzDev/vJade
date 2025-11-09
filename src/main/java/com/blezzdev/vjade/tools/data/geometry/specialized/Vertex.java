@@ -1,4 +1,4 @@
-package com.blezzdev.vjade.tools.data.geometry;
+package com.blezzdev.vjade.tools.data.geometry.specialized;
 
 public class Vertex {
     private final float[] position = new float[3];
