@@ -12,7 +12,7 @@ class RenderCalculator {
     private final Matrix4f transform = new Matrix4f();
     private final Vector3f worldVertex = new Vector3f();
 
-    void buildGeometry(Vec3 position, Vec2 size, Pivot pivot, float[] uvs, Color color, float rotation, boolean hFlip, Vec2 view, Geometry geom) {
+    void buildGeometry(Vec3 position, Vec2 size, Pivot pivot, float[] uvs, Color color, float rotation, boolean hFlip, float zoom, Vec2 view, Geometry geom) {
         transform.identity()
                 .translate(position.x, position.y, position.z)
                 .translate(pivot.getX() * size.x, pivot.getY() * size.y, 0)
@@ -20,6 +20,7 @@ class RenderCalculator {
                 .translate(-pivot.getX() * size.x, -pivot.getY() * size.y, 0);
 
         if (view != null) transform.translate(-view.x, -view.y, 0);
+        if (zoom != 0) transform.scale(zoom, zoom, 1);
 
         float halfW = size.x * 0.5f;
         float halfH = size.y * 0.5f;

@@ -8,11 +8,7 @@ public class CanvasManager {
     private final Batch batch = new Batch();
 
     private Vec2 view = new Vec2();
-    private float zoom;
-
-    public void init() {
-        zoom = 1;
-    }
+    private float zoom = 1;
 
     public void update(float deltaTime, ScreenManager screenManager) {
 

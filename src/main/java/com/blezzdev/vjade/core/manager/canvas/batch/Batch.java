@@ -37,7 +37,7 @@ public class Batch extends BufferLoader {
         glBindVertexArray(vao);
     }
 
-    public void draw(Shader shader, Texture texture, Vec2 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex, Vec2 view) {
+    public void draw(Shader shader, Texture texture, Vec2 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex, float zoom, Vec2 view) {
         // Verify if a parameter needs a flush.
 
         if (shader != currentShader) {
@@ -65,7 +65,7 @@ public class Batch extends BufferLoader {
         // Transform texture.
 
         calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
-        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), view, currentGeometry);
+        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), zoom, view, currentGeometry);
 
         vertexBuffer.put(currentGeometry.getBuffer());
         indexCount += VJade.INDICES_PER_TEXTURE;

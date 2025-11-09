@@ -18,7 +18,6 @@ public class Managers {
     public void start() {
         screen.init();
         input.init();
-        canvas.init();
     }
 
     public void update(float deltaTime) {
