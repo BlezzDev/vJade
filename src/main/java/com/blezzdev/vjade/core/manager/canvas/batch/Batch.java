@@ -10,10 +10,15 @@ import com.blezzdev.vjade.tools.data.geometry.specialized.Pivot;
 import com.blezzdev.vjade.util.types.Behavior;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import static org.lwjgl.opengl.ARBVertexArrayObject.*;
 import static org.lwjgl.opengl.GL15C.*;
 
 public class Batch extends BufferLoader {
+
     private int indexCount = 0;
     private Texture currentTexture;
     private Shader currentShader;
@@ -24,25 +29,60 @@ public class Batch extends BufferLoader {
     private final RenderCalculator calc = new RenderCalculator();
     private final float[] uvs = new float[4];
 
-    public void begin() {
-        // Init parameters.
+    private boolean enableDepth = false;
+    private final List<DrawCommand> commands = new ArrayList<>();
 
+    public void begin() {
         indexCount = 0;
         textureBound = false;
+        commands.clear();
 
-        if (vertexBuffer != null) {
-            vertexBuffer.clear();
-        }
-
+        if (vertexBuffer != null) vertexBuffer.clear();
         glBindVertexArray(vao);
+
+        if (enableDepth) {
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+        } else {
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+        }
     }
 
-    public void draw(Shader shader, Texture texture, Vec2 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex, float zoom, Vec2 view) {
-        // Verify if a parameter needs a flush.
+    public void setDepthEnabled(boolean enabled) {
+        this.enableDepth = enabled;
+    }
+
+    public boolean isDepthEnabled() {
+        return enableDepth;
+    }
+
+    public void draw(Shader shader, Texture texture, Vec2 position, Vec2 size,
+                     Pivot pivot, Color color, Behavior behavior, float rotation,
+                     float zIndex, float zoom, Vec2 view) {
+
+        DrawCommand cmd = new DrawCommand(shader, texture, position, size, pivot,
+                color, behavior, rotation, zIndex, zoom, view);
+        commands.add(cmd);
+    }
+
+    public void end() {
+        if (!enableDepth) {
+            commands.sort(Comparator.comparingDouble(c -> c.zIndex));
+        }
+
+        for (DrawCommand cmd : commands) {
+            renderCommand(cmd);
+        }
+
+        flush();
+    }
+
+    private void renderCommand(DrawCommand cmd) {
+        Shader shader = (cmd.shader == null) ? VJade.getContext().getShader() : cmd.shader;
+        Texture texture = cmd.texture;
 
         if (shader != currentShader) {
             if (indexCount > 0) flush();
-            currentShader = (shader == null) ? VJade.getContext().getShader() : shader;
+            currentShader = shader;
         }
 
         if (!textureBound || texture != currentTexture) {
@@ -55,24 +95,22 @@ public class Batch extends BufferLoader {
             flush();
         }
 
-        transformSize.set(size);
-        if (behavior == Behavior.RELATIVE) {
+        transformSize.set(cmd.size);
+        if (cmd.behavior == Behavior.RELATIVE) {
             transformSize.multiply(texture.getSize().x, texture.getSize().y);
         }
 
         currentGeometry.clear();
 
-        // Transform texture.
+        calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(),
+                texture.getVerticalDivisions(), uvs);
 
-        calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
-        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), zoom, view, currentGeometry);
+        calc.buildGeometry(new Vec3(cmd.position.x, cmd.position.y, cmd.zIndex),
+                transformSize, cmd.pivot, uvs, cmd.color, cmd.rotation,
+                texture.getHorizontalFlip(), cmd.zoom, cmd.view, currentGeometry);
 
         vertexBuffer.put(currentGeometry.getBuffer());
         indexCount += VJade.INDICES_PER_TEXTURE;
-    }
-
-    public void end() {
-        flush();
     }
 
     private void flush() {
@@ -83,7 +121,6 @@ public class Batch extends BufferLoader {
 
         if (currentTexture != null) {
             GL11.glBindTexture(GL11.GL_TEXTURE_2D, currentTexture.getId());
-
             currentShader.setUniformBool("fUseTexture", true);
             currentShader.setUniformInteger("fDiffuseTex", 0);
         } else {
@@ -95,7 +132,7 @@ public class Batch extends BufferLoader {
         glBufferSubData(GL_ARRAY_BUFFER, 0, vertexBuffer);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-        glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL11.GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 
         vertexBuffer.clear();
         indexCount = 0;

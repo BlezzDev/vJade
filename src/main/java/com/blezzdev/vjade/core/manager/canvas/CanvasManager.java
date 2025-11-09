@@ -15,6 +15,7 @@ public class CanvasManager {
         // Draw on batch.
 
         batch.begin(); // Adds a default shader.
+        batch.setDepthEnabled(true); // Enable 2D depth (functional z-index).
 
         screenManager.render(deltaTime, this);
 

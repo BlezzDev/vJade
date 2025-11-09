@@ -7,7 +7,6 @@ import com.blezzdev.vjade.tools.data.geometry.Rect2;
 import com.blezzdev.vjade.util.types.Behavior;
 
 public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
-    private Rect2 frame = new Rect2();
     private Color modulate = new Color(1, 1, 1, 1);
     private Pivot pivot = new Pivot(0.5f, 0.5f);
     private float rotation = 0;
@@ -43,15 +42,7 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
 
     @SuppressWarnings("unchecked")
     public T setzIndex(float zIndex) {
-        this.zIndex = zIndex;
-        return (T) this;
-    }
-
-    @SuppressWarnings("unchecked")
-    public T setFrame(float x, float y, float width, float height) { setFrame(new Rect2(x, y, width, height)); return (T) this; }
-    @SuppressWarnings("unchecked")
-    public T setFrame(Rect2 frame) {
-        this.frame = frame;
+        this.zIndex = Math.max(0, Math.min(1, zIndex));
         return (T) this;
     }
 
@@ -66,8 +57,4 @@ public class CanvasItem<T extends CanvasItem<T>> extends VJRect<T> {
     public float getRotation() { return rotation; }
 
     public Behavior getSizeBehavior() { return behavior; }
-
-    public Rect2 getFrame() {
-        return frame;
-    }
 }
