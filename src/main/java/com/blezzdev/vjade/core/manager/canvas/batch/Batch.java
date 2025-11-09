@@ -5,6 +5,8 @@ import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.canvas.Texture;
 import com.blezzdev.vjade.tools.data.color.Color;
 import com.blezzdev.vjade.tools.data.geometry.*;
+import com.blezzdev.vjade.tools.data.geometry.specialized.Geometry;
+import com.blezzdev.vjade.tools.data.geometry.specialized.Pivot;
 import com.blezzdev.vjade.util.types.Behavior;
 import org.lwjgl.opengl.GL11;
 
@@ -62,12 +64,10 @@ public class Batch extends BufferLoader {
 
         // Transform texture.
 
-        Geometry geom = new Geometry();
-
         calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
-        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), view, geom);
+        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), view, currentGeometry);
 
-        vertexBuffer.put(geom.getBuffer());
+        vertexBuffer.put(currentGeometry.getBuffer());
         indexCount += VJade.INDICES_PER_TEXTURE;
     }
 

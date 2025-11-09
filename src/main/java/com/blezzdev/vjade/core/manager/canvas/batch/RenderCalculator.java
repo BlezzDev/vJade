@@ -1,8 +1,8 @@
 package com.blezzdev.vjade.core.manager.canvas.batch;
 
 import com.blezzdev.vjade.tools.data.color.Color;
-import com.blezzdev.vjade.tools.data.geometry.Geometry;
-import com.blezzdev.vjade.tools.data.geometry.Pivot;
+import com.blezzdev.vjade.tools.data.geometry.specialized.Geometry;
+import com.blezzdev.vjade.tools.data.geometry.specialized.Pivot;
 import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.data.geometry.Vec3;
 import org.joml.Matrix4f;

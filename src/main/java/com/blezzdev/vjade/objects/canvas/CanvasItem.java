@@ -2,7 +2,7 @@ package com.blezzdev.vjade.objects.canvas;
 
 import com.blezzdev.vjade.objects.build.item.VJRect;
 import com.blezzdev.vjade.tools.data.color.Color;
-import com.blezzdev.vjade.tools.data.geometry.Pivot;
+import com.blezzdev.vjade.tools.data.geometry.specialized.Pivot;
 import com.blezzdev.vjade.tools.data.geometry.Rect2;
 import com.blezzdev.vjade.util.types.Behavior;
 
