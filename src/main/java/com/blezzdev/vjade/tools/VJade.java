@@ -10,21 +10,23 @@ import com.blezzdev.vjade.core.window.Engine;
 
 public class VJade {
     private static Engine context;
+    private static boolean debugMode = false;
 
     public static void setContext(Engine context) {
         VJade.context = context;
     }
-
     public static Engine getContext() {
         if (!existContext()) {
             throw new RuntimeException("The context has not yet been defined.");
         }
         return VJade.context;
     }
-
     public static boolean existContext() {
         return context != null;
     }
+
+    public static void debugMode(boolean value) { debugMode = value; }
+    public static boolean isDebugMode() { return debugMode; }
 
     public static final String DEFAULT_VERTEX_SHADER = """
                 #version 330 core
