@@ -22,19 +22,6 @@ public class Color {
                 + a1 + ")";
     }
 
-    private float verifyValue(float value) {
-        if (value >= 0 && value <= 1) {
-            return value;
-        } else {
-             if (value < 0) {
-                 return 0;
-             } else if (value > 1) {
-                 return 1;
-             }
-        }
-        return 0;
-    }
-
     public Color setColor(float red, float green, float blue) {
         setColor(red, green, blue, 1);
         return this;
@@ -45,22 +32,22 @@ public class Color {
     }
 
     public Color setRed(float red) {
-        this.r1 = verifyValue(red);
+        this.r1 = Math.max(0, Math.min(1, red));
         return this;
     }
 
     public Color setGreen(float green) {
-        this.g1 = verifyValue(green);
+        this.g1 = Math.max(0, Math.min(1, green));
         return this;
     }
 
     public Color setBlue(float blue) {
-        this.b1 = verifyValue(blue);
+        this.b1 = Math.max(0, Math.min(1, blue));
         return this;
     }
 
     public Color setAlpha(float alpha) {
-        this.a1 = verifyValue(alpha);
+        this.a1 = Math.max(0, Math.min(1, alpha));
         return this;
     }
 
