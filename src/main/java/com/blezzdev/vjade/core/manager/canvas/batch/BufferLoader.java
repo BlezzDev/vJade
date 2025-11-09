@@ -69,9 +69,8 @@ class BufferLoader {
         glBindVertexArray(vao);
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-        GL45C.glBufferStorage(GL_ARRAY_BUFFER, BUFFER_SIZE, MAP_FLAGS);
-
-        vertexBuffer = glMapBufferRange(GL_ARRAY_BUFFER, 0, BUFFER_SIZE, MAP_FLAGS).asFloatBuffer();
+        glBufferData(GL_ARRAY_BUFFER, BUFFER_SIZE, GL_DYNAMIC_DRAW);
+        vertexBuffer = MemoryUtil.memAllocFloat(BUFFER_SIZE / Float.BYTES);
 
         loadLayouts();
         setupIndices();

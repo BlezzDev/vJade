@@ -13,32 +13,30 @@ class RenderCalculator {
     private final Vector3f worldVertex = new Vector3f();
 
     void buildGeometry(Vec3 position, Vec2 size, Pivot pivot, float[] uvs, Color color, float rotation, boolean hFlip, Vec2 view, Geometry geom) {
-        geom.clear();
-
         transform.identity()
                 .translate(position.x, position.y, position.z)
                 .translate(pivot.getX() * size.x, pivot.getY() * size.y, 0)
                 .rotateZ((float) -Math.toRadians(rotation))
                 .translate(-pivot.getX() * size.x, -pivot.getY() * size.y, 0);
 
-        if (view != null) transform.identity().translate(-view.x, -view.y, 0);
+        if (view != null) transform.translate(-view.x, -view.y, 0);
 
         if (hFlip) {
-            transformVertex(0, 0, 0, uvs[2], uvs[1], geom, color, transform);
-            transformVertex(size.x, 0, 0, uvs[0], uvs[1], geom, color, transform);
-            transformVertex(size.x, size.y, 0, uvs[0], uvs[3], geom, color, transform);
-            transformVertex(0, size.y, 0, uvs[2], uvs[3], geom, color, transform);
+            transformVertex(0, 0, uvs[2], uvs[1], geom, color, transform);
+            transformVertex(size.x, 0, uvs[0], uvs[1], geom, color, transform);
+            transformVertex(size.x, size.y, uvs[0], uvs[3], geom, color, transform);
+            transformVertex(0, size.y, uvs[2], uvs[3], geom, color, transform);
         } else {
-            transformVertex(0, 0, 0, uvs[0], uvs[1], geom, color, transform);
-            transformVertex(size.x, 0, 0, uvs[2], uvs[1], geom, color, transform);
-            transformVertex(size.x, size.y, 0, uvs[2], uvs[3], geom, color, transform);
-            transformVertex(0, size.y, 0, uvs[0], uvs[3], geom, color, transform);
+            transformVertex(0, 0, uvs[0], uvs[1], geom, color, transform);
+            transformVertex(size.x, 0, uvs[2], uvs[1], geom, color, transform);
+            transformVertex(size.x, size.y, uvs[2], uvs[3], geom, color, transform);
+            transformVertex(0, size.y, uvs[0], uvs[3], geom, color, transform);
         }
     }
 
-    private void transformVertex(float x, float y, float z, float u, float v,
+    private void transformVertex(float x, float y, float u, float v,
                                  Geometry geom, Color color, Matrix4f transform) {
-        worldVertex.set(x, y, z);
+        worldVertex.set(x, y, 0);
         transform.transformPosition(worldVertex);
 
         geom.newVertex(worldVertex.x, worldVertex.y, worldVertex.z,

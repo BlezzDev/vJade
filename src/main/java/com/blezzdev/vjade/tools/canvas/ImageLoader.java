@@ -28,8 +28,6 @@ class ImageLoader {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, filter.mipmap);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, filter.gl);
 
-        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL13.GL_TEXTURE_COMPRESSED, GL11.GL_TRUE);
-
         if (image != null) {
             int format = channels.get(0) == 4 ? GL11.GL_RGBA : GL11.GL_RGB;
 

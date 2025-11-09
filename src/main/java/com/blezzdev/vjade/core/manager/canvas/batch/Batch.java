@@ -16,21 +16,17 @@ public class Batch extends BufferLoader {
     private Texture currentTexture;
     private Shader currentShader;
     private final Geometry currentGeometry = new Geometry();
-    private boolean drawing = false;
     private boolean textureBound = false;
 
     private final Vec2 transformSize = new Vec2();
     private final RenderCalculator calc = new RenderCalculator();
     private final float[] uvs = new float[4];
-    private int currentVertexOffset = 0;
 
     public void begin() {
         // Init parameters.
 
-        drawing = true;
         indexCount = 0;
         textureBound = false;
-        currentVertexOffset = 0;
 
         if (vertexBuffer != null) {
             vertexBuffer.clear();
@@ -39,14 +35,12 @@ public class Batch extends BufferLoader {
         glBindVertexArray(vao);
     }
 
-    public void draw(Shader shader, Texture texture, Vec3 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, Vec2 view) {
+    public void draw(Shader shader, Texture texture, Vec2 position, Vec2 size, Pivot pivot, Color color, Behavior behavior, float rotation, float zIndex, Vec2 view) {
         // Verify if a parameter needs a flush.
 
         if (shader != currentShader) {
             if (indexCount > 0) flush();
-
-            if (shader == null) currentShader = VJade.getContext().getShader();
-            else currentShader = shader;
+            currentShader = (shader == null) ? VJade.getContext().getShader() : shader;
         }
 
         if (!textureBound || texture != currentTexture) {
@@ -64,28 +58,20 @@ public class Batch extends BufferLoader {
             transformSize.multiply(texture.getSize().x, texture.getSize().y);
         }
 
+        currentGeometry.clear();
+
         // Transform texture.
 
+        Geometry geom = new Geometry();
+
         calc.calculateUVs(texture.getFrame(), texture.getHorizontalDivisions(), texture.getVerticalDivisions(), uvs);
-        calc.buildGeometry(position, transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), view, currentGeometry);
-        float[] geometryBuffer = transformGeometry();
+        calc.buildGeometry(new Vec3(position.x, position.y, zIndex), transformSize, pivot, uvs, color, rotation, texture.getHorizontalFlip(), view, geom);
 
-        // Update parameters.
-
-        currentVertexOffset += geometryBuffer.length;
+        vertexBuffer.put(geom.getBuffer());
         indexCount += VJade.INDICES_PER_TEXTURE;
     }
 
-    private float[] transformGeometry() {
-        float[] geometryBuffer = currentGeometry.getBuffer();
-        vertexBuffer.position(currentVertexOffset);
-        vertexBuffer.put(geometryBuffer);
-
-        return geometryBuffer;
-    }
-
     public void end() {
-        drawing = false;
         flush();
     }
 
@@ -104,8 +90,14 @@ public class Batch extends BufferLoader {
             currentShader.setUniformBool("fUseTexture", false);
         }
 
+        vertexBuffer.flip();
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, vertexBuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
         glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, 0);
 
+        vertexBuffer.clear();
         indexCount = 0;
         textureBound = false;
     }

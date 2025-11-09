@@ -1,9 +1,7 @@
 package com.blezzdev.vjade.objects.dim2;
 
 import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
-import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
 import com.blezzdev.vjade.objects.canvas.CanvasEntity;
-import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import com.blezzdev.vjade.tools.data.geometry.Vec3;
 
 import java.util.Objects;
@@ -31,10 +29,11 @@ public class Texture2D extends CanvasEntity<Texture2D> {
     private void draw(CanvasManager canvas) {
         canvas.getBatch().draw(getShader(), getTexture(),
 
-                new Vec3(getPosition().x, getPosition().y, getzIndex()),
+                getPosition(),
                 getSize(), getPivot(),
 
                 getModulate(), getSizeBehavior(),
-                getRotation(), canvas.getView());
+                getRotation(), getzIndex(),
+                canvas.getView());
     }
 }
