@@ -24,6 +24,7 @@ public class Batch extends BufferLoader {
     private Shader currentShader;
     private final Geometry currentGeometry = new Geometry();
     private boolean textureBound = false;
+    private boolean drawing = false;
 
     private final Vec2 transformSize = new Vec2();
     private final RenderCalculator calc = new RenderCalculator();
@@ -33,6 +34,9 @@ public class Batch extends BufferLoader {
     private final List<DrawCommand> commands = new ArrayList<>();
 
     public void begin() {
+        if (drawing && VJade.isDebugMode()) { System.err.println(" > Batch error: the batch is already drawing."); return; }
+        drawing = true;
+
         indexCount = 0;
         textureBound = false;
         commands.clear();
@@ -59,12 +63,17 @@ public class Batch extends BufferLoader {
                      Pivot pivot, Color color, Behavior behavior, float rotation,
                      float zIndex, float zoom, Vec2 view) {
 
+        if (!drawing && VJade.isDebugMode()) { System.err.println("Batch error: need's to initialize the batch."); return; }
+
         DrawCommand cmd = new DrawCommand(shader, texture, position, size, pivot,
                 color, behavior, rotation, zIndex, zoom, view);
         commands.add(cmd);
     }
 
     public void end() {
+        if (!drawing && VJade.isDebugMode()) { System.err.println("You need to initialize the batch."); return; }
+        drawing = false;
+
         if (!enableDepth) {
             commands.sort(Comparator.comparingDouble(c -> c.zIndex));
         }

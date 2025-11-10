@@ -31,12 +31,6 @@ import com.blezzdev.vjade.tools.VJade;
 /// - maximized() make a maximized window.
 
 public class Engine extends Window<Engine> {
-    private final Logger logger = new Logger();
-
-    public Logger getLogger() {
-        return logger;
-    }
-
     public Shader getShader() { return windowLogic.getShader(); }
 
     public UserInterfaceManager getUserInterface() { return getManagers().getUserInterface(); }

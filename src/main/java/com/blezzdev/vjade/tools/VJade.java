@@ -1,6 +1,7 @@
 package com.blezzdev.vjade.tools;
 
 import com.blezzdev.vjade.core.window.Engine;
+import com.blezzdev.vjade.util.types.log.LogStyle;
 
 /// The VJade class manages the static values of a program.
 ///

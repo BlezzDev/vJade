@@ -1,7 +1,6 @@
 package com.blezzdev.vjade.core.manager.canvas.batch;
 
 import com.blezzdev.vjade.tools.VJade;
-import org.lwjgl.opengl.GL45C;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
@@ -13,7 +12,6 @@ import static org.lwjgl.opengl.GL15C.*;
 import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
 import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
 import static org.lwjgl.opengl.GL30C.GL_MAP_WRITE_BIT;
-import static org.lwjgl.opengl.GL30C.glMapBufferRange;
 import static org.lwjgl.opengl.GL44.GL_MAP_COHERENT_BIT;
 import static org.lwjgl.opengl.GL44.GL_MAP_PERSISTENT_BIT;
 
@@ -74,6 +72,8 @@ class BufferLoader {
 
         loadLayouts();
         setupIndices();
+
+        if (indexBuffer == null && VJade.isDebugMode()) VJade.getContext().getLogger().warn("indexBuffer is null, that should give problems.");
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);

@@ -1,6 +1,7 @@
 package com.blezzdev.vjade.core.debug;
 
-import com.blezzdev.vjade.util.types.LogLevel;
+import com.blezzdev.vjade.tools.VJade;
+import com.blezzdev.vjade.util.types.log.LogLevel;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +20,7 @@ public class Logger {
     private final Map<LogLevel, String> color = new HashMap<>();
 
     public Logger() {
+        color.put(LogLevel.VITAL, "\u001B[1;36m");
         color.put(LogLevel.SUCCESS, "\u001B[32m");
         color.put(LogLevel.INFO, "\u001B[0m");
         color.put(LogLevel.WARN, "\u001B[33m");
@@ -41,6 +43,7 @@ public class Logger {
         }
     }
 
+    public void vital(String message) { log(LogLevel.VITAL, message); }
     public void success(String message) { log(LogLevel.SUCCESS, message); }
     public void info(String message) { log(LogLevel.INFO, message); }
     public void warn(String message) { log(LogLevel.WARN, message); }

@@ -1,5 +1,6 @@
 package com.blezzdev.vjade.core.window;
 
+import com.blezzdev.vjade.tools.VJade;
 import com.blezzdev.vjade.tools.canvas.Shader;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
@@ -33,6 +34,8 @@ class WindowLogic {
 
         shader.bind();
 
+        if (VJade.isDebugMode()) System.out.println(" > Default shader build successful.");
+
         fixWindowScale((int) window.getSize().x, (int) window.getSize().y);
         glfwSetFramebufferSizeCallback(window.glWindow, (win, w, h) -> fixWindowScale(w, h));
     }
@@ -43,6 +46,8 @@ class WindowLogic {
         Matrix4f projection = new Matrix4f().ortho2D(0, w, h, 0);
         FloatBuffer fb = BufferUtils.createFloatBuffer(16);
         projection.get(fb);
+
+        if (VJade.isDebugMode()) System.out.println(" > Window size modified (" + w + ", " + h + ").");
 
         shader.bind();
         shader.setUniformMatrix4("vProjection", fb);
@@ -68,7 +73,7 @@ class WindowLogic {
             // Window data.
 
             long now = System.nanoTime();
-            float deltaTime = (float) ((now - lastTime) / 1_000_000_000.0);
+            float deltaTime = (now - lastTime) / 1_000_000_000.0f;
             lastTime = now;
 
             if (System.currentTimeMillis() - timer >= 1000) {

@@ -41,7 +41,6 @@ class Window<T extends Window<T>> extends WindowBuilder {
     private void configureDetails() {
         glfwSwapInterval(vsync);
 
-        glEnable(GL_TEXTURE_2D);
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_CULL_FACE);
         glEnable(GL_BLEND);
@@ -51,6 +50,24 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     public void run() {
         configureDetails();
+
+        if (VJade.isDebugMode()) {
+            System.out.printf("""
+                             > Window properties:
+                              
+                               | > Size: %s
+                               | > Position: %s
+                               | > Icon: %s
+                               | > Title: %s
+                               |
+                               | > Resizable: %s
+                               | > VSync: %s
+                               | > Decorations: %s
+                               | > Visible: %s
+                            %n""", getSize(), getPosition(), getIcon().getResourcePath(), getTitle(),
+                    isResizable(), isVSync(), isDecorated(), isVisible()
+                    );
+        }
 
         // Set the clear color.
 
