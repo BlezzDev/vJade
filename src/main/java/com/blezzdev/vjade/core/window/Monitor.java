@@ -9,20 +9,16 @@ import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 public class Monitor {
     private final GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
-    public Vec2 getSize() {
+    public Vec2 getResolution() {
         return new Vec2(videoMode.width(), videoMode.height());
     }
-
     public int getRefreshRate() { return videoMode.refreshRate(); }
-
     public int getRedBits() {
         return videoMode.redBits();
     }
-
     public int getGreenBits() {
         return videoMode.greenBits();
     }
-
     public int getBlueBits() {
         return videoMode.blueBits();
     }

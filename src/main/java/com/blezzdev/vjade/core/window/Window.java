@@ -86,8 +86,8 @@ class Window<T extends Window<T>> extends WindowBuilder {
 
     @SuppressWarnings("unchecked")
     public T centered() {
-        setPosition((int) ((getMonitor().getSize().x - getSize().x) / 2),
-                (int) ((getMonitor().getSize().y - getSize().y) / 2));
+        setPosition((int) ((getMonitor().getResolution().x - getSize().x) / 2),
+                (int) ((getMonitor().getResolution().y - getSize().y) / 2));
         return (T) this;
     }
 
@@ -100,12 +100,12 @@ class Window<T extends Window<T>> extends WindowBuilder {
     @SuppressWarnings("unchecked")
     public T fullscreen() {
         setPosition(0, 0);
-        setSize(getMonitor().getSize());
+        setSize(getMonitor().getResolution());
         setDecorations(false);
         setResizable(false);
 
         glfwSetWindowMonitor(glWindow, glfwGetPrimaryMonitor(), 0, 0,
-                (int) getMonitor().getSize().x, (int) getMonitor().getSize().y,
+                (int) getMonitor().getResolution().x, (int) getMonitor().getResolution().y,
                 getMonitor().getRefreshRate());
 
         return (T) this;
