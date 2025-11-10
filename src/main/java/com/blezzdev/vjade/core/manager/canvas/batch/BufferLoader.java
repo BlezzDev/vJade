@@ -73,7 +73,7 @@ class BufferLoader {
         loadLayouts();
         setupIndices();
 
-        if (indexBuffer == null && VJade.isDebugMode()) VJade.getContext().getLogger().warn("indexBuffer is null, that should give problems.");
+        if (indexBuffer == null && VJade.isDebugMode()) System.err.println("indexBuffer is null, that should give problems.");
 
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexBuffer, GL_STATIC_DRAW);
