@@ -10,6 +10,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
+/** The {@code Logger} class is a debugging tool
+ * responsible for managing <b>custom developer logs</b>.
+ *
+ * <p>The only parameter for this tool is the <b>directory</b>
+ * where the path to the logs will be saved.</p>
+ *
+ * <p>This tool has 5 levels representing different types of logs
+ * (extracted from the {@link LogLevel} enum):</p>
+ *
+ * <ul>
+ *     <li>{@link #success(String)}, recommended for use to show that a process
+ *      was carried out correctly and without errors or problems, highlighted in green.</li>
+ *     <li>{@link #info(String)}, recommended for use when reporting neutral information.</li>
+ *     <li>{@link #warn(String)}, recommended for use if certain errors occur that are
+ *     not serious enough to stop the entire program, highlighted in yellow.</li>
+ *     <li>{@link #error(String)}, recommended for use in fatal errors, highlighted in a bolded red.</li>
+ * </ul>
+ * */
+
 public class Logger {
     private String directory;
 
