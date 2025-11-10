@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL43C.glDebugMessageCallback;
 class OpenGLDebugMode {
     OpenGLDebugMode() {
         if (glGetInteger(GL_CONTEXT_FLAGS) == GL_CONTEXT_FLAG_DEBUG_BIT) {
-            System.out.println(" > OpenGL Debug context enabled.");
+            System.out.println(" > OpenGL debug context enabled.");
         }
 
         glEnable(GL_DEBUG_OUTPUT);
