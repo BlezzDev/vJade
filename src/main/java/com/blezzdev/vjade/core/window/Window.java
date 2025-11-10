@@ -9,7 +9,6 @@ import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import java.util.function.Supplier;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.*;
 
 class Window<T extends Window<T>> extends WindowBuilder {
