@@ -1,6 +1,5 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.core.debug.Logger;
 import com.blezzdev.vjade.core.manager.ScreenManager;
 import com.blezzdev.vjade.core.manager.UserInterfaceManager;
 import com.blezzdev.vjade.core.manager.canvas.CanvasManager;
