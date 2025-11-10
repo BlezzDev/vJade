@@ -27,6 +27,10 @@ import java.util.Map;
  *     not serious enough to stop the entire program, highlighted in yellow.</li>
  *     <li>{@link #error(String)}, recommended for use in fatal errors, highlighted in a bolded red.</li>
  * </ul>
+ *
+ * @author Alfaro
+ *  * @version 1
+ *  * @since vJade 1
  * */
 
 public class Logger {
