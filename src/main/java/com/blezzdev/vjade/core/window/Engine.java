@@ -9,25 +9,36 @@ import com.blezzdev.vjade.core.manager.timer.TimerManager;
 import com.blezzdev.vjade.tools.canvas.Shader;
 import com.blezzdev.vjade.tools.VJade;
 
-/// The Engine class creates the window with the
-/// settings that have been determined in the
-/// chained methods.
-///
-/// - Position: manages the position of the window.
-/// - Size: manages the size of the window.
-/// - Title: manages the title displayed at the top of the window.
-/// - BackgroundColor: manages the background color displayed in the window.
-/// - Resizable: handles whether the window can be resized manually.
-/// - Decorations: handles whether the window will contain borders by operating system default.
-/// - Visible: handles whether the window is visible to the user.
-/// - Vsync: handles whether the window has VSync active.
-///
-/// It also has methods to lighten the window configuration or offer control, such as:
-///
-/// - centered() centralize the position of a window according to the main monitor.
-/// - fullscreen() make a window scaled to the entire main monitor.
-/// - minimized() make a minimized window.
-/// - maximized() make a maximized window.
+/**
+ * The {@code Engine} class is responsible for creating and managing the <b>main window</b>
+ * using the configuration provided through chained method calls.
+ *
+ * <p>It allows setting various window parameters:</p>
+ *
+ * <ul>
+ *   <li><b>Position</b> manages the position of the window.</li>
+ *   <li><b>Size</b> manages the dimensions of the window.</li>
+ *   <li><b>Title</b> sets the title displayed in the window’s title bar.</li>
+ *   <li><b>BackgroundColor</b> defines the background color displayed in the window.</li>
+ *   <li><b>Resizable</b> determines whether the window can be manually resized.</li>
+ *   <li><b>Decorations</b> determines whether the window uses the operating system’s default borders.</li>
+ *   <li><b>Visible</b> controls whether the window is visible to the user.</li>
+ *   <li><b>VSync</b> enables or disables vertical synchronization.</li>
+ * </ul>
+ *
+ * <p>It also provides utility methods for managing window states:</p>
+ *
+ * <ul>
+ *   <li>{@link #centered()} — centers the window on the primary monitor.</li>
+ *   <li>{@link #fullscreen()} — scales the window to fill the primary monitor.</li>
+ *   <li>{@link #minimized()} — minimizes the window.</li>
+ *   <li>{@link #maximized()} — maximizes the window.</li>
+ * </ul>
+ *
+ * @author Alfaro
+ * @version 1
+ * @since vJade 1
+ */
 
 public class Engine extends Window<Engine> {
     public Shader getShader() { return windowLogic.getShader(); }
