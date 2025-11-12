@@ -50,5 +50,18 @@ public class Engine extends Window<Engine> {
     public TimerManager getTimer() { return getManagers().getTimer(); }
     public InputManager getInput() { return getManagers().getInput(); }
 
+    /**
+     * {@link #launch()} is a method that activates the program's life cycle.
+     *
+     * <p>First, the {@link VJade} class is established as the current context,
+     * and then runs the program's life cycle.</p>
+     *
+     * */
+
     public Engine launch() { VJade.setContext(this); run(); return this; }
+
+    @Override
+    public String toString() {
+        return getTitle();
+    }
 }
