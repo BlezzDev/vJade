@@ -1,13 +1,18 @@
 package com.blezzdev.vjade.tools;
 
 import com.blezzdev.vjade.core.window.Engine;
-import com.blezzdev.vjade.util.types.log.LogStyle;
 
-/// The VJade class manages the static values of a program.
-///
-/// The context keeps track of the window that is currently running.
-///
-/// The view manages the program's point of view.
+/**
+ * The {@code VJade} class manages the static values of the vJade environment.
+ *
+ * <p>The <b>context</b> keeps track of the window that is currently running.</p>
+ *
+ * <p>The <b>debug mode</b> is a state where the status of processes becomes visible.</p>
+ *
+ * @author Alfaro
+ * @version 1
+ * @since vJade 1
+ * */
 
 public class VJade {
     private static Engine context;
@@ -26,7 +31,7 @@ public class VJade {
         return context != null;
     }
 
-    public static void debugMode(boolean value) { debugMode = value; }
+    public static void enableDebugMode(boolean value) { debugMode = value; }
     public static boolean isDebugMode() { return debugMode; }
 
     public static final String DEFAULT_VERTEX_SHADER = """
