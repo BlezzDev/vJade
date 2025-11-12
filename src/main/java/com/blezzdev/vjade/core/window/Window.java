@@ -52,7 +52,7 @@ class Window<T extends Window<T>> extends WindowBuilder {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    public void run() {
+    void run() {
         configureDetails();
 
         if (VJade.isDebugMode()) {
