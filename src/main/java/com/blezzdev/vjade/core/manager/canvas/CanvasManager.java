@@ -1,43 +1,35 @@
 package com.blezzdev.vjade.core.manager.canvas;
 
-import com.blezzdev.vjade.core.manager.ScreenManager;
-import com.blezzdev.vjade.core.manager.canvas.batch.Batch;
-import com.blezzdev.vjade.tools.data.geometry.Vec2;
+import com.blezzdev.vjade.GameApplication;
+import com.blezzdev.vjade.core.manager.Manager;
+import com.blezzdev.vjade.util.canvas.Shader;
 
-public class CanvasManager {
-    private final Batch batch = new Batch();
+public class CanvasManager extends Manager {
+    private final Shader mainShader = MainShaderFactory.build();
 
-    private Vec2 view = new Vec2();
-    private float zoom = 1;
-
-    public void update(float deltaTime, ScreenManager screenManager) {
-
-        // Draw on batch.
-
-        batch.begin(); // Adds a default shader.
-        batch.setDepthEnabled(true); // Enable 2D depth (functional z-index).
-
-        screenManager.render(deltaTime, this);
-
-        batch.end();
+    /**
+     * Creates a new manager associated with the given application.
+     *
+     * @param application the application instance controlled or used by this manager
+     */
+    public CanvasManager(GameApplication application) {
+        super(application);
     }
 
-    public void clear() { batch.cleanup(); }
-
-    public void setZoom(float zoom) {
-        this.zoom = zoom;
-    }
-    public void setView(Vec2 offset) {
-        this.view = offset;
+    @Override
+    protected void init() {
+        MainShaderFactory.bindWindowScale(mainShader, application.getWindow());
     }
 
-    public Batch getBatch() {
-        return batch;
+    @Override
+    protected void update() {}
+    @Override
+    protected void postUpdate() {}
+
+    @Override
+    protected void end() {
+
     }
-    public Vec2 getView() {
-        return view;
-    }
-    public float getZoom() {
-        return zoom;
-    }
+
+    public Shader getMainShader() { return mainShader; }
 }

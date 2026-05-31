@@ -1,43 +1,74 @@
 package com.blezzdev.vjade.core.window;
 
-import com.blezzdev.vjade.tools.data.geometry.Vec2;
 import org.lwjgl.glfw.GLFWVidMode;
 
-import static org.lwjgl.glfw.GLFW.glfwGetPrimaryMonitor;
 import static org.lwjgl.glfw.GLFW.glfwGetVideoMode;
 
 /**
- * The {@code Monitor} class is responsible for <b>retrieving and storing information</b>
- * about the display monitor where the application window is hosted.
+ * Retrieving and storing information about the display monitor where the
+ * application {@link Window} is hosted. It encapsulates the monitor properties
+ * how dimensions, refresh rate and color channel bits.
  *
- * <p>The following parameters can be accessed:</p>
- *
- * <ul>
- *   <li><b>Resolution</b> obtains the screen resolution.</li>
- *   <li><b>Refresh rate</b> retrieves the monitor’s refresh rate (in Hertz).</li>
- *   <li><b>Red, Green,</b> and <b>Blue bits</b> report the number of bits used for each color channel.</li>
- * </ul>
- *
- * @author Alfaro
- * @version 1.0
- * @since vJade 1.0
+ * @since   0.1
+ * @version 0.1
+ * @author  Jesus David Alfaro Marenco
  */
 
-
 public class Monitor {
-    private final GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    private final GLFWVidMode videoMode;
+    private final long monitor;
 
-    public Vec2 getResolution() {
-        return new Vec2(videoMode.width(), videoMode.height());
+    Monitor(long monitor) {
+        this.videoMode = glfwGetVideoMode(monitor);
+        this.monitor = monitor;
     }
+
+    /**
+     * Exposes the monitor width where the {@link Window} are hosted.
+     *
+     * @return the width of the monitor.
+     */
+    public int getWidth() { return videoMode.width(); }
+
+    /**
+     * Exposes the monitor height where the {@link Window} are hosted.
+     *
+     * @return the height of the monitor.
+     */
+    public int getHeight() { return videoMode.height(); }
+
+    /**
+     * Exposes the monitor refresh rate where the {@link Window} are hosted.
+     *
+     * @return the refresh rate of the monitor.
+     */
     public int getRefreshRate() { return videoMode.refreshRate(); }
-    public int getRedBits() {
-        return videoMode.redBits();
-    }
-    public int getGreenBits() {
-        return videoMode.greenBits();
-    }
-    public int getBlueBits() {
-        return videoMode.blueBits();
-    }
+
+    /**
+     * Provides the bits of red color channel of the monitor.
+     *
+     * @return the red bits of the monitor.
+     */
+    public int getRedBits() { return videoMode.redBits(); }
+
+    /**
+     * Provides the bits of green color channel of the monitor.
+     *
+     * @return the green bits of the monitor.
+     */
+    public int getGreenBits() { return videoMode.greenBits(); }
+
+    /**
+     * Provides the bits of blue color channel of the monitor.
+     *
+     * @return the blue bits of the monitor.
+     */
+    public int getBlueBits() { return videoMode.blueBits(); }
+
+    /**
+     * Exposes the underlying native monitor pointer.
+     *
+     * @return this monitor instance as a raw pointer handle ({@code long})
+     */
+    public long asLong() { return monitor; }
 }

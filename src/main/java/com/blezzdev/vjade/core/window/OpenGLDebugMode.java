@@ -6,7 +6,6 @@ import static org.lwjgl.opengl.GL11C.glEnable;
 import static org.lwjgl.opengl.GL11C.glGetInteger;
 import static org.lwjgl.opengl.GL30C.GL_CONTEXT_FLAGS;
 import static org.lwjgl.opengl.GL43C.*;
-import static org.lwjgl.opengl.GL43C.glDebugMessageCallback;
 
 class OpenGLDebugMode {
     OpenGLDebugMode() {
